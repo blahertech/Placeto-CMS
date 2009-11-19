@@ -6,6 +6,9 @@ Alpha Rv.3
 * Renamed non-content mods with a '_' prefix
 * Added server caching support
 * Seperated browser side caching to the cache mod
+* Created BTDeflate Mod
+* Added Support for running mods after runtime
+* Intergrated cache support for gzip, btdefate and browser side caching
 
 Alpha Rv.2
 * Added code comments

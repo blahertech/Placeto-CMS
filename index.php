@@ -7,13 +7,12 @@
 	*		http://www.blahertech.org/projects/placeto
 	*
 	*	This source code is released under the GPL License.
-	*	
+	*
 	*	//////////////////////////////////////////////////
 	*
 	*	Keep this here!
 	*
 	*	In the source version it will include template.php, however in the build version it's renamed to engine.php.
-	**/
-
+	*/
 	include('inc/template.php');
 ?>

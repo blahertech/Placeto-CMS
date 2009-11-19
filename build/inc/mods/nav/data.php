@@ -1,0 +1,1 @@
+<?php $mods['nav']=array('name'=>'Navigation List','author'=>'Benjamin Jay Young','version'=>'1.0','description'=>'Displays main navigation in a UL.','release'=>'2009-09-17');?>

@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /.cache/
+Disallow: /cgi-bin/
+Disallow: /inc/
+Disallow: /admin/
+Disallow: /setup/

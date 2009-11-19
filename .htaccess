@@ -1,0 +1,38 @@
+#	Placeto CMS
+#
+#	Author: Benjamin Jay Young
+#		http://www.blahertech.org/projects/placeto
+#
+#	This source code is released under the GPL License.
+#
+#	//////////////////////////////////////////////////
+#
+#	.htaccess is an Apache configuration file. If you're not fimilar with Apache config or mod_rewrite, please stay out.
+
+
+#Indexing settings
+Options All Indexes
+DirectoryIndex index.php index.htm index.html index.phtml
+IndexOptions FancyIndexing
+RemoveHandler .php
+
+#Error documents
+ErrorDocument 400 /error/index.php
+ErrorDocument 404 /error/index.php
+
+#Rewrite engine for main pages
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)?$ ./index.php?url=$1 [L,QSA]
+
+#Keep people out of folders that you don't want them in
+RewriteCond %{REQUEST_URI} "^/cgi-bin(/|$)"
+RewriteCond %{REQUEST_URI} "^/inc(/|$)"
+RewriteRule ^(.*)$ - [R=404,L]
+
+#Block access to any ht file, incase not already set
+<Files ~ "\.ht(access|group|passwd)$">
+	Order Allow,Deny
+	Deny From All
+</Files>

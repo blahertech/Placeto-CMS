@@ -1,0 +1,1 @@
+<?php $mods['breadcrumb']=array('name'=>'Breadcrumb Navigation','author'=>'Benjamin Jay Young','version'=>'1.0','description'=>'Displays breadcrumb navigation.','release'=>'2009-10-12');?>

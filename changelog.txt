@@ -1,0 +1,37 @@
+Alpha Rv.3
+* Added security by rename mod's index.php to mod.php
+* Blocked access to any private folders
+* Added some print media CSS to the default template
+* Added ignore cache support for pages
+* Renamed non-content mods with a '_' prefix
+* Added server caching support
+* Seperated browser side caching to the cache mod
+
+Alpha Rv.2
+* Added code comments
+* Added a GPL license
+* Added Readme.txt
+* Added Install.txt
+* Fixed and Added Image mod
+* Fixed external directory problem
+* Added clean URLs for Image mod
+* Fixed Image mod and reattach.php conflicts
+* Moved mod dbs to mod_ prefix
+* Added Breadcrumb mod
+* Added content details on setup
+* Fixed huge security hole that allows hackers to view config.php
+* Added Nav mod
+* Deleted Emblezed template and created a new default
+* Added more freedom for dependent pages
+* Restructured Mod vars
+
+Alpha Rv.1
+* Completed the engine
+* Completed the setup script
+* Completed the mod system
+* Completed the template system
+* Added the Emblezed template as default
+* Designed the Admin Login
+* Finished the Gzip mod
+* Finished the Hello_world mod
+* Added browser caching support

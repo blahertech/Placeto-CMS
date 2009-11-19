@@ -1,0 +1,16 @@
+Options All Indexes
+DirectoryIndex index.php index.htm index.html index.phtml
+IndexOptions FancyIndexing
+RemoveHandler .php
+ErrorDocument 400 /error/index.php
+ErrorDocument 404 /error/index.php
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)?$ ./index.php?url=$1 [L,QSA]
+RewriteCond %{REQUEST_URI} "^/inc(/|$)"
+RewriteRule ^(.*)$ - [R=404,L]
+<Files ~ "\.ht(access|group|passwd)$">
+Order Allow,Deny
+Deny From All
+</Files>

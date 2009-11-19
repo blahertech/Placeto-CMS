@@ -1,0 +1,55 @@
+body
+{
+	background: #4583b6 url("../images/bg.png") repeat-x;
+}
+a img
+{
+	border: 0 none;
+}
+#container
+{
+	background: url("../images/bg2.png") no-repeat top center;
+	width: 100%;
+	min-height: 490px;
+	position: absolute;
+	top: 0;
+}
+#box
+{
+	width: 800px;
+	margin: 90px auto 0 auto;
+}
+#box #top
+{
+	height: 62px;
+	background: url("../images/top.png") no-repeat center;
+	text-align: right;
+}
+#box #content
+{
+	background: url("../images/mdl.png") repeat-y center;
+	min-height: 100px;
+	padding: 2em;
+}
+#logo
+{
+	width: 272px;
+	height: 100px;
+	position: relative;
+	top: -50px;
+}
+#box #bottom
+{
+	height: 69px;
+	background: url("../images/btm.png") no-repeat center;
+}
+#copy
+{
+	color: #fff;
+	font-weight: bold;
+	text-align: center;
+}
+#copy a, #copy a:link, #copy a:visited
+{
+	color: #fff;
+}

@@ -1,0 +1,1 @@
+<?php function placeto_extension_gzip(){}?>

@@ -1,0 +1,1 @@
+<?php function ahobbler_images($var1, $var2){}function ahobbler_images_show($var1){}function ahobbler_images_slideshow(){}?>

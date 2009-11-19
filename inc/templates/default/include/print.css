@@ -1,0 +1,20 @@
+*
+{
+	background: #fff none;
+	width: auto !important;
+	height: auto !important;
+	color: #000;
+}
+#logo, #nav, #bread, #adsense
+{
+	display: none;
+}
+#stretcher, #footer
+{
+	position: inherit;
+}
+#footer #copy
+{
+	margin: auto;
+	text-align: center;
+}

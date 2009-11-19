@@ -1,0 +1,9 @@
+RewriteEngine on
+Options All Indexes
+IndexOptions FancyIndexing
+RemoveHandler .php
+ErrorDocument 400 ../include/lost.php
+ErrorDocument 404 ../include/lost.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)?$ index.php?url=$1 [L,QSA]

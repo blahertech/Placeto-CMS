@@ -9,7 +9,7 @@
 	-		http://www.blahertech.org/projects/placeto
 	-
 	-	Placeto Template - Default (C) BlaherTech - Benjamin Jay Young 2009
-	-	This Placeto Template is released under the GNU GPL 3.0 and is free and open source.
+	-	This Placeto Template is released under the GNU GPL 3.0 which is free and open source.
 	-	You may edit or distrubute this template at your own free will, with the proper accreditation.
 	-->
 	<head>

@@ -35,15 +35,16 @@
 			$mfile=substr($mfile, 1);
 		}
 		
+		//include enabled mods
 		if (!strrpos($mfile, '.') && $mfile!=='.' && $mod_starts[$mfile]['enable'])
 		{
 			if ($mpre===1)
 			{
 				$mfile='_'.$mfile;
 			}
-			include($base.'inc/mods/'.$mfile.'/mod.php');
+			@include($base.'inc/mods/'.$mfile.'/mod.php');
 		}
-		else if (!strrpos($mfile, '.') && $mfile!=='.')
+		else if (!strrpos($mfile, '.') && $mfile!=='.') //include the prototype, incase someone forgot to rid the functions
 		{
 			if ($mpre===1)
 			{
@@ -61,4 +62,41 @@
 	}
 
 	unset($mfiles, $mfile, $mod_starts, $mod_temps, $mpre);
+	
+	function placeto_mod_end()
+	{
+		//see if the mods are enabled
+		$result=mysql_query('SELECT * FROM '.$prefix.'mods');
+		while ($mod_temps=mysql_fetch_assoc($result))
+		{
+			$mod_starts[$mod_temps['name']]=$mod_temps['enable'];
+		}
+	
+		$mfiles=scandir($base.'inc/mods');
+	
+		//attach all the enabled mods
+		foreach ($mfiles as $mfile)
+		{
+			//for non-content mods
+			$mpre=0;
+			if (substr($mfile, 0, 1)==='_')
+			{
+				$mpre=1;
+				$mfile=substr($mfile, 1);
+			}
+			
+			//include enabled mods
+			if (!strrpos($mfile, '.') && $mfile!=='.' && $mod_starts[$mfile]['enable'])
+			{
+				if ($mpre===1)
+				{
+					$mfile='_'.$mfile;
+				}
+				if (file_exists($base.'inc/mods/'.$mfile.'/end.php'))
+				{
+					include($base.'inc/mods/'.$mfile.'/end.php');
+				}
+			}
+		}
+	}
 ?>

@@ -51,7 +51,7 @@
 
 		//stop, content time
 		eval('?>'.$content['content']);
-		@placeto_cache_make();
+		placeto_mod_end();
 	}
 	else
 	{
@@ -66,7 +66,7 @@
 
 		//stop, template time
 		include('templates/'.$config['template'].'/index.php');
-		@placeto_cache_make();
+		placeto_mod_end();
 	}
 
 	//watch Asta swim away and await for his next request

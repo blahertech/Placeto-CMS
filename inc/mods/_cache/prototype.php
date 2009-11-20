@@ -1,7 +1,7 @@
 <?php
 	/**
 	*	Placeto CMS - Cache
-	*		Compresses the page in Gzip format.
+	*		Creates cache files for your non-dynamic content. Saves huge amounts of processing time.
 	*
 	*	Author: Benjamin Jay Young
 	*		http://www.blahertech.org/projects/placeto
@@ -12,5 +12,4 @@
 	**/
 
 	function placeto_cache_browser($filemtime){} // adds browser caching
-	function placeto_cache_make(){} // makes a cache file, from output
 ?>

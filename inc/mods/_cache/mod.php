@@ -36,39 +36,6 @@
 		header('Vary: Accept-Encoding');
 	}
 	
-	//makes a cache file
-	function placeto_cache_make()
-	{
-		global $mdplace, $gztrue;
-		
-		if ($content['igcache']!==1)
-		{
-			//retrieve list of enable mods
-			$result=mysql_query('SELECT * FROM '.$prefix.'mods');
-			while ($mod_temps=mysql_fetch_assoc($result))
-			{
-				$mod_starts[$mod_temps['name']]=$mod_temps['enable'];
-			}
-			
-			//check if _gzip is enabled
-			if ($gztrue)
-			{
-				//let's do this my way, instead
-				$fp=gzopen($mdplace.'.gz', 'w9');
-				gzwrite($fp, ob_get_contents());
-				gzclose($fp);
-			}
-			
-			// Now the script has run, generate a new cache file
-			$fp=fopen($mdplace, 'w');
-
-			// save the contents of output buffer to the file
-			fwrite($fp, ob_get_contents());
-			fclose($fp);
-		}
-		unset($mdplace, $fp, $mod_starts, $mod_temps);
-	}
-	
 	//time for server caching
 	if ($content['igcache']!==1)
 	{
@@ -127,6 +94,5 @@
 		ob_start();
 		unset($mdhash, $mpfile, $mbase, $filemname);
 	}
-	
 	
 ?>

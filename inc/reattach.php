@@ -54,7 +54,7 @@
 		readfile($mbase.$tmpfile);
 
 		//bye waldo
-		@placeto_cache_make();
+		placeto_mod_end();
 		unset($mbase, $tmpfile);
 		include('mysql/close.php');
 		die();

@@ -94,5 +94,26 @@
 		ob_start();
 		unset($mdhash, $mpfile, $mbase, $filemname);
 	}
-	
+
+        //browser cache checking
+        if ($nf)
+        {
+            //where's waldo?
+            $tmpfile='templates/'.$config['template'].$location;
+            $mbase=str_ireplace('mods/_cache/mod.php', '', __FILE__);
+
+            //found it
+            if (file_exists($mbase.$tmpfile) && $location!=='/')
+            {
+                placeto_cache_browser(filemtime($mbase.$tmpfile));
+            }
+        }
+        else
+        {
+            //browser caching support
+            if ($content['igcache']!==1)
+            {
+                placeto_cache_browser(strtotime($content['lastmod']));
+            }
+        }
 ?>

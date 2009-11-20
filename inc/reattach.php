@@ -51,9 +51,6 @@
 		unset($path, $extension);
 		header('Content-Length:'.filesize($mbase.$tmpfile));
 
-		//browser caching support
-		@placeto_cache_browser(filemtime($mbase.$tmpfile));
-
 		//readfile is faster than include, trust me
 		readfile($mbase.$tmpfile);
 

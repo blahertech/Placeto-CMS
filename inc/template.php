@@ -45,15 +45,7 @@
 	}
 	else if ($dependent==='1' || ($dependent==='2' && isset($_GET[$content['dependentparam']])))
 	{
-		//independent pages in the db
-
-		//browser caching support
-		if ($content['igcache']!==1)
-		{
-			@placeto_cache_browser(strtotime($content['lastmod']));
-		}
-
-		//stop, content time
+		///independent pages in the db
 		eval('?>'.$content['content']);
 		placeto_mod_end();
 	}
@@ -61,12 +53,6 @@
 	{
 		//normal pages in the db
 		header('Content-Type: '.$config['type']);
-
-		//browser caching support
-		if ($content['igcache']!==1)
-		{
-			@placeto_cache_browser(strtotime($content['lastmod']));
-		}
 
 		//stop, template time
 		include('templates/'.$config['template'].'/index.php');

@@ -133,8 +133,8 @@ CREATE TABLE IF NOT EXISTS `mod_images`
 (
 	`image` varchar(32) NOT NULL COMMENT 'image/file name',
 	`content` blob NOT NULL COMMENT 'bindary content',
-	`type` varchar(32) NOT NULL 'mime type',
-	`size` bigint(20) NOT NULL 'file size',
+	`type` varchar(32) NOT NULL COMMENT 'mime type',
+	`size` bigint(20) NOT NULL COMMENT 'file size',
 	`lastmod` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT 'last modified'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
 -- end mod_images

@@ -98,7 +98,7 @@
 			if ($_POST['db_create'])
 			{
 				//check if they can create
-				@mysql_query('CREATE DATABASE '.$_POST['db_name'], $mysql) or $db_error=3;
+				@mysql_query('CREATE DATABASE '.mysql_real_escape_string($_POST['db_name']), $mysql) or $db_error=3;
 			}
 			else if (!mysql_select_db($_POST['db_name'], $mysql))
 			{
@@ -209,8 +209,8 @@
 		//set prefix if set
 		if ($_POST['db_prefix'])
 		{
-			$sqldata=str_replace('CREATE TABLE IF NOT EXISTS `', 'CREATE TABLE IF NOT EXISTS `'.$_POST['db_prefix'], $sqldata);
-			$sqldata=str_replace('INSERT INTO `', 'INSERT INTO `'.$_POST['db_prefix'], $sqldata);
+			$sqldata=str_replace('CREATE TABLE IF NOT EXISTS `', 'CREATE TABLE IF NOT EXISTS `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('INSERT INTO `', 'INSERT INTO `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
 		}
 		
 		//why I had to do it this way, don't ask
@@ -329,7 +329,7 @@
 		//complete
 		$mysql=mysql_connect($_POST['db_server'], $_POST['db_user'], $_POST['db_pass']);
 		mysql_select_db($_POST['db_name'], $mysql);
-		$query='INSERT INTO '.$_POST['db_prefix']."preferences (name, owner, copyright, adminemail) VALUES ('".$_POST['site']."', '".$_POST['name']."', '".$_POST['copyright']."', '".$_POST['admin']."')";
+		$query='INSERT INTO '.mysql_real_escape_string($_POST['db_prefix'])."preferences (name, owner, copyright, adminemail) VALUES ('".mysql_real_escape_string($_POST['site'])."', '".mysql_real_escape_string($_POST['name'])."', '".mysql_real_escape_string($_POST['copyright'])."', '".mysql_real_escape_string($_POST['admin'])."')";
 		mysql_query($query);
 		mysql_close($mysql);
 		unset($mysql, $query);

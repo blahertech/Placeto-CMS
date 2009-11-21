@@ -1,1 +1,0 @@
-<?php $base='../';include($base.'inc/engine.php');?>

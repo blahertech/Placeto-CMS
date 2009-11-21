@@ -1,1 +1,0 @@
-<?php function placeto_breadcrumb(){}?>

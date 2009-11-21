@@ -1,1 +1,0 @@
-<?php $mods['gzip']=array('name'=>'Gzip your site to save banwidth and speed.','author'=>'Benjamin Jay Young','version'=>'1.0','description'=>'Gzip your site to save banwidth and speed. It will gzip only necessary files, while keeping your binaries and images entact,','release'=>'2009-08-16');?>

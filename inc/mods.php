@@ -69,17 +69,17 @@
 	
 	function placeto_mod_end()
 	{
-		global $prefx, $base;
+		global $prefix, $base;
 		
 		//see if the mods are enabled
 		$result=mysql_query('SELECT * FROM '.$prefix.'mods');
 		while ($mod_temps=mysql_fetch_assoc($result))
 		{
-			$mod_starts[$mod_temps['name']]=$mod_temps['enable'];
+			$mod_ary[$mod_temps['name']]=$mod_temps['enable'];
 		}
 	
 		$mfiles=scandir($base.'inc/mods');
-	
+
 		//attach all the enabled mods
 		foreach ($mfiles as $mfile)
 		{
@@ -90,14 +90,15 @@
 				$mpre=1;
 				$mfile=substr($mfile, 1);
 			}
-			
+
 			//include enabled mods
-			if (!strrpos($mfile, '.') && $mfile!=='.' && $mod_starts[$mfile]['enable'])
+			if (!strrpos($mfile, '.') && $mfile!=='.' && $mod_ary[$mfile])
 			{
 				if ($mpre===1)
 				{
 					$mfile='_'.$mfile;
 				}
+
 				if (file_exists($base.'inc/mods/'.$mfile.'/end.php'))
 				{
 					include($base.'inc/mods/'.$mfile.'/end.php');

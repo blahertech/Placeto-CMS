@@ -11,10 +11,10 @@
 	*	You may edit or distrubute any Placeto Mod at your own free will, with the proper accreditation.
 	**/
 
-	global $mdplace, $gztrue;
+	global $mdplace, $gztrue, $content;
 
 	//makes a cache file	
-	if ($content['igcache']!==1)
+	if (!isset($content) || $content['igcache']!==1)
 	{
 		//retrieve list of enable mods
 		$result=mysql_query('SELECT * FROM '.$prefix.'mods');

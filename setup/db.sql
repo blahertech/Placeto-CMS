@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `preferences`
 CREATE TABLE IF NOT EXISTS `mods`
 (
 	`name` varchar(64) NOT NULL COMMENT 'Name of mod',
-	`enable` tinyint(1) NOT NULL COMMENT 'Should is be used?'
+	`enable` tinyint(1) NOT NULL COMMENT 'Should this be used?'
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
 
 -- mods samples

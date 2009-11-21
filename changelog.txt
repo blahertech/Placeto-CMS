@@ -9,6 +9,7 @@ Alpha Rv.3
 * Created BTDeflate Mod
 * Added Support for running mods after runtime
 * Intergrated cache support for gzip, btdefate and browser side caching
+* Renamed DNS mod to aDNS mod.
 
 Alpha Rv.2
 * Added code comments

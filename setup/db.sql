@@ -66,7 +66,7 @@ INSERT INTO `mods` (`name`, `enable`) VALUES
 	('nav', 1),
 	('news', 0),
 	('cache', 1),
-	('dns', 0),
+	('adns', 0),
 	('gzip', 0);;
 
 -- mods vars

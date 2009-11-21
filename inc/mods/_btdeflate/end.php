@@ -16,7 +16,6 @@
 		//list of supported file types
 		$exts=array(
 			'.css'=>TRUE,
-			'.js'=>TRUE,
 			'.htm'=>TRUE,
 			'.html'=>TRUE,
 			'.shtml'=>TRUE,

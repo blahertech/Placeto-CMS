@@ -69,6 +69,8 @@
 	
 	function placeto_mod_end()
 	{
+		global $prefx, $base;
+		
 		//see if the mods are enabled
 		$result=mysql_query('SELECT * FROM '.$prefix.'mods');
 		while ($mod_temps=mysql_fetch_assoc($result))

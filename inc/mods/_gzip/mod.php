@@ -20,6 +20,7 @@
 			'.js'=>TRUE,
 			'.htm'=>TRUE,
 			'.html'=>TRUE,
+			'.xhtml'=>TRUE,
 			'.shtml'=>TRUE,
 			'.xml'=>TRUE,
 			'.txt'=>TRUE

@@ -91,19 +91,20 @@
 	function placeto_extension($ext)
 	{
 		$exts=array(
-			".css"=>"text/css",
-			".js"=>"text/javascript",
-			".png"=>"image/png",
-			".gif"=>"mage/gif",
-			".jpg"=>"image/jpeg",
-			".jpeg"=>"image/jpeg",
-			".ico"=>"image/x-icon",
-			".htm"=>"text/html",
-			".html"=>"text/html",
-			".xhtml"=>"text/html",
-			".xml"=>"text/xml",
-			".txt"=>"text/plain",
-			".psd"=>"image/vnd.adobe.photoshop"
+			'.css'=>'text/css',
+			'.js'=>'text/javascript',
+			'.png'=>'image/png',
+			'.gif'=>'image/gif',
+			'.jpg'=>'image/jpeg',
+			'.jpeg'=>'image/jpeg',
+			'.ico'=>'image/x-icon',
+			'.htm'=>'text/html',
+			'.html'=>'text/html',
+			'.xhtml'=>'text/html',
+			'.shtml'=>'text/html',
+			'.xml'=>'text/xml',
+			'.txt'=>'text/plain',
+			'.psd'=>'image/vnd.adobe.photoshop'
 		);
 		if ($exts[$ext])
 		{

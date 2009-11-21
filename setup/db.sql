@@ -66,6 +66,7 @@ INSERT INTO `mods` (`name`, `enable`) VALUES
 	('nav', 1),
 	('news', 0),
 	('cache', 1),
+	('btdeflate', 1),
 	('adns', 0),
 	('gzip', 0);;
 

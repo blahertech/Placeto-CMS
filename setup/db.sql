@@ -66,7 +66,7 @@ INSERT INTO `mods` (`name`, `enable`) VALUES
 	('nav', 1),
 	('news', 0),
 	('cache', 1),
-	('btdeflate', 1),
+	('btdeflate', 0),
 	('adns', 0),
 	('gzip', 0);;
 
@@ -107,8 +107,8 @@ CREATE TABLE IF NOT EXISTS `mod_nav`
 INSERT INTO `mod_nav` (`id`, `link`, `title`) VALUES
 	(0, '/', 'Home'),
 	(1, '/about', 'About Us'),
-	(2, '/help', 'Help'),
-	(3, '/contact', 'Contact');;
+	(2, '/help', 'Get Help'),
+	(3, '/contact', 'Contact Us');;
 -- end mod_nav
 
 

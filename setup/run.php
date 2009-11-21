@@ -142,7 +142,7 @@
 		{
 ?>
 					<h1>Error</h1>
-<p>
+					<p>
                     	I'm sorry, I could not find the database you entered. Please try again.
                     </p>
 <?php
@@ -329,8 +329,8 @@
 		//complete
 		$mysql=mysql_connect($_POST['db_server'], $_POST['db_user'], $_POST['db_pass']);
 		mysql_select_db($_POST['db_name'], $mysql);
-		$query='INSERT INTO '.$_POST['db_prefix'].'preferences (name, owner, copyright, adminemail) VALUES (\''.$_POST['site'].'\', \''.$_POST['name'].'\', \''.$_POST['copyright'].'\', \''.$_POST['admin'].'\')';
-		@mysql_query($query);
+		$query='INSERT INTO '.$_POST['db_prefix']."preferences (name, owner, copyright, adminemail) VALUES ('".$_POST['site']."', '".$_POST['name']."', '".$_POST['copyright']."', '".$_POST['admin']."')";
+		mysql_query($query);
 		mysql_close($mysql);
 		unset($mysql, $query);
 ?>

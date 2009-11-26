@@ -11,6 +11,12 @@
 	*	You may edit or distrubute any Placeto Mod at your own free will, with the proper accreditation.
 	**/
 
+	//check and make cache directory
+	if (!file_exists($base.'.cache'))
+	{
+		mkdir($base.'.cache', 0777);
+	}
+
 	//adds browser caching support
 	function placeto_cache_browser($filemtime)
 	{

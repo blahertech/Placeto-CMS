@@ -16,6 +16,7 @@
 		//list of supported file types
 		$exts=array(
 			'.css'=>TRUE,
+			'.js'=>TRUE,
 			'.htm'=>TRUE,
 			'.html'=>TRUE,
 			'.shtml'=>TRUE,
@@ -42,55 +43,24 @@
 	//let's not destroy images
 	if (!$nf || placeto_btdeflate_ext($extension))
 	{
-		//'strings to be replace', 'replaced to',
-		$replace=array(
-			'	', '',
-			'    ', '',
-			'   ', '',
-			'  ', ' ',
-			' >', '>',
-			'< ', '<',
-			' <=', '<=',
-			' ,', ',',
-			': ', ':',
-			' :', ':',
-			' ;', ';',
-			') ', ')',
-			' )', ')',
-			' (', '(',
-			'( ', '(',
-			' &&', '&&',
-			'&& ', '&&',
-			' ||', '||',
-			'|| ', '||',
-			' =', '=',
-			'= ', '=',
-			' !', '!',
-			' +', '+',
-			'+ ', '+',
-			' *', '*',
-			' /', '/',
-			'/ ', '/',
-			' {', '{',
-			'{ ', '{',
-			'} ', '}',
-			' }', '}',
-			"\n", ''
-		);
-	
 		//fetch content
 		$content=ob_get_contents();
 		ob_clean();
+		
+		//remove special characters
+		$rps=array("\n", "\t", "\r", "\0", "\x0B");
+		$content=str_replace($rps, ' ', $content);
+		unset($rps);
 	
-		//go through array
-		for ($i=0; $i<count($replace); $i+=2)
+		//find double spaces
+		while (strstr($content, '  '))
 		{
-			//go through content
-			$content=str_replace($replace[$i], $replace[$i+1], $content);
+			//replace all double spaces
+			$content=str_replace('  ', ' ', $content);
 		}
 	
 		//byes
 		echo $content;
-		unset($replace, $content, $i);
+		unset($content);
 	}
 ?>

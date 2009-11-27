@@ -1,6 +1,7 @@
 Alpha Rv.4
 * Revised and finished btdeflate mod
 * Fixed cache mod's directory check
+* Fixed Images, News and Downloads Mods
 
 Alpha Rv.3
 * Added security by rename mod's index.php to mod.php

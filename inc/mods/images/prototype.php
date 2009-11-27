@@ -11,7 +11,8 @@
 	*	You may edit or distrubute any Placeto Mod at your own free will, with the proper accreditation.
 	**/
 
-	function ahobbler_images($var1, $var2){} // Shows image directory
-	function ahobbler_images_show($var1){} // Shows individual image
-	function ahobbler_images_slideshow(){} // Will be an image slideshow
+	function placeto_images($var1, $var2){} // Shows image directory
+	function placeto_images_page(){} // Page function
+	function placeto_images_show($var1){} // Shows individual image
+	function placeto_images_slideshow(){} // Will be an image slideshow
 ?>

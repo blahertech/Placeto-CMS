@@ -16,7 +16,7 @@
 		'name'=>'Images',
 		'author'=>'Benjamin Jay Young',
 		'version'=>'1.0',
-		'description'=>'Stores images on the database and enables correct browser caching.',
-		'release'=>'2009-10-07'
+		'description'=>'Stores images on the database and enables correct browser and server caching.',
+		'release'=>'2009-11-27'
 	);
 ?>

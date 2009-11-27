@@ -33,7 +33,7 @@
 	}
 
 	//image directory
-	function ahobbler_images($sort, $way)
+	function placeto_images($sort, $way)
 	{
 		//sorting
 		if ($sort='')
@@ -141,7 +141,7 @@
 	}
 
 	//show a image from the db
-	function ahobbler_images_show($file)
+	function placeto_images_show($file)
 	{
 		//fetch image
 		$img=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'mod_images WHERE image="'.$file.'"'));
@@ -205,5 +205,21 @@
 		//bye
 		unset($img, $file);
 		die();
+	}
+
+	//page function
+	function placeto_images_page()
+	{
+		global $file, $_GET;
+		
+		//check if it's a image display...
+		if (isset($file))
+		{
+			ahobbler_images_show($file);
+		}
+		else //...or image directory
+		{
+			ahobbler_images($_GET['sort'], $_GET['way']);
+		}
 	}
 ?>

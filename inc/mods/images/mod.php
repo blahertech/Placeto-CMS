@@ -215,11 +215,11 @@
 		//check if it's a image display...
 		if (isset($file))
 		{
-			ahobbler_images_show($file);
+			placeto_images_show($file);
 		}
 		else //...or image directory
 		{
-			ahobbler_images($_GET['sort'], $_GET['way']);
+			placeto_images($_GET['sort'], $_GET['way']);
 		}
 	}
 ?>

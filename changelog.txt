@@ -1,7 +1,9 @@
 Alpha Rv.4
 * Revised and finished btdeflate mod
 * Fixed cache mod's directory check
-* Fixed Images, News and Downloads Mods
+* Fixed Images and News Mods
+* Added Downloads Mod
+* Added placeto_cache_clear() to Cache Mod
 
 Alpha Rv.3
 * Added security by rename mod's index.php to mod.php

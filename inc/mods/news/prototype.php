@@ -11,8 +11,9 @@
 	*	You may edit or distrubute any Placeto Mod at your own free will, with the proper accreditation.
 	**/
 	
-	function ahobbler_news(){}//News page
-	function ahobbler_news_preview(){}//News widget
-	function ahobbler_news_rss(){}//News RSS page
-	function ahobbler_news_atom(){}//News RSS page
+	function placeto_news(){} //News page
+	function placeto_news_page(){} //Page Function
+	function placeto_news_preview(){} //News widget
+	function placeto_news_rss(){} //News RSS page
+	function placeto_news_atom(){} //News RSS page
 ?>

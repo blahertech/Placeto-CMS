@@ -17,6 +17,6 @@
 		'author'=>'Benjamin Jay Young',
 		'version'=>'1.0',
 		'description'=>'Deflates your pages of unnessicary whitespace, before sending, to save on bandwidth and time.',
-		'release'=>'2009-11-21'
+		'release'=>'2009-11-27'
 	);
 ?>

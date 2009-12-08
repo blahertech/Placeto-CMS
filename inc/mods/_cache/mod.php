@@ -46,7 +46,7 @@
 	if ($content['igcache']!==1)
 	{
 		//set up pre-reqs
-		$mdhash=md5($location);
+		$mdhash=md5($_SERVER['REQUEST_URI']);
 		$mdplace=$base.'.cache/'.$mdhash;
 
 		$tmpfile='templates/'.$config['template'].$location;

@@ -104,7 +104,8 @@
 			'.shtml'=>'text/html',
 			'.xml'=>'text/xml',
 			'.txt'=>'text/plain',
-			'.psd'=>'image/vnd.adobe.photoshop'
+			'.psd'=>'image/vnd.adobe.photoshop',
+			'.swf'=>'application/x-shockwave-flash'
 		);
 		if ($exts[$ext])
 		{

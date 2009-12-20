@@ -98,10 +98,11 @@
 		{
 			if (isset($news[$i]['title']))
 			{
-				echo '<li class="nolist"><h3><a href="',$news[$i]['link'],'" id="news-',$news[$i]['id'],'">',$news[$i]['title'].'</a></h3></li>',"\n";
+				echo '<li><h2><a href="',$news[$i]['link'],'" id="news-',$news[$i]['id'],'">',$news[$i]['title'].'</a></h2></li>',"\n";
 			}
 			echo '<li>',$news[$i]["content"],'</li>',"\n";
 			echo '<li class="date">',date('d M\, Y', strtotime($news[$i]['date'])),'</li>',"\n";
+			echo '<br class="clear" />',"\n";
 		}
 		echo '</ul>',"\n";
 		$npage++;

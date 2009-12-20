@@ -17,33 +17,8 @@
 		mkdir($base.'.cache', 0777);
 	}
 
-	//adds browser caching support
-	function placeto_cache_browser($filemtime)
-	{
-		global $location;
-
-		//here comes the browser caching support
-		if (date('d')!==1)
-		{
-			$expires=substr(date('r', mktime(date('G'), date('i'), date('s'), date('m'), date('d')-1, date('y')+1)), 0, 25);
-		}
-		else
-		{
-			$expires=substr(date('r', mktime(date('G'), date('i'), date('s'), date('m')-1, date('d')+28, date('y')+1)), 0, 25);
-		}
-
-		//so we don't have to find waldo more than once
-		$etag=md5($location.gmdate('dmyHis', $filemtime));
-		header('Expires: '.$expires.' GMT');
-		header('Last-Modified: '.gmdate('D, d M Y H:i:s', $filemtime).' GMT');
-		header('Cache-Control: public, max-age=31536000');
-		header('ETag: '.$etag);
-		unset($expires, $etag);
-		header('Vary: Accept-Encoding');
-	}
-
 	//time for server caching
-	if ($content['igcache']!==1)
+	if ($content['igcache']!=1)
 	{
 		//set up pre-reqs
 		$mdhash=md5($_SERVER['REQUEST_URI']);
@@ -100,26 +75,51 @@
 		ob_start();
 		unset($mdhash, $mpfile, $mbase, $filemname);
 	}
+	
+	//adds browser caching support
+	function placeto_cache_browser($filemtime)
+	{
+		global $location;
 
-        //browser cache checking
-        if ($nf)
-        {
-            //where's waldo?
-            $tmpfile='templates/'.$config['template'].$location;
-            $mbase=str_ireplace('mods/_cache/mod.php', '', __FILE__);
+		//here comes the browser caching support
+		if (date('d')!==1)
+		{
+			$expires=substr(date('r', mktime(date('G'), date('i'), date('s'), date('m'), date('d')-1, date('y')+1)), 0, 25);
+		}
+		else
+		{
+			$expires=substr(date('r', mktime(date('G'), date('i'), date('s'), date('m')-1, date('d')+28, date('y')+1)), 0, 25);
+		}
 
-            //found it
-            if (file_exists($mbase.$tmpfile) && $location!=='/')
-            {
-                placeto_cache_browser(filemtime($mbase.$tmpfile));
-            }
-        }
-        else
-        {
-            //browser caching support
-            if ($content['igcache']!==1)
-            {
-                placeto_cache_browser(strtotime($content['lastmod']));
-            }
-        }
+		//so we don't have to find waldo more than once
+		$etag=md5($location.gmdate('dmyHis', $filemtime));
+		header('Expires: '.$expires.' GMT');
+		header('Last-Modified: '.gmdate('D, d M Y H:i:s', $filemtime).' GMT');
+		header('Cache-Control: public, max-age=31536000');
+		header('ETag: '.$etag);
+		unset($expires, $etag);
+		header('Vary: Accept-Encoding');
+	}
+
+	//browser cache checking
+	if ($nf)
+	{
+		//where's waldo?
+		$tmpfile='templates/'.$config['template'].$location;
+		$mbase=str_ireplace('mods/_cache/mod.php', '', __FILE__);
+
+		//found it
+		if (file_exists($mbase.$tmpfile) && $location!=='/')
+		{
+			placeto_cache_browser(filemtime($mbase.$tmpfile));
+		}
+	}
+	else
+	{
+		//browser caching support
+		if ($content['igcache']!=1)
+		{
+			placeto_cache_browser(strtotime($content['lastmod']));
+		}
+	}
 ?>

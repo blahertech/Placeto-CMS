@@ -14,7 +14,7 @@
 	global $mdplace, $gztrue, $content;
 
 	//makes a cache file	
-	if (!isset($content) || $content['igcache']!==1)
+	if (!isset($content) || $content['igcache']!=1)
 	{
 		//retrieve list of enable mods
 		$result=mysql_query('SELECT * FROM '.$prefix.'mods');

@@ -35,7 +35,7 @@
 		}
 	}
 	
-	if (substr($location, 0, 6)==='/news/')
+	if (substr($location, 0, 6)==='/news/' && substr($location, 0, 9)!=='/news/rss' && substr($location, 0, 10)!=='/news/atom')
 	{
 		$content=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'content WHERE page="/news"'));
 		$location='/news';
@@ -115,8 +115,8 @@
 		}
 		else
 		{
-			echo '&lt;&lt;First',"\n";
-			echo '&lt;Previous',"\n";
+			echo '<span>&lt;&lt;First</span>',"\n";
+			echo '<span>&lt;Previous</span>',"\n";
 		}
 
 		if ($npage==$totalpages)
@@ -144,7 +144,7 @@
 			}
 			else
 			{
-				echo $pagen,"\n";
+				echo '<span>',$pagen,'</span>',"\n";
 			}
 
 			$n+=5;
@@ -158,9 +158,84 @@
 		}
 		else
 		{
-			echo 'Next&gt;',"\n";
-			echo 'Last&gt;&gt;',"\n";
+			echo '<span>Next&gt;</span>',"\n";
+			echo '<span>Last&gt;&gt;</span>',"\n";
 		}
 		echo '</div>',"\n";
+	}
+
+	//rss page
+	function placeto_news_rss_page()
+	{
+		echo '<?xml version="1.0" encoding="utf-8" ?>',"\n";
+		echo '<rss version="2.0">',"\n\n";
+		echo '<channel>',"\n";
+
+		global $prefix, $config;
+		$page=mysql_fetch_assoc(mysql_query('SELECT * from '.$prefix.'content WHERE page="/news/rss"'));
+		echo '	<title>',$page['title'],'</title>',"\n";
+		echo '	<link>',$config['site'],'</link>',"\n";
+		echo '	<description>',$page['desc'],'</description>',"\n\n";
+
+		$newsrows=mysql_num_rows(mysql_query('SELECT * FROM '.$prefix.'mod_news'));
+		for ($i=1; $i<=$newsrows; $i++)
+		{
+			$news[$i-1]=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'mod_news WHERE id='.$i));
+		}
+		$news=array_reverse($news);
+		
+		$i=0;
+		foreach ($news as $nws)
+		{
+			$i++;
+			echo '	<item>',"\n";
+			echo '		<title>',$nws['title'],'</title>',"\n";
+			echo '		<link>',$config['site'],$config['directory'],'news/item/',$i,'/</link>',"\n";
+			echo '		<description>',strip_tags($nws['content']),'</description>',"\n";
+			echo '	</item>',"\n\n";
+		}
+
+		echo '</channel>',"\n";
+		echo '</rss>',"\n";
+	}
+	
+	//atom page
+	function placeto_news_atom_page()
+	{
+		echo '<?xml version="1.0" encoding="utf-8" ?>',"\n";
+		echo '<feed xmlns="http://www.w3.org/2005/Atom">',"\n\n";
+
+		global $prefix, $config;
+		$newsrows=mysql_num_rows(mysql_query('SELECT * FROM '.$prefix.'mod_news'));
+		for ($i=1; $i<=$newsrows; $i++)
+		{
+			$news[$i-1]=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'mod_news WHERE id='.$i));
+		}
+		$news=array_reverse($news);
+		$page=mysql_fetch_assoc(mysql_query('SELECT * from '.$prefix.'content WHERE page="/news/rss"'));
+		
+		echo '	<title type="text">',$page['title'],'</title>',"\n";
+		echo '	<updated>',$news[1]['date'],'</updated>',"\n";
+		echo '	<link>',$config['site'],'</link>',"\n";
+		echo '	<description>',$page['desc'],'</description>',"\n\n";
+		echo '	<generator uri="http://www.blahertech.org/projects/placeto/">Placeto CMS</generator>',"\n\n";
+		
+		$i=0;
+		foreach ($news as $nws)
+		{
+			$i++;
+			echo '	<entry>',"\n";
+			echo '		<title>',$nws['title'],'</title>',"\n";
+			echo '		<link rel="alternate">',$config['site'],$config['directory'],'news/item/',$i,'/</link>',"\n";
+			echo '		<content type="xhtml" xml:lang="en" xml:base="http://diveintomark.org/">',"\n";
+			echo '			<div xmlns="http://www.w3.org/1999/xhtml">',"\n";
+			echo '				<p>',$nws['content'],'</p>',"\n";
+			echo '			</div>',"\n";
+			echo '		</content>',"\n";
+			echo '		<updated>',$nws['date'],'</updated>',"\n";
+			echo '	</entry>',"\n\n";
+		}
+
+		echo '</feed>',"\n";
 	}
 ?>

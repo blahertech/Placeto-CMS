@@ -12,7 +12,21 @@
 	**/
 
 	//are we on the right page?
-	if (substr($location, 0, 6)==='/news/' && (substr($location, 5, strrchr($location, '/'))>0 || substr($location, 6)>0))
+	if (substr($location, 6, 4)=='item')
+	{
+		if (substr($location, 11)>0)
+		{
+			$npage=substr($location, 11);
+		}
+		else
+		{
+			$npage=substr($location, 11, strrchr($location, '/'));
+		}
+
+		$item=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'mod_news WHERE id='.$npage));
+		unset($npage);
+	}
+	else if (substr($location, 0, 6)==='/news/' && (substr($location, 5, strrchr($location, '/'))>0 || substr($location, 6)>0))
 	{
 		if (substr($location, 6)>0)
 		{
@@ -39,6 +53,11 @@
 	{
 		$content=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'content WHERE page="/news"'));
 		$location='/news';
+		
+		if (isset($item))
+		{
+			$content['header']=$item['title'];
+		}
 	}
 
 	//Shows a news preview widget
@@ -57,7 +76,7 @@
 		{
 			if (isset($news[$i][title]))
 			{
-				echo '<h3><a href="',$news[$i]['link'],'" rel="friend" rev="friend">',$news[$i]['title'],"</a></h3>\n";
+				echo '<h3><a href="/news#news-',$news[$i]['id'],'" rel="friend" rev="friend">',$news[$i]['title'],"</a></h3>\n";
 			}
 			echo '<p>',strip_tags(substr($news[$i]['content'], 0, stripos($news[$i]['content'], '. ', 100))),"...</p>\n";
 			echo '<a href="/news#news-',$news[$i]['id'],'" class="right" rel="alternative" rev="index">[Read More]</a><br />',"\n";
@@ -68,100 +87,108 @@
 	//page function
 	function placeto_news_page()
 	{
-		global $prefix, $npage;
+		global $prefix, $npage, $item;
 
 		$npage=floor($npage);
-		$newsrows=mysql_num_rows(mysql_query('SELECT * FROM '.$prefix.'mod_news'));
-
-		for ($i=1; $i<=$newsrows; $i++)
+		if (isset($item))
 		{
-			$news[$i-1]=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'mod_news WHERE id='.$i));
+			echo '<p>',$item['content'],'</p>',"\n";
+			unset($item);
 		}
-		$news=array_reverse($news);
-
-		$totalarts=count($news)-1;
-		$plusrem=0;
-		if (($totalarts%5)>=1)
+		else
 		{
-			$plusrem=1;
-		}
-		$totalpages=($totalarts-($totalarts%5))/5+$plusrem;
-
-		if ($npage>$totalpages)
-		{
-			$npage=$totalpages;
-		}
-		$npage--;
-
-		echo '<ul id="news">',"\n";
-		for ($i=$npage*5; isset($news[$i]) && $i!=$npage*5+5; $i++)
-		{
-			if (isset($news[$i]['title']))
+			$newsrows=mysql_num_rows(mysql_query('SELECT * FROM '.$prefix.'mod_news'));
+	
+			for ($i=1; $i<=$newsrows; $i++)
 			{
-				echo '<li><h2><a href="',$news[$i]['link'],'" id="news-',$news[$i]['id'],'">',$news[$i]['title'].'</a></h2></li>',"\n";
+				$news[$i-1]=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'mod_news WHERE id='.$i));
 			}
-			echo '<li>',$news[$i]["content"],'</li>',"\n";
-			echo '<li class="date">',date('d M\, Y', strtotime($news[$i]['date'])),'</li>',"\n";
-			echo '<br class="clear" />',"\n";
-		}
-		echo '</ul>',"\n";
-		$npage++;
-
-		echo '<div id="pages">'."\n";
-		if ($npage!=1)
-		{
-			echo '<a href="/news/1">&lt;&lt;First</a>',"\n";
-			echo '<a href="/news/',$npage-1,'">&lt;Previous</a>',"\n";
-		}
-		else
-		{
-			echo '<span>&lt;&lt;First</span>',"\n";
-			echo '<span>&lt;Previous</span>',"\n";
-		}
-
-		if ($npage==$totalpages)
-		{
-			$pagen=$npage-4;
-		}
-		else if ($npage==($totalpages-1))
-		{
-			$pagen=$page-3;
-		}
-		else
-		{
-			$pagen=$mpage-2;
-		}
-
-		if ($pagen<=0)
-		{
-			$pagen=1;
-		}
-		for ($i=0, $n=0; ($i<5) && isset($news[$n]) && ($pagen<=$totalpages); $i++)
-		{
-			if ($pagen!=$npage)
+			$news=array_reverse($news);
+	
+			$totalarts=count($news)-1;
+			$plusrem=0;
+			if (($totalarts%5)>=1)
 			{
-				echo '<a href="/news/',$pagen,'">',$pagen,'</a>',"\n";
+				$plusrem=1;
+			}
+			$totalpages=($totalarts-($totalarts%5))/5+$plusrem;
+	
+			if ($npage>$totalpages)
+			{
+				$npage=$totalpages;
+			}
+			$npage--;
+	
+			echo '<ul id="news">',"\n";
+			for ($i=$npage*5; isset($news[$i]) && $i!=$npage*5+5; $i++)
+			{
+				if (isset($news[$i]['title']))
+				{
+					echo '<li><h2><a href="/news/item-',$news[$i]['id'],'/" id="news-',$news[$i]['id'],'">',$news[$i]['title'].'</a></h2></li>',"\n";
+				}
+				echo '<li>',$news[$i]["content"],'</li>',"\n";
+				echo '<li class="date">',date('d M\, Y', strtotime($news[$i]['date'])),'</li>',"\n";
+				echo '<br class="clear" />',"\n";
+			}
+			echo '</ul>',"\n";
+			$npage++;
+	
+			echo '<div id="pages">'."\n";
+			if ($npage!=1)
+			{
+				echo '<a href="/news/1">&lt;&lt;First</a>',"\n";
+				echo '<a href="/news/',$npage-1,'">&lt;Previous</a>',"\n";
 			}
 			else
 			{
-				echo '<span>',$pagen,'</span>',"\n";
+				echo '<span>&lt;&lt;First</span>',"\n";
+				echo '<span>&lt;Previous</span>',"\n";
 			}
-
-			$n+=5;
-			$pagen++;
+	
+			if ($npage==$totalpages)
+			{
+				$pagen=$npage-4;
+			}
+			else if ($npage==($totalpages-1))
+			{
+				$pagen=$page-3;
+			}
+			else
+			{
+				$pagen=$mpage-2;
+			}
+	
+			if ($pagen<=0)
+			{
+				$pagen=1;
+			}
+			for ($i=0, $n=0; ($i<5) && isset($news[$n]) && ($pagen<=$totalpages); $i++)
+			{
+				if ($pagen!=$npage)
+				{
+					echo '<a href="/news/',$pagen,'">',$pagen,'</a>',"\n";
+				}
+				else
+				{
+					echo '<span>',$pagen,'</span>',"\n";
+				}
+	
+				$n+=5;
+				$pagen++;
+			}
+	
+			if ($npage!=$totalpages)
+			{
+				echo '<a href="/news/',$npage+1,'">Next&gt;</a>',"\n";
+				echo '<a href="/news/',$totalpages,'">Last&gt;&gt;</a>',"\n";
+			}
+			else
+			{
+				echo '<span>Next&gt;</span>',"\n";
+				echo '<span>Last&gt;&gt;</span>',"\n";
+			}
+			echo '</div>',"\n";
 		}
-
-		if ($npage!=$totalpages)
-		{
-			echo '<a href="/news/',$npage+1,'">Next&gt;</a>',"\n";
-			echo '<a href="/news/',$totalpages,'">Last&gt;&gt;</a>',"\n";
-		}
-		else
-		{
-			echo '<span>Next&gt;</span>',"\n";
-			echo '<span>Last&gt;&gt;</span>',"\n";
-		}
-		echo '</div>',"\n";
 	}
 
 	//rss page
@@ -190,7 +217,7 @@
 			$i++;
 			echo '	<item>',"\n";
 			echo '		<title>',$nws['title'],'</title>',"\n";
-			echo '		<link>',$config['site'],$config['directory'],'news/item/',$i,'/</link>',"\n";
+			echo '		<link>',$config['site'],$config['directory'],'news/item-',$nws['id'],'/</link>',"\n";
 			echo '		<description>',strip_tags($nws['content']),'</description>',"\n";
 			echo '	</item>',"\n\n";
 		}
@@ -226,7 +253,7 @@
 			$i++;
 			echo '	<entry>',"\n";
 			echo '		<title>',$nws['title'],'</title>',"\n";
-			echo '		<link rel="alternate">',$config['site'],$config['directory'],'news/item/',$i,'/</link>',"\n";
+			echo '		<link rel="alternate">',$config['site'],$config['directory'],'news/item-',$nws['id'],'/</link>',"\n";
 			echo '		<content type="xhtml" xml:lang="en" xml:base="http://diveintomark.org/">',"\n";
 			echo '			<div xmlns="http://www.w3.org/1999/xhtml">',"\n";
 			echo '				<p>',$nws['content'],'</p>',"\n";

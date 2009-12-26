@@ -39,7 +39,7 @@
 	//pulls you mainly used content needed for the templates
 	function placeto($dbtype)
 	{
-		//globalizing stablizer variable allocations
+		//globalizing stabalizer variable allocations
 		global $content, $prefs, $config, $location;
 		if ($dbtype==='content')
 		{

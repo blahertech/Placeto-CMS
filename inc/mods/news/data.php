@@ -17,6 +17,6 @@
 		'author'=>'Benjamin Jay Young',
 		'version'=>'1.0',
 		'description'=>'Library for News, RSS, Atom and other news features',
-		'release'=>'2009-12-23'
+		'release'=>'2009-12-24'
 	);
 ?>

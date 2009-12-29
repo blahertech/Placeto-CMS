@@ -32,7 +32,13 @@
 		die();
 	}
 
-	require('config.php');
+	//multiple site support check
+	if (!isset($cfg))
+	{
+		$cfg='config.php';
+	}
+	require($cfg);
+
 	require('mysql/connect.php');
 	require('define.php');
 	include_once('functions.php');

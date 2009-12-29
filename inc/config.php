@@ -13,16 +13,16 @@
 	*		http://www.blahertech.org/projects/placeto/
 	*/
 
-	$config['site']='http://placeto.blahertech.org';
+	$config['site']='http://www.somesite.com';
 	$config['directory']='/';
-	$config['template']='blahertech';
+	$config['template']='default';
 
 	$sql_login['server']='localhost';
-	$sql_login['user']='howardmc_placeto';
+	$sql_login['user']='user';
 	$sql_login['pass']='AHardToGuessPassword';
-	$sql_login['db']='howardmc_placetodb';
+	$sql_login['db']='site_placeto';
 	$sql_login['prefix']='';
-	$sql_login['die']='Databases failed, please contact <a href="mailto:blaher@blahertech.org"></a>.';
+	$sql_login['die']='Databases failed, please contact <a href="mailto:support@somesite.com></a>.';
 
 	$config['encode']='utf-8';
 	$config['type']='text/html; charset='.$config['encode'];

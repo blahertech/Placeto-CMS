@@ -92,7 +92,7 @@ CREATE TABLE IF NOT EXISTS `mods_vars`
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Any unique vars for a Placeto Mod';;
 
 ALTER TABLE `mods_vars`
-	ADD CONSTRAINT `mods_vars_ibfk_1` FOREIGN KEY (`mod`) REFERENCES `mods` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
+	ADD CONSTRAINT `mods_vars_ibfk_1` FOREIGN KEY (`mod`) REFERENCES `mods` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;;
 -- end mods
 
 
@@ -142,7 +142,7 @@ CREATE TABLE IF NOT EXISTS `mod_breadcrumb`
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Breadcrum Mod';;
 
 ALTER TABLE `mod_breadcrumb`
-	ADD CONSTRAINT `mod_breadcrumb_ibfk_1` FOREIGN KEY (`page`) REFERENCES `content` (`page`) ON DELETE CASCADE ON UPDATE CASCADE;
+	ADD CONSTRAINT `mod_breadcrumb_ibfk_1` FOREIGN KEY (`page`) REFERENCES `content` (`page`) ON DELETE CASCADE ON UPDATE CASCADE;;
 
 -- mod_breadcrumb samples
 INSERT INTO `mod_breadcrumb` (`page`, `title`) VALUES

@@ -256,7 +256,7 @@
 			}
 			
 			//configgy!
-			$configcnt="<?php\n\t\$config['site']='http://".$_SERVER['HTTP_HOST']."';\n\t\$config['directory']='".$dirc."';\n\t\$config['template']='default';\n\n\t\$sql_login['server']='".$_POST['db_server']."';\n\t\$sql_login['user']='".$_POST['db_user']."';\n\t\$sql_login['pass']='".$_POST['db_pass']."';\n\t\$sql_login['db']='".$_POST['db_name']."';\n\t\$sql_login['prefix']='".$_POST['db_prefix']."';\n\t\$sql_login['die']='Databases failed, please contact the website admin.';\n\n\t\$config['encode']='utf-8';\n\t\$config['type']='text/html; charset='.\$config['encode'];\n?>";
+			$configcnt="<?php\n\t\$config['site']='http://".$_SERVER['HTTP_HOST']."';\n\t\$config['directory']='".$dirc."';\n\n\t\$sql_login['server']='".$_POST['db_server']."';\n\t\$sql_login['user']='".$_POST['db_user']."';\n\t\$sql_login['pass']='".$_POST['db_pass']."';\n\t\$sql_login['db']='".$_POST['db_name']."';\n\t\$sql_login['prefix']='".$_POST['db_prefix']."';\n\t\$sql_login['die']='Databases failed, please contact the website admin.';\n\n\t\$config['encode']='utf-8';\n\t\$config['type']='text/html; charset='.\$config['encode'];\n?>";
 			
 			unset($dirc);
 			@unlink('../config.php');
@@ -333,7 +333,7 @@
 		//complete
 		$mysql=mysql_connect($_POST['db_server'], $_POST['db_user'], $_POST['db_pass']);
 		mysql_select_db($_POST['db_name'], $mysql);
-		$query='INSERT INTO '.mysql_real_escape_string($_POST['db_prefix'])."preferences (name, owner, copyright, adminemail) VALUES ('".mysql_real_escape_string($_POST['site'])."', '".mysql_real_escape_string($_POST['name'])."', '".mysql_real_escape_string($_POST['copyright'])."', '".mysql_real_escape_string($_POST['admin'])."')";
+		$query='INSERT INTO '.mysql_real_escape_string($_POST['db_prefix'])."preferences (name, owner, copyright, adminemail, template) VALUES ('".mysql_real_escape_string($_POST['site'])."', '".mysql_real_escape_string($_POST['name'])."', '".mysql_real_escape_string($_POST['copyright'])."', '".mysql_real_escape_string($_POST['admin'])."', 'default')";
 		mysql_query($query);
 		mysql_close($mysql);
 		unset($mysql, $query);

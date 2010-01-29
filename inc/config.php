@@ -15,7 +15,6 @@
 
 	$config['site']='http://www.somesite.com';
 	$config['directory']='/';
-	$config['template']='default';
 
 	$sql_login['server']='localhost';
 	$sql_login['user']='user';

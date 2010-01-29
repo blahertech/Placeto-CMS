@@ -20,7 +20,7 @@
 	**/
 
 	//where's waldo?
-	$tmpfile='templates/'.$config['template'].$location;
+	$tmpfile='templates/'.$prefs['template'].$location;
 	$mbase=str_ireplace('reattach.php', '', __FILE__);
 
 	//is waldo missing?
@@ -66,6 +66,6 @@
 		header('Content-Type: '.$config['type']);
 		header('HTTP/1.0 404 Not Found');
 
-		include('templates/'.$config['template'].'/index.php');
+		include('templates/'.$prefs['template'].'/index.php');
 	}
 ?>

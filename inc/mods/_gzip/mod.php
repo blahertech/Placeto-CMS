@@ -12,7 +12,7 @@
 	**/
 
 	//for external files
-	function placeto_extension_gzip($ext)
+	function placeto_gzip_extension($ext)
 	{
 		//list of supported file types
 		$exts=array(
@@ -41,10 +41,10 @@
 	
 	//check your footing before you continue
 	$extension=strchr($location, '.');
-	if (!$nf || placeto_extension_gzip($extension))
+	if (!$nf || placeto_gzip_extension($extension))
 	{
 		//check user support and ignore cache var
-		if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && $content['igcache']!==1)
+		if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') && $content['dynamic']!==1)
 		{
 			//zip it, zip it good
 			$gztrue=true;

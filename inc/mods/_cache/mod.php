@@ -18,7 +18,7 @@
 	}
 
 	//time for server caching
-	if ($content['igcache']!=1)
+	if ($content['dynamic']!=1)
 	{
 		//set up pre-reqs
 		$mdhash=md5($_SERVER['REQUEST_URI']);
@@ -117,7 +117,7 @@
 	else
 	{
 		//browser caching support
-		if ($content['igcache']!=1)
+		if ($content['dynamic']!=1)
 		{
 			placeto_cache_browser(strtotime($content['lastmod']));
 		}

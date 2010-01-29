@@ -11,5 +11,5 @@
 	*	You may edit or distrubute any Placeto Mod at your own free will, with the proper accreditation.
 	**/
 
-	function placeto_extension_gzip($ext){} // Checks for valid files that gzip will be good for.
+	function placeto_gzip_extension($ext){} // Checks for valid files that gzip will be good for.
 ?>

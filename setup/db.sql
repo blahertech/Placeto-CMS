@@ -22,19 +22,21 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";;
 -- content structure
 CREATE TABLE IF NOT EXISTS `content`
 (
-	`page` text NOT NULL COMMENT 'Page location',
-	`title` text COMMENT 'title tage',
-	`desc` mediumtext COMMENT 'meta description',
-	`keywords` mediumtext COMMENT 'meta keywords',
-	`header` text COMMENT 'h1, usally',
-	`content` longtext NOT NULL COMMENT 'page content',
-	`dependent` tinyint(1) NOT NULL default '0' COMMENT '0 for dependent, 1 for independent and 2 for independent ONLY IF the param is set',
-	`dependentparam` varchar(32) default NULL COMMENT 'Has to be an $_GET value',
-	`igcache` tinyint(1) NOT NULL default '0' COMMENT 'Ignore cache or not to ignore, that is the question.',
-	`lastmod` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT 'last modified'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`page` varchar(256) COLLATE latin1_general_ci NOT NULL COMMENT 'Page URI',
+	`title` mediumtext CHARACTER SET utf8 COMMENT 'Browser page title',
+	`desc` mediumtext CHARACTER SET utf8 COMMENT 'META description',
+	`keywords` mediumtext CHARACTER SET utf8 COMMENT 'META keywords',
+	`header` mediumtext CHARACTER SET utf8 COMMENT 'Page header',
+	`content` longtext CHARACTER SET utf8 NOT NULL COMMENT 'Content',
+	`dependent` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 for dependent, 1 for independent and 2 for independent ONLY IF the param is set',
+	`dependentparam` varchar(32) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'Has to be an $_GET value',
+	`dynamic` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Ignore caching or not to ignore, that is the question.',
+	`lastmod` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last modification date',
 
-	-- content samples
+	PRIMARY KEY (`page`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Content pages';;
+
+-- content samples
 INSERT INTO `content` (`page`, `title`, `desc`, `keywords`, `header`, `content`, `dependent`, `dependentparam`, `igcache`, `lastmod`) VALUES
 	('/', 'Home Page', 'This is the home page', 'home, page', 'Welcome to your new Website!', 'Welcome to the Home page', 0, NULL, 0, NOW()),
 	('/error', 'Page not found', 'This is the 40x error page', 'Page, Not Found, 404, Error, no result, search', 'Page Not Found:', 'This page was not found. Please go back.', 0, NULL, 0, NOW()),
@@ -47,20 +49,24 @@ INSERT INTO `content` (`page`, `title`, `desc`, `keywords`, `header`, `content`,
 -- prefs structre
 CREATE TABLE IF NOT EXISTS `preferences`
 (
-	`name` varchar(32) NOT NULL default 'Site Name Here' COMMENT 'Site\'s Name',
-	`owner` varchar(32) NOT NULL default 'The Owner of the Site Here' COMMENT 'Owner\'s Full name',
-	`copyright` varchar(64) NOT NULL default 'Your Copyright Message Here' COMMENT 'Copyright message',
-	`adminemail` varchar(32) NOT NULL default 'admin@test.com' COMMENT 'Admin\'s Email'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`name` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT 'Site Name Here' COMMENT 'Website Name',
+	`owner` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT 'The Owner of the Site Here' COMMENT 'Author',
+	`copyright` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT 'Your Copyright Message Here' COMMENT 'Copyright statement',
+	`adminemail` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT 'admin@test.com' COMMENT 'Web admin email',
+	`template` varchar(256) COLLATE latin1_general_ci NOT NULL DEFAULT 'default' COMMENT 'Placeto Template'
+) ENGINE=MEMORY DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Preferences';;
 -- end prefs
 
 
 -- mods structure
+
 CREATE TABLE IF NOT EXISTS `mods`
 (
-	`name` varchar(64) NOT NULL COMMENT 'Name of mod',
-	`enable` tinyint(1) NOT NULL COMMENT 'Should this be used?'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`name` varchar(64) COLLATE latin1_general_ci NOT NULL COMMENT 'Mod name',
+	`enable` tinyint(1) NOT NULL COMMENT 'If the mod is enabled',
+
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Mods';;
 
 -- mods samples
 INSERT INTO `mods` (`name`, `enable`) VALUES
@@ -75,21 +81,29 @@ INSERT INTO `mods` (`name`, `enable`) VALUES
 	('gzip', 0);;
 
 -- mods vars
+
 CREATE TABLE IF NOT EXISTS `mods_vars`
 (
-	`mod` varchar(64) NOT NULL COMMENT 'Name of Mod',
-	`name` varchar(64) NOT NULL COMMENT 'Name of var',
-	`value` varchar(64) NOT NULL COMMENT 'Value of var'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`mod` varchar(64) COLLATE latin1_general_ci NOT NULL COMMENT 'Mod name',
+	`name` varchar(64) COLLATE latin1_general_ci NOT NULL COMMENT 'Var name',
+	`value` varchar(64) CHARACTER SET utf8 NOT NULL COMMENT 'Var value',
+
+	PRIMARY KEY (`mod`,`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Any unique vars for a Placeto Mod';;
+
+ALTER TABLE `mods_vars`
+	ADD CONSTRAINT `mods_vars_ibfk_1` FOREIGN KEY (`mod`) REFERENCES `mods` (`name`) ON DELETE CASCADE ON UPDATE CASCADE;
 -- end mods
 
 
 -- mod_dns structure
 CREATE TABLE IF NOT EXISTS `mod_dns`
 (
-	`subdomain` varchar(16) NOT NULL COMMENT 'subdomain to be redirected',
-	`link` varchar(32) NOT NULL default '/' COMMENT 'URI only' COMMENT 'redirect link'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`subdomain` varchar(16) COLLATE latin1_general_ci NOT NULL COMMENT 'Subdomain only (no dots)',
+	`link` varchar(32) COLLATE latin1_general_ci NOT NULL DEFAULT '/' COMMENT 'link to page (URI only optional)',
+
+	PRIMARY KEY (`subdomain`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto DNS Mod';;
 
 -- mod_dns samples
 INSERT INTO `mod_dns` (`subdomain`, `link`) VALUES
@@ -102,10 +116,12 @@ INSERT INTO `mod_dns` (`subdomain`, `link`) VALUES
 -- mod_nav structure
 CREATE TABLE IF NOT EXISTS `mod_nav`
 (
-	`id` int(11) NOT NULL COMMENT 'placement',
-	`link` varchar(64) NOT NULL COMMENT 'link location',
-	`title` text NOT NULL COMMENT 'title to displayed in navbar'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`id` int(11) NOT NULL COMMENT 'Nav order',
+	`link` varchar(64) COLLATE latin1_general_ci NOT NULL COMMENT 'link to page (URI only optional)',
+	`title` varchar(256) CHARACTER SET utf8 DEFAULT NULL COMMENT 'Replacing title',
+
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Navigation Mod';;
 
 -- mod_nav samples
 INSERT INTO `mod_nav` (`id`, `link`, `title`) VALUES
@@ -119,9 +135,14 @@ INSERT INTO `mod_nav` (`id`, `link`, `title`) VALUES
 -- mod_breadcrumb structure
 CREATE TABLE IF NOT EXISTS `mod_breadcrumb`
 (
-	`page` text NOT NULL COMMENT 'page location',
-	`title` text NOT NULL COMMENT 'title to be displayed'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`page` varchar(64) COLLATE latin1_general_ci NOT NULL COMMENT 'Page URI',
+	`title` varchar(64) CHARACTER SET utf8 NOT NULL COMMENT 'Replacing title',
+
+	PRIMARY KEY (`page`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Breadcrum Mod';;
+
+ALTER TABLE `mod_breadcrumb`
+	ADD CONSTRAINT `mod_breadcrumb_ibfk_1` FOREIGN KEY (`page`) REFERENCES `content` (`page`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- mod_breadcrumb samples
 INSERT INTO `mod_breadcrumb` (`page`, `title`) VALUES
@@ -135,22 +156,23 @@ INSERT INTO `mod_breadcrumb` (`page`, `title`) VALUES
 -- mod_images structure
 CREATE TABLE IF NOT EXISTS `mod_images`
 (
-	`image` varchar(32) NOT NULL COMMENT 'image/file name',
-	`content` blob NOT NULL COMMENT 'bindary content',
-	`type` varchar(32) NOT NULL COMMENT 'mime type',
-	`size` bigint(20) NOT NULL COMMENT 'file size',
-	`lastmod` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP COMMENT 'last modified'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`image` varchar(32) COLLATE latin1_general_ci NOT NULL COMMENT 'Image name',
+	`content` blob NOT NULL COMMENT 'Image binary content',
+	`type` varchar(32) COLLATE latin1_general_ci NOT NULL COMMENT 'Mime type',
+	`size` bigint(20) NOT NULL COMMENT 'File size',
+	`lastmod` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last modification date'
+) ENGINE=ARCHIVE DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Image Mod';;
 -- end mod_images
 
 
 -- mod_news structure
 CREATE TABLE IF NOT EXISTS `mod_news`
 (
-	`id` tinyint(4) NOT NULL COMMENT 'placement record',
-	`title` mediumtext COMMENT 'news title',
-	`link` varchar(64) NOT NULL COMMENT 'link locations, external or internal',
-	`content` longtext NOT NULL COMMENT 'news content',
-	`date` date NOT NULL COMMENT 'date of news'
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;;
+	`id` tinyint(4) NOT NULL AUTO_INCREMENT COMMENT 'News ID',
+	`title` mediumtext CHARACTER SET utf8 COMMENT 'New headline',
+	`content` longtext CHARACTER SET utf8 NOT NULL COMMENT 'News content',
+	`date` date NOT NULL COMMENT 'Date submitted',
+
+	PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto News Mod' AUTO_INCREMENT=1;;
 -- end mod_news

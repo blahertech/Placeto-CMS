@@ -128,7 +128,7 @@
 				}
 				echo '<li>',$news[$i]["content"],'</li>',"\n";
 				echo '<li class="date">',date('d M\, Y', strtotime($news[$i]['date'])),'</li>',"\n";
-				echo '<br class="clear" />',"\n";
+				echo '<li><br class="clear" /></li>',"\n";
 			}
 			echo '</ul>',"\n";
 			$npage++;

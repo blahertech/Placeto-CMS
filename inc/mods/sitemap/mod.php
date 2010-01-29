@@ -14,7 +14,7 @@
 	//displays the sitemap page
 	function placeto_sitemap_page()
 	{
-		global $prefix;
+		global $prefix, $lstcnt;
 		
 		//fetch the content pages
 		$query=mysql_query('SELECT * FROM '.$prefix.'content WHERE dependent!=1 ORDER BY page');
@@ -28,6 +28,8 @@
 		//recursion function
 		function sitemap_loop(&$pages, $lca, &$upages)
 		{
+			global $lstcnt;
+			
 			//display the page
 			echo '<li>','<strong><a href="',$lca,'">',$pages[$lca]['header'],'</a></strong> - ',$pages[$lca]['desc'];
 			//make sure the page isn't displayed twice
@@ -58,7 +60,17 @@
 				}
 			}
 			
-			//done wit dis one
+			//for the second to last ul closing
+			if (count($upages)===0 && $lstcnt===1)
+			{
+				echo '</ul>';
+			}
+			else if (count($upages)===0)
+			{
+				$lstcnt=1;
+			}
+			
+			//done wit dis won
 			unset($s, $e, $page, $lca);
 			echo '</li>';
 		}
@@ -66,10 +78,11 @@
 		//our main ul, the home page
 		echo '<ul id="sitemap">',"\n";
 		$upages=$pages;
+		$lstcnt=0;
 		//let's begin the madness, shall we?
 		sitemap_loop($pages, '/', $upages);
-		unset($pages, $upages);
-		echo '</ul></ul>',"\n";
+		unset($pages, $upages, $lstcnt);
+		echo '</ul>',"\n";
 
 		//that was unexpected
 		unset($pages);

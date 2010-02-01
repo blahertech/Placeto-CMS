@@ -105,7 +105,7 @@
 	if ($nf)
 	{
 		//where's waldo?
-		$tmpfile='templates/'.$config['template'].$location;
+		$tmpfile='templates/'.$prefs['template'].$location;
 		$mbase=str_ireplace('mods/_cache/mod.php', '', __FILE__);
 
 		//found it

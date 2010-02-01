@@ -85,7 +85,7 @@
 					
 					<!-- Copyright -->
 					<div id="copy">
-						<?php placeto('copyright'); ?>,
+						<?php placeto('copyright'); ?>.
 						All rights reserved.
 					</div>
 					<!-- End Copyright -->

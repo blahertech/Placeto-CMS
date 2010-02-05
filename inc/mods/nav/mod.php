@@ -81,6 +81,15 @@
 		//echo out the list
 		for ($i=0; $i<$navrows; $i++)
 		{
+			if ($nav[$i]['title']=='')
+			{
+				if ($tmptitle=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'content WHERE page='.$nav[$i]['link'])))
+				{
+					$nav[$i]['title']=$tmptitle;
+					unset($tmptitle);
+				}
+			}
+			
 			if ($nav[$i]['link']===$navactive)
 			{
 				echo '<li class="active"><a href=".',$nav[$i]['link'],'" rel="index">',$nav[$i]['title'],"</a></li>\n";

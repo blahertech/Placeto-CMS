@@ -17,5 +17,7 @@
 	*	Also leave a comment for each function to help developers distinguish what it does.
 	**/
 
-	function placeto_hello_world(){} // Echos "Hello World" and other variations
+	//for each function, you should have it return a string of what it does
+
+	function placeto_hello_world(){return 'Print "Hello World!"';} // Echos "Hello World" and other variations
 ?>

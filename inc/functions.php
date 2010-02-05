@@ -120,4 +120,10 @@
 			return false;
 		}
 	}
+	
+	//mike's safe function
+	function placeto_safe($input)
+	{
+		
+	}
 ?>

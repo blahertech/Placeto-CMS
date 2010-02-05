@@ -12,4 +12,5 @@
 	**/
 
 	function placeto_cache_browser($filemtime){} // adds browser caching
+	function placeto_cache_clear(){} // whipes the cache directory, to start anew
 ?>

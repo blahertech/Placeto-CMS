@@ -23,6 +23,6 @@
 		'author'=>'Benjamin Jay Young', // Author
 		'version'=>'1.0', // Version number
 		'description'=>'This module is used to show how Placeto\'s mods should be set up.', // Description of mod
-		'release'=>'2009-04-28' // Release date
+		'release'=>'2010-02-05' // Release date
 	);
 ?>

@@ -100,6 +100,12 @@
 		unset($expires, $etag);
 		header('Vary: Accept-Encoding');
 	}
+	
+	//cache clear function
+	function placeto_cache_clear()
+	{
+		
+	}
 
 	//browser cache checking
 	if ($nf)

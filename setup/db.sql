@@ -2,7 +2,7 @@
 --	Placeto Setup
 --		This is the installation process portion of Placeto CMS.
 --
---	Copyright (C) 2009 BlaherTech
+--	Copyright (C) 2009-2010 BlaherTech
 --
 --	This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 --	This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `preferences`
 	`copyright` varchar(64) CHARACTER SET utf8 NOT NULL DEFAULT 'Your Copyright Message Here' COMMENT 'Copyright statement',
 	`adminemail` varchar(32) CHARACTER SET utf8 NOT NULL DEFAULT 'admin@test.com' COMMENT 'Web admin email',
 	`template` varchar(256) COLLATE latin1_general_ci NOT NULL DEFAULT 'default' COMMENT 'Placeto Template'
-) ENGINE=MEMORY DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Preferences';;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Placeto Preferences';;
 -- end prefs
 
 

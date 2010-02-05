@@ -5,7 +5,10 @@ Alpha Rv.4
 * Added Downloads Mod
 * Added placeto_cache_clear() to Cache Mod
 * Added Sitemap mod
-* Added multiple site support
+* Added a Injection safe function
+* Revised the Hello World mod Documentation
+* Optimized the Database
+* Moved the template settings fron config to DB
 
 Alpha Rv.3
 * Added security by rename mod's index.php to mod.php

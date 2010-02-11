@@ -38,7 +38,7 @@
                 <div id="bottom"></div>
             </div>
             <div id="copy">
-                Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009
+                Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
             </div>
         </div>
     </body>

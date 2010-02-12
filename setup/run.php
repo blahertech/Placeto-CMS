@@ -358,10 +358,10 @@
 		
 		//bring me to your leader
 ?>
-                <form method="post" action="../">
-                    <input type="hidden" name="placeto_user" value="<?php echo $_POST['db_user']; ?>" />
-                    <input type="hidden" name="placeto_pass" value="<?php echo $_POST['db_pass']; ?>" />
-                    <input type="submit" value="Go to Admin" />
+                <form method="post" action="../admin/login.php">
+                    <input type="hidden" name="myuser" value="<?php echo $_POST['db_user']; ?>" />
+                    <input type="hidden" name="mypass" value="<?php echo $_POST['db_pass']; ?>" />
+                    <input type="submit" name="submit" value="Go to Admin" />
                 </form>
 <?php
 	}

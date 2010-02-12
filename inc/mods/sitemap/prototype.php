@@ -13,6 +13,6 @@
 	*	You should have received a copy of the GNU General Public License along with this program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	**/
 
-	function placeto_sitemap_page(return 'Sitemap page';){} // Page for visitors exploring
-	function placeto_sitemap_xml_page(return 'Sitemap.xml page';){} // Google sitemap page
+	function placeto_sitemap_page(){return 'Sitemap page';} // Page for visitors exploring
+	function placeto_sitemap_xml_page(){return 'Sitemap.xml page';} // Google sitemap page
 ?>

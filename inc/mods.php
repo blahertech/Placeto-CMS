@@ -38,7 +38,7 @@
 			$mpre=1;
 			$mfile=substr($mfile, 1);
 		}
-		
+
 		//include enabled mods
 		if (!strrpos($mfile, '.') && $mfile!=='.' && $mod_starts[$mfile]['enable'])
 		{

@@ -67,11 +67,19 @@
 						</tbody>
                     </table><br />
                     
+                    <label for="action">Actions: </label>
                     <select name="action">
+                    	<option value="">---</option>
                     	<option value="del">Delete</option>
                     </select>
                     <input type="submit" name="submit" value="Submit" />
                     
+                    </form>
+                    <br />
+                    <form action="./new.php">
+                    	<label for="page">New page: </label>
+                    	<input type="text" name="page" />
+                        <input type="submit" value="Add" />
                     </form>
 				</div>
 				<div id="bottom"></div>

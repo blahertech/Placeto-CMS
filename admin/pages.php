@@ -50,7 +50,29 @@
 					</a>
 				</div>
 				<div id="content">
-					
+                	<a href="./index.php">&lt;&lt; Go Back</a><br /><br />
+                
+                	<form method="post"><table>
+                    	<thead><tr><td></td><th>Page</th><th>Title</th><th>Modifed</th><th>Actions</th></tr></thead>
+                        <tbody>
+<?php
+	$result=mysql_query('SELECT * FROM '.$prefix.'content');
+	while ($page=mysql_fetch_assoc($result))
+	{
+?>
+							<tr><td><input type="checkbox" name="<?php echo $page['page']; ?>" /></td><td><a href="./edit.php?page=<?php echo $page['page']; ?>"><?php echo $page['page']; ?></a></td><td><?php echo $page['title']; ?></td><td><?php echo $page['lastmod']; ?></td><td><a href="..<?php echo $page['page']; ?>">View</a> <a href="./delete.php?page=<?php echo $page['page']; ?>">Delete</a> <a href="./edit.php?page=<?php echo $page['page']; ?>">Edit</a></td></tr>
+<?php
+	}
+?>
+						</tbody>
+                    </table><br />
+                    
+                    <select name="action">
+                    	<option value="del">Delete</option>
+                    </select>
+                    <input type="submit" name="submit" value="Submit" />
+                    
+                    </form>
 				</div>
 				<div id="bottom"></div>
 			</div>

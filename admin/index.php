@@ -15,12 +15,14 @@
 	*	//////////////////////////////////////////////////
 	*/
 	
+	session_start();
+	
 	include('./inc/functions.php');
 	include('../inc/config.php');
 	placeto_config_unset();
 	include('./key.php');
 	
-	if (!$mysql=mysql_connect($sql_login['server'], placeto_safe($_SESSION['myuser']), placeto_key_decrypt(placeto_safe($_SESSION['mypass']), $key)))
+	if (!$mysql=@mysql_connect($sql_login['server'], placeto_safe_sql($_SESSION['myuser']), placeto_key_decrypt(placeto_safe_sql($_SESSION['mypass']), $key)))
 	{
 		header('Location: ./login.php');
 		die();

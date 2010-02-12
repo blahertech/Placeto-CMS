@@ -103,10 +103,27 @@
 		 
 		return $variable;
 	}
+	function placeto_safe_sql($variable)
+	{
+		$variable = str_replace('\r', '', $variable);
+		$variable = str_replace('\n', '', $variable);
+		$variable = str_replace('\t', '', $variable);
+		  
+		if (get_magic_quotes_gpc())
+		{ 
+			$variable = stripslashes($variable); 
+		}
+		
+		$variable = htmlentities($variable, ENT_QUOTES);
+		  
+		$variable = strip_tags($variable);
+		 
+		return $variable;
+	}
 	
 	function placeto_config_unset()
 	{
 		global $sql_login;
-		unset $sql_login['user'], $sql_login['pass'];
+		unset($sql_login['user'], $sql_login['pass']);
 	}
 ?>

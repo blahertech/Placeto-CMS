@@ -14,9 +14,6 @@
 	*
 	*	//////////////////////////////////////////////////
 	*/
-
-	header('Location: ./index.php');
-	die();
 	
 	$key=md5('mysecretkey');
 ?>

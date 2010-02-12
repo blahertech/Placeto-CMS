@@ -215,6 +215,9 @@
 		{
 			$sqldata=str_replace('CREATE TABLE IF NOT EXISTS `', 'CREATE TABLE IF NOT EXISTS `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
 			$sqldata=str_replace('INSERT INTO `', 'INSERT INTO `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('ALTER TABLE `', 'ALTER TABLE `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('ADD CONSTRAINT `', 'ADD CONSTRAINT `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('REFERENCES `', 'REFERENCES `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
 		}
 		
 		//why I had to do it this way, don't ask

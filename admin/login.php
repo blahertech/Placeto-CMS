@@ -21,15 +21,20 @@
 	{
 		include('./inc/functions.php');
 		include('../inc/config.php');
+		include('./key.php');
 		placeto_config_unset();
 		
-		if (mysql_connect($sql_login['server'], placeto_safe($_POST['myuser']), placeto_safe($_POST['mypass'])))
+		if (@mysql_connect($sql_login['server'], placeto_safe_sql($_POST['myuser']), placeto_safe_sql($_POST['mypass'])))
 		{
 			include('./key.php');
-			$_SESION['myuser']=placeto_safe($_POST['myuser']);
-			$_SESION['myuser']=placeto_key_encrypt(placeto_safe($_POST['mypass'], $key));
+			$_SESSION['myuser']=placeto_safe($_POST['myuser']);
+			$_SESSION['mypass']=placeto_key_encrypt(placeto_safe($_POST['mypass']), $key);
 			header('Location: ./index.php');
 			die();
+		}
+		else
+		{
+			$wrong=true;
 		}
 	}
 ?>
@@ -51,6 +56,7 @@
 					</a>
 				</div>
 				<div id="content">
+                	<?php if($wrong){echo '<strong>Login failed!</strong>';}?>
 					<form id="login" method="post">
                     	<label for="myuser">
                         	MySQL User:

@@ -23,7 +23,7 @@
 		<!-- Metadata -->
 		<meta http-equiv="content-type" name="type" content="text/html; charset=utf-8" />
 		<meta http-equiv="content-language" name="language" content="en" />
-		<meta name="description" content="<?php placeto('desc'); ?>" />
+		<meta name="description" content="<?php placeto('description'); ?>" />
 		<meta name="keywords" content="<?php placeto('keywords'); ?>" />
 		<meta name="revised" content="<?php placeto('lastmod'); ?>" />
 		<meta name="robots" content="all" />

@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `content`
 (
 	`page` varchar(256) COLLATE latin1_general_ci NOT NULL COMMENT 'Page URI',
 	`title` mediumtext CHARACTER SET utf8 COMMENT 'Browser page title',
-	`desc` mediumtext CHARACTER SET utf8 COMMENT 'META description',
+	`description` mediumtext CHARACTER SET utf8 COMMENT 'META description',
 	`keywords` mediumtext CHARACTER SET utf8 COMMENT 'META keywords',
 	`header` mediumtext CHARACTER SET utf8 COMMENT 'Page header',
 	`content` longtext CHARACTER SET utf8 NOT NULL COMMENT 'Content',
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `content`
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Content pages';;
 
 -- content samples
-INSERT INTO `content` (`page`, `title`, `desc`, `keywords`, `header`, `content`, `dependent`, `dependentparam`, `dynamic`, `lastmod`) VALUES
+INSERT INTO `content` (`page`, `title`, `description`, `keywords`, `header`, `content`, `dependent`, `dependentparam`, `dynamic`, `lastmod`) VALUES
 	('/', 'Home Page', 'This is the home page', 'home, page', 'Welcome to your new Website!', 'Welcome to the Home page', 0, NULL, 0, NOW()),
 	('/error', 'Page not found', 'This is the 40x error page', 'Page, Not Found, 404, Error, no result, search', 'Page Not Found:', 'This page was not found. Please go back.', 0, NULL, 0, NOW()),
 	('/about', 'About Us', 'This is the about page', 'about, us', 'About Us', 'about us', 0, NULL, 0, NOW()),

@@ -64,6 +64,7 @@
 					</a>
 				</div>
 				<div id="content">
+                	<a href="./logout.php">Logout</a><br />
                 	<a href="./pages.php">&lt;&lt; Go Back</a><br /><br />
                 
                 	<div id="alerts">

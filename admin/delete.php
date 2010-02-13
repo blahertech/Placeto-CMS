@@ -31,6 +31,27 @@
 	@mysql_select_db($sql_login['db'], $mysql);
 	$prefix=$sql_login['prefix'];
 	unset($sql_login);
+	
+	if (isset($_GET['page']))
+	{
+		foreach ($_GET['page'] as $p)
+		{
+			if ($_GET['confirm'])
+			{
+				mysql_query('DELETE FROM '.$prefix.'content WHERE page="'.$p.'"');
+			}
+		}
+		if ($_GET['confirm'])
+		{
+			header('Location: ./pages.php');
+			die();
+		}
+	}
+	else
+	{
+		//header('Location: ./pages.php');
+		die();
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -51,9 +72,27 @@
 				</div>
 				<div id="content">
                 	<a href="./logout.php">Logout</a><br />
-					<ul>
-                    	<li><a href="./pages.php">Pages</a></li>
-                    </ul>
+                	<a href="./pages.php">&lt;&lt; Go Back</a><br /><br />
+
+                    <form action="./delete.php">
+                    	<p>Are you sure you want to delete page(s):</p>
+                        <ul>
+<?php
+	foreach ($_GET['page'] as $p)
+	{
+		echo '<li>',$p,'</li>';
+	}
+?>
+						</ul>
+<?php
+	foreach ($_GET['page'] as $p)
+	{
+		echo '<input type="hidden" name="page[]" value="'.$p.'" />',"\n";
+	}
+?>
+                    	<input type="hidden" name="confirm" value="true" />
+                        <input type="submit" value="Confirm" />
+                    </form>
 				</div>
 				<div id="bottom"></div>
 			</div>

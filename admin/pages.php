@@ -31,6 +31,21 @@
 	@mysql_select_db($sql_login['db'], $mysql);
 	$prefix=$sql_login['prefix'];
 	unset($sql_login);
+	
+	if (isset($_POST['action']))
+	{
+		if ($_POST['action']==='del')
+		{
+			$getstr='';
+			foreach ($_POST['page'] as $p)
+			{
+				$getstr.='page[]='.$p.'&';
+			}
+			$getstr=substr($getstr, 0, strlen($getstr)-1);
+	
+			header('Location: delete.php?'.$getstr);
+		}
+	}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -50,6 +65,7 @@
 					</a>
 				</div>
 				<div id="content">
+                	<a href="./logout.php">Logout</a><br />
                 	<a href="./index.php">&lt;&lt; Go Back</a><br /><br />
                 
                 	<form method="post"><table>
@@ -60,7 +76,7 @@
 	while ($page=mysql_fetch_assoc($result))
 	{
 ?>
-							<tr><td><input type="checkbox" name="<?php echo $page['page']; ?>" /></td><td><a href="./edit.php?page=<?php echo $page['page']; ?>"><?php echo $page['page']; ?></a></td><td><?php echo $page['title']; ?></td><td><?php echo $page['lastmod']; ?></td><td><a href="..<?php echo $page['page']; ?>">View</a> <a href="./delete.php?page=<?php echo $page['page']; ?>">Delete</a> <a href="./edit.php?page=<?php echo $page['page']; ?>">Edit</a></td></tr>
+							<tr><td><input type="checkbox" name="page[]" value="<?php echo $page['page']; ?>" /></td><td><a href="./edit.php?page=<?php echo $page['page']; ?>"><?php echo $page['page']; ?></a></td><td><?php echo $page['title']; ?></td><td><?php echo $page['lastmod']; ?></td><td><a href="..<?php echo $page['page']; ?>">View</a> <a href="./delete.php?page[]=<?php echo $page['page']; ?>">Delete</a> <a href="./edit.php?page=<?php echo $page['page']; ?>">Edit</a></td></tr>
 <?php
 	}
 ?>
@@ -76,9 +92,9 @@
                     
                     </form>
                     <br />
-                    <form action="./new.php">
+                    <form action="./add.php">
                     	<label for="page">New page: </label>
-                    	<input type="text" name="page" />
+                    	<input type="text" name="page" value="/untitled" />
                         <input type="submit" value="Add" />
                     </form>
 				</div>

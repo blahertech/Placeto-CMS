@@ -9,6 +9,8 @@ Alpha Rv.4
 * Revised the Hello World mod Documentation
 * Optimized the Database
 * Moved the template settings fron config to DB
+* Renamed desc to description
+* Added working draft for the admin
 
 Alpha Rv.3
 * Added security by rename mod's index.php to mod.php

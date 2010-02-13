@@ -31,35 +31,8 @@
 	@mysql_select_db($sql_login['db'], $mysql);
 	$prefix=$sql_login['prefix'];
 	unset($sql_login);
+	
+	mysql_query('INSERT INTO '.$prefix.'content (page, title, content, lastmod) VALUES ("'.$_GET['page'].'", "Untitled Document", "", NOW())');
+	header('Location: ./edit.php?page='.$_GET['page']);
+	die();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="include/styles.css" />
-		<link rel="shortcut icon" href="../admin/images/favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
-		<title>Placeto</title>
-	</head>
-	<body>
-		<div id="container">
-			<div id="box">
-				<div id="top">
-					<a href="/">
-						<img id="logo" src="images/logo.png" alt="Placeto" />
-					</a>
-				</div>
-				<div id="content">
-                	<a href="./logout.php">Logout</a><br />
-					<ul>
-                    	<li><a href="./pages.php">Pages</a></li>
-                    </ul>
-				</div>
-				<div id="bottom"></div>
-			</div>
-			<div id="copy">
-				Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
-			</div>
-		</div>
-	</body>
-</html>

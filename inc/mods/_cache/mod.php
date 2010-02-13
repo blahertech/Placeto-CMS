@@ -106,7 +106,14 @@
 	//cache clear function
 	function placeto_cache_clear()
 	{
-		
+		$files=scandir('../.cache/');
+		foreach ($files as $file)
+		{
+			if ($file!=='.' || $file!=='..')
+			{
+				unlink($page);
+			}
+		}
 	}
 
 	//browser cache checking

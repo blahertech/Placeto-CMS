@@ -122,8 +122,49 @@
 	}
 	
 	//mike's safe function
-	function placeto_safe($input)
+	function placeto_safe($variable)
 	{
+		$variable = str_replace('\r', '', $variable);
+		$variable = str_replace('\n', '', $variable);
+		$variable = str_replace('\t', '', $variable);
+		  
+		if (get_magic_quotes_gpc())
+		{ 
+			$variable = stripslashes($variable); 
+		}
 		
+		$variable = htmlentities($variable, ENT_QUOTES);
+		  
+		$variable = strip_tags($variable);
+		$variable = mysql_real_escape_string(trim($variable));
+		 
+		return $variable;
+	}
+	function placeto_safe_html($variable)
+	{
+		if (get_magic_quotes_gpc())
+		{ 
+			$variable = stripslashes($variable); 
+		}
+		$variable = mysql_real_escape_string(trim($variable));
+		 
+		return $variable;
+	}
+	function placeto_safe_sql($variable)
+	{
+		$variable = str_replace('\r', '', $variable);
+		$variable = str_replace('\n', '', $variable);
+		$variable = str_replace('\t', '', $variable);
+		  
+		if (get_magic_quotes_gpc())
+		{ 
+			$variable = stripslashes($variable); 
+		}
+		
+		$variable = htmlentities($variable, ENT_QUOTES);
+		  
+		$variable = strip_tags($variable);
+		 
+		return $variable;
 	}
 ?>

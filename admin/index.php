@@ -45,7 +45,7 @@
 		<div id="container">
 			<div id="box">
 				<div id="top">
-					<a href="/">
+					<a href="./">
 						<img id="logo" src="images/logo.png" alt="Placeto" />
 					</a>
 				</div>

@@ -20,6 +20,10 @@ a img
 {
 	border: 0 none;
 }
+textarea
+{
+	width: 100%;
+}
 #container
 {
 	background: url("../images/bg2.png") no-repeat top center;
@@ -66,4 +70,8 @@ a img
 #copy a, #copy a:link, #copy a:visited
 {
 	color: #fff;
+}
+#EditAreaArroundInfos_cnt
+{
+	display: none;
 }

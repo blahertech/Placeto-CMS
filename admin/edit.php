@@ -40,7 +40,7 @@
 	
 	if (isset($_POST['submit']))
 	{
-		mysql_query('UPDATE '.$prefix.'content SET title="'.placeto_safe($_POST['title']).'", description="'.placeto_safe($_POST['description']).'", keywords="'.placeto_safe($_POST['keywords']).'", header="'.placeto_safe($_POST['header']).'", content="'.placeto_safe_html($_POST['cnt']).'", dependent="'.placeto_safe($_POST['dep']).'", dependentparam="'.placeto_safe($_POST['depp']).'", dynamic="'.placeto_safe($_POST['dynamic']).'" WHERE '.$prefix.'content.page="'.placeto_safe($_POST['before']).'"');
+		mysql_query('UPDATE '.$prefix.'content SET title="'.placeto_safe($_POST['title']).'", description="'.placeto_safe($_POST['description']).'", keywords="'.placeto_safe($_POST['keywords']).'", header="'.placeto_safe($_POST['header']).'", content="'.placeto_safe_html(htmlspecialchars_decode($_POST['cnt'], ENT_QUOTES)).'", dependent="'.placeto_safe($_POST['dep']).'", dependentparam="'.placeto_safe($_POST['depp']).'", dynamic="'.placeto_safe($_POST['dynamic']).'" WHERE '.$prefix.'content.page="'.placeto_safe($_POST['before']).'"');
 		mysql_query('UPDATE '.$prefix.'content SET page="'.placeto_safe($_POST['page']).'" WHERE '.$prefix.'content.page="'.placeto_safe($_POST['before']).'"');
 		header('Location: ./edit.php?page='.placeto_safe($_POST['page']));
 	}
@@ -54,6 +54,7 @@
 		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
 		<title>Placeto</title>
         <script type="text/javascript" src="./include/ckeditor/ckeditor.js"></script>
+        <script type="text/javascript" src="./include/editarea/edit_area_full.js"></script>
 	</head>
 	<body>
 		<div id="container">
@@ -79,7 +80,7 @@
                     
                     <form action="edit.php?page=<?php echo $_GET['page']; ?>" method="post" id="editor">
                     	<input type="hidden" name="before" value="<?php echo $_GET['page']; ?>" />
-                    
+                    	
                         <label for="page">URI:</label><br />
                         <input type="text" name="page" value="<?php echo $content['page']; ?>" /><br />
                         
@@ -96,12 +97,12 @@
                         <input type="text" name="header" value="<?php echo $content['header']; ?>" /><br />
                         
                         <label for="cnt">Content:</label><br />
-                        <textarea id="cnt" name="cnt" rows="10" cols="60"><?php echo $content['content']; ?></textarea><br />
-                        <script type="text/javascript">
-                        //<![CDATA[
-                            CKEDITOR.replace('cnt');
-                        //]]>
-                        </script>
+                        <textarea id="cnt" name="cnt" rows="10" cols="60"><?php echo htmlspecialchars($content['content'], ENT_QUOTES, 'UTF-8', true); ?></textarea><br />
+                        <select name="editorsel" id="editorsel" onchange="placeto_editor(this);">
+                        	<option value="wysiwyg" selected="selected">WYSIWYG</option>
+                            <option value="source">Source</option>
+                            <option value="none">None</option>
+                        </select><br />
                         
                         <label for="dep">Dependent:</label><br />
                         <select name="dep">
@@ -128,5 +129,6 @@
 				Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
 			</div>
 		</div>
+        <script type="text/javascript" src="./include/editor.js"></script>
 	</body>
 </html>

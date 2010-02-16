@@ -38,7 +38,7 @@
 	}
 	
 	require('./inc/template.php');
-	template_header();
+	template_header_login();
 ?>
 		<title>Placeto CMS - Login</title>
 <?php intro_box_top(); ?>

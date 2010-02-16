@@ -53,7 +53,8 @@
         <script type="text/javascript" src="./include/editarea/edit_area_full.js"></script>
 <?php template_box_top(); ?>
                 	<a href="./logout.php">Logout</a><br />
-                	<a href="./pages.php">&lt;&lt; Go Back</a><br /><br />
+                	<a href="./pages.php">&lt;&lt; Go Back</a><br />
+                    <a href="..<?php echo $_GET['page']; ?>">View Page</a><br /><br />
                 
                 	<div id="alerts">
                         <noscript>

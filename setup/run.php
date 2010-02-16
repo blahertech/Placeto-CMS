@@ -25,10 +25,10 @@
         <link rel="shortcut icon" href="../admin/images/favicon.ico" type="image/x-icon" />
 		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
         <title>Placeto - Setup</title>
-    </head>
 <?php
 	//top of the template
-	include('inc/template.php');
+	require('../admin/inc/template.php');
+	require('../admin/inc/functions.php');
 	intro_box_top();
 	if (!$pass)
 	{
@@ -54,7 +54,7 @@
                     </form>
 <?php
 	}
-	else if ($_GET['step']==='1')
+	else if (placeto_safe_sql($_GET['step'])==='1')
 	{
 		//db info
 ?>
@@ -83,15 +83,15 @@
                     </form>
 <?php
 	}
-	else if ($_GET['step']==='2')
+	else if (placeto_safe_sql($_GET['step'])==='2')
 	{
 		//check db connection
 		$db_error=0;
-		@$mysql=mysql_connect($_POST['db_server'], $_POST['db_user'], $_POST['db_pass']) or $db_error=1;
+		@$mysql=mysql_connect(placeto_safe_sql($_POST['db_server']), placeto_safe_sql($_POST['db_user']), placeto_safe_sql($_POST['db_pass'])) or $db_error=1;
 		
 		if ($db_error===0)
 		{
-			if (mysql_select_db($_POST['db_name'], $mysql) && !$_POST['db_name'])
+			if (mysql_select_db(placeto_safe($_POST['db_name']), $mysql) && !$_POST['db_name'])
 			{
 				//check if they can select
 				$db_error=2;
@@ -102,7 +102,7 @@
 			if ($_POST['db_create'])
 			{
 				//check if they can create
-				@mysql_query('CREATE DATABASE '.mysql_real_escape_string($_POST['db_name']), $mysql) or $db_error=3;
+				@mysql_query('CREATE DATABASE '.placeto_safe($_POST['db_name']), $mysql) or $db_error=3;
 			}
 			else if (!mysql_select_db($_POST['db_name'], $mysql))
 			{
@@ -196,14 +196,14 @@
 		}
 		unset($db_error);
 	}
-	else if ($_GET['step']==='3')
+	else if (placeto_safe_sql($_GET['step'])==='3')
 	{
 		//setup the db
 ?>
 				<h1>Placeto Checking Setup</h1>
 <?php
-		$mysql=mysql_connect($_POST['db_server'], $_POST['db_user'], $_POST['db_pass']);
-		mysql_select_db($_POST['db_name'], $mysql);
+		$mysql=mysql_connect(placeto_safe_sql($_POST['db_server']), placeto_safe_sql($_POST['db_user']), placeto_safe_sql($_POST['db_pass']));
+		mysql_select_db(placeto_safe($_POST['db_name']), $mysql);
 		
 		//import sql commands file
 		$sqlfile=fopen('db.sql', 'r');
@@ -213,11 +213,11 @@
 		//set prefix if set
 		if ($_POST['db_prefix'])
 		{
-			$sqldata=str_replace('CREATE TABLE IF NOT EXISTS `', 'CREATE TABLE IF NOT EXISTS `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
-			$sqldata=str_replace('INSERT INTO `', 'INSERT INTO `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
-			$sqldata=str_replace('ALTER TABLE `', 'ALTER TABLE `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
-			$sqldata=str_replace('ADD CONSTRAINT `', 'ADD CONSTRAINT `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
-			$sqldata=str_replace('REFERENCES `', 'REFERENCES `'.mysql_real_escape_string($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('CREATE TABLE IF NOT EXISTS `', 'CREATE TABLE IF NOT EXISTS `'.placeto_safe($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('INSERT INTO `', 'INSERT INTO `'.placeto_safe($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('ALTER TABLE `', 'ALTER TABLE `'.placeto_safe($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('ADD CONSTRAINT `', 'ADD CONSTRAINT `'.placeto_safe($_POST['db_prefix']), $sqldata);
+			$sqldata=str_replace('REFERENCES `', 'REFERENCES `'.placeto_safe($_POST['db_prefix']), $sqldata);
 		}
 		
 		//why I had to do it this way, don't ask
@@ -259,7 +259,7 @@
 			}
 			
 			//configgy!
-			$configcnt="<?php\n\t\$config['site']='http://".$_SERVER['HTTP_HOST']."';\n\t\$config['directory']='".$dirc."';\n\n\t\$sql_login['server']='".$_POST['db_server']."';\n\t\$sql_login['user']='".$_POST['db_user']."';\n\t\$sql_login['pass']='".$_POST['db_pass']."';\n\t\$sql_login['db']='".$_POST['db_name']."';\n\t\$sql_login['prefix']='".$_POST['db_prefix']."';\n\t\$sql_login['die']='Databases failed, please contact the website admin.';\n\n\t\$config['encode']='utf-8';\n\t\$config['type']='text/html; charset='.\$config['encode'];\n?>";
+			$configcnt="<?php\n\t\$config['site']='http://".$_SERVER['HTTP_HOST']."';\n\t\$config['directory']='".$dirc."';\n\n\t\$sql_login['server']='".$_POST['db_server']."';\n\t\$sql_login['user']='".placeto_safe_sql($_POST['db_user'])."';\n\t\$sql_login['pass']='".placeto_safe_sql($_POST['db_pass'])."';\n\t\$sql_login['db']='".placeto_safe_sql($_POST['db_name'])."';\n\t\$sql_login['prefix']='".$_POST['db_prefix']."';\n\t\$sql_login['die']='Databases failed, please contact the website admin.';\n\n\t\$config['encode']='utf-8';\n\t\$config['type']='text/html; charset='.\$config['encode'];\n?>";
 			
 			unset($dirc);
 			@unlink('../config.php');
@@ -302,7 +302,7 @@
 		}
 		unset($sqlstmt, $sqlec, $sqlet);
 	}
-	else if ($_GET['step']==='4')
+	else if (placeto_safe_sql($_GET['step'])==='4')
 	{
 		//preferences
 ?>
@@ -331,12 +331,12 @@
                 </form>
 <?php
 	}
-	else if ($_GET['step']==='5')
+	else if (placeto_safe_sql($_GET['step'])==='5')
 	{
 		//complete
-		$mysql=mysql_connect($_POST['db_server'], $_POST['db_user'], $_POST['db_pass']);
-		mysql_select_db($_POST['db_name'], $mysql);
-		$query='INSERT INTO '.mysql_real_escape_string($_POST['db_prefix'])."preferences (name, owner, copyright, adminemail, template) VALUES ('".mysql_real_escape_string($_POST['site'])."', '".mysql_real_escape_string($_POST['name'])."', '".mysql_real_escape_string($_POST['copyright'])."', '".mysql_real_escape_string($_POST['admin'])."', 'default')";
+		$mysql=mysql_connect(placeto_safe_sql($_POST['db_server']), placeto_safe_sql($_POST['db_user']), placeto_safe_sql($_POST['db_pass']));
+		mysql_select_db(placeto_safe($_POST['db_name']), $mysql);
+		$query='INSERT INTO '.placeto_safe($_POST['db_prefix'])."preferences (name, owner, copyright, adminemail, template) VALUES ('".placeto_safe($_POST['site'])."', '".placeto_safe($_POST['name'])."', '".placeto_safe($_POST['copyright'])."', '".placeto_safe($_POST['admin'])."', 'default')";
 		mysql_query($query);
 		mysql_close($mysql);
 		unset($mysql, $query);

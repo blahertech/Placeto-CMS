@@ -24,7 +24,19 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="include/styles.css" />
+		<link rel="stylesheet" type="text/css" href="../admin/include/styles.css" />
+		<link rel="shortcut icon" href="../admin/images/favicon.ico" type="image/x-icon" />
+		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
+<?php
+	}
+	function template_header_login()
+	{
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="include/login.css" />
 		<link rel="shortcut icon" href="../admin/images/favicon.ico" type="image/x-icon" />
 		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
 <?php
@@ -38,7 +50,7 @@
         <div id="container">
             <div id="box">
                 <div id="top">
-                    <a href="/">
+                    <a href="./">
                         <img id="logo" src="../admin/images/logo.png" alt="Placeto" />
                     </a>
                 </div>
@@ -68,7 +80,7 @@
 			<div id="box">
 				<div id="top">
 					<a href="./">
-						<img id="logo" src="images/logo.png" alt="Placeto" />
+						<img id="logo" src="../admin/images/logo.png" alt="Placeto" />
 					</a>
 				</div>
 				<div id="content">

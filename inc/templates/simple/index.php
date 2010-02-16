@@ -48,7 +48,7 @@
 		<!-- End Content -->
 		<br /><br /><br />
 		<!-- Copyright -->
-		<?php placeto('copyright'); ?>,<br />
-		All rights reserved.
+		<?php placeto('copyright'); ?>, All rights reserved.<br />
+        Powered by <a href="http://www.blahertech.org/projects/placeto/">Placeto CMS</a>
 	</body>
 </html>

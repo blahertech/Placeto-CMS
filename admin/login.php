@@ -19,14 +19,13 @@
 	
 	if (isset($_POST['submit']))
 	{
-		include('./inc/functions.php');
-		include('../inc/config.php');
-		include('./key.php');
+		require('./inc/functions.php');
+		require('../inc/config.php');
 		placeto_config_unset();
+		require('./key.php');
 		
 		if (@mysql_connect($sql_login['server'], placeto_safe_sql($_POST['myuser']), placeto_safe_sql($_POST['mypass'])))
 		{
-			include('./key.php');
 			$_SESSION['myuser']=placeto_safe($_POST['myuser']);
 			$_SESSION['mypass']=placeto_key_encrypt(placeto_safe($_POST['mypass']), $key);
 			header('Location: ./index.php');
@@ -37,25 +36,12 @@
 			$wrong=true;
 		}
 	}
+	
+	require('./inc/template.php');
+	template_header();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="./include/login.css" />
-		<link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="./images/favicon.ico" type="image/x-icon"/>
-		<title>Placeto</title>
-	</head>
-	<body>
-		<div id="container">
-			<div id="box">
-				<div id="top">
-					<a href="/">
-						<img id="logo" src="images/logo.png" alt="Placeto" />
-					</a>
-				</div>
-				<div id="content">
+		<title>Placeto CMS - Login</title>
+<?php intro_box_top(); ?>
                 	<?php if($wrong){echo '<div style="text-align:center;"><strong>Login failed!</strong></div><br />';}?>
 					<form id="login" method="post">
                     	<label for="myuser">
@@ -70,12 +56,4 @@
                         
                         <input type="submit" name="submit" value="Submit" />
                     </form>
-				</div>
-				<div id="bottom"></div>
-			</div>
-			<div id="copy">
-				Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
-			</div>
-		</div>
-	</body>
-</html>
+<?php intro_box_bottom(); ?>

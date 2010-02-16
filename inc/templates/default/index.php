@@ -87,8 +87,8 @@
 					
 					<!-- Copyright -->
 					<div id="copy">
-						<?php placeto('copyright'); ?>.
-						All rights reserved.
+						<?php placeto('copyright'); ?>, All rights reserved.<br />
+                        Powered by <a href="http://www.blahertech.org/projects/placeto/">Placeto CMS</a>
 					</div>
 					<!-- End Copyright -->
 				</div>

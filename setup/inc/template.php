@@ -14,34 +14,35 @@
 	*	
 	*	//////////////////////////////////////////////////
 	*
-	*	templae.php consists of the functions to be used in the html design of the setup pages.
+	*	template.php consists of the functions to be used in the html design of the setup pages.
 	**/
 
 	function intro_box_top()
 	{
 ?>
-    <body>
-        <div id="container">
-            <div id="box">
-                <div id="top">
-                    <a href="/">
-                        <img id="logo" src="../admin/images/logo.png" alt="Placeto" />
-                    </a>
-                </div>
-                <div id="content">
+	<body>
+		<div id="container">
+			<div id="box">
+				<div id="top">
+					<a href="./">
+						<img id="logo" src="images/logo.png" alt="Placeto" />
+					</a>
+				</div>
+				<div id="content">
 <?php
 	}
 	function intro_box_bottom()
 	{
 ?>
-                </div>
-                <div id="bottom"></div>
-            </div>
-            <div id="copy">
-                Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
-            </div>
-        </div>
-    </body>
+				</div>
+				<div id="bottom"></div>
+			</div>
+			<div id="copy">
+				<a href="http://www.blahertech.org/projects/placeto/">Placeto CMS</a> &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
+			</div>
+		</div>
+	</body>
+</html>
 <?php
 	}
 ?>

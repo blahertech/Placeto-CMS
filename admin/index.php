@@ -17,10 +17,10 @@
 	
 	session_start();
 	
-	include('./inc/functions.php');
-	include('../inc/config.php');
+	require('./inc/functions.php');
+	require('../inc/config.php');
 	placeto_config_unset();
-	include('./key.php');
+	require('./key.php');
 	
 	if (!$mysql=@mysql_connect($sql_login['server'], placeto_safe_sql($_SESSION['myuser']), placeto_key_decrypt(placeto_safe_sql($_SESSION['mypass']), $key)))
 	{
@@ -31,35 +31,14 @@
 	@mysql_select_db($sql_login['db'], $mysql);
 	$prefix=$sql_login['prefix'];
 	unset($sql_login);
+	
+	require('./inc/template.php');
+	template_header();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="include/styles.css" />
-		<link rel="shortcut icon" href="../admin/images/favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
-		<title>Placeto</title>
-	</head>
-	<body>
-		<div id="container">
-			<div id="box">
-				<div id="top">
-					<a href="./">
-						<img id="logo" src="images/logo.png" alt="Placeto" />
-					</a>
-				</div>
-				<div id="content">
+		<title>Placeto CMS</title>
+<?php template_box_top(); ?>
                 	<a href="./logout.php">Logout</a><br />
 					<ul>
                     	<li><a href="./pages.php">Pages</a></li>
                     </ul>
-				</div>
-				<div id="bottom"></div>
-			</div>
-			<div id="copy">
-				Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
-			</div>
-		</div>
-	</body>
-</html>
+<?php template_box_bottom(); ?>

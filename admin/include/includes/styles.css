@@ -22,7 +22,11 @@ a img
 }
 textarea
 {
-	width: 100%;
+	width: 99%;
+}
+input[type="text"], input[type="password"]
+{
+	width: 80%;
 }
 #container
 {

@@ -18,5 +18,15 @@ User-agent: *
 Disallow: /.cache/
 Disallow: /cgi-bin/
 Disallow: /inc/
+
 Disallow: /admin/
+Allow: /admin/index.php
+Allow: /admin/login.php
+Allow: /admin/favicon.ico
+Allow: /admin/include/
+Allow: /admin/images/
+
 Disallow: /setup/
+Allow: /setup/index.php
+Allow: /setup/favicon.ico
+Allow: /setup/inc/

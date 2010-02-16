@@ -17,10 +17,10 @@
 	
 	session_start();
 	
-	include('./inc/functions.php');
-	include('../inc/config.php');
-	include('./key.php');
+	require('./inc/functions.php');
+	require('../inc/config.php');
 	placeto_config_unset();
+	require('./key.php');
 	
 	if (!$mysql=@mysql_connect($sql_login['server'], placeto_safe_sql($_SESSION['myuser']), placeto_key_decrypt(placeto_safe_sql($_SESSION['mypass']), $key)))
 	{
@@ -44,27 +44,14 @@
 		mysql_query('UPDATE '.$prefix.'content SET page="'.placeto_safe($_POST['page']).'" WHERE '.$prefix.'content.page="'.placeto_safe($_POST['before']).'"');
 		header('Location: ./edit.php?page='.placeto_safe($_POST['page']));
 	}
+	
+	require('./inc/template.php');
+	template_header();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<link rel="stylesheet" type="text/css" href="include/styles.css" />
-		<link rel="shortcut icon" href="../admin/images/favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="../admin/images/favicon.ico" type="image/x-icon"/>
-		<title>Placeto</title>
+		<title>Placeto CMS - Edit <?php echo $_GET['page']; ?></title>
         <script type="text/javascript" src="./include/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="./include/editarea/edit_area_full.js"></script>
-	</head>
-	<body>
-		<div id="container">
-			<div id="box">
-				<div id="top">
-					<a href="./">
-						<img id="logo" src="images/logo.png" alt="Placeto" />
-					</a>
-				</div>
-				<div id="content">
+<?php template_box_top(); ?>
                 	<a href="./logout.php">Logout</a><br />
                 	<a href="./pages.php">&lt;&lt; Go Back</a><br /><br />
                 
@@ -122,13 +109,5 @@
                         <br />
                         <input type="submit" name="submit" value="Sumit" />
                     </form>
-				</div>
-				<div id="bottom"></div>
-			</div>
-			<div id="copy">
-				Placeto &copy; <a href="http://www.blahertech.org">BlaherTech</a> 2009-2010
-			</div>
-		</div>
-        <script type="text/javascript" src="./include/editor.js"></script>
-	</body>
-</html>
+                    <script type="text/javascript" src="./include/editor.js"></script>
+<?php template_box_bottom(); ?>

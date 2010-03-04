@@ -76,7 +76,7 @@
                         <textarea name="title" rows="2" cols="50"><?php echo $content['title']; ?></textarea><br />
                         
                         <label for="description">Description:</label><br />
-                        <textarea name="description" rows="2" cols="50"><?php echo $content['desc']; ?></textarea><br />
+                        <textarea name="description" rows="2" cols="50"><?php echo $content['description']; ?></textarea><br />
                         
                         <label for="keywords">Keywords (seperate with ','s):</label><br />
                         <textarea name="keywords" rows="2" cols="50"><?php echo $content['keywords']; ?></textarea><br />

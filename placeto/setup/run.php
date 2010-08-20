@@ -261,9 +261,9 @@
 		//set up the config file
 		if ($sqlec===0)
 		{
-			if(substr($_SERVER['PHP_SELF'], 0, strripos($_SERVER['PHP_SELF'], 'setup'))!=='/')
+			if(substr($_SERVER['PHP_SELF'], 0, strripos($_SERVER['PHP_SELF'], 'placeto/setup'))!=='/')
 			{
-				$dirc=substr($_SERVER['PHP_SELF'], 0, strripos($_SERVER['PHP_SELF'], 'setup')-1);
+				$dirc=substr($_SERVER['PHP_SELF'], 0, strripos($_SERVER['PHP_SELF'], 'placeto/setup')-1);
 			}
 			else
 			{

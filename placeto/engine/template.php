@@ -65,7 +65,7 @@
 		header('Content-Type: '.$config['type']);
 
 		//stop, template time
-		include('templates/'.$prefs['template'].'/index.php');
+		include($base.'placeto/templates/'.$prefs['template'].'/'.$content['template']);
 		placeto_mod_end();
 	}
 

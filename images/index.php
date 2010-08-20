@@ -19,5 +19,5 @@
 	**/
 
 	$base='../';
-	include($base.'inc/template.php');
+	include($base.'placeto/engine/template.php');
 ?>

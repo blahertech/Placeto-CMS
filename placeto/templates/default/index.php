@@ -33,7 +33,7 @@
 		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
 		<link rel="icon" href="./favicon.ico" type="image/x-icon" />
 		<link rel="stylesheet" type="text/css" href="./include/styles.css" />
-        <link rel="stylesheet" type="text/css" media="print" href="./include/print.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="./include/print.css" />
 		<link rel="canonical" href="<?php placeto('canonical'); ?>" />
 	</head>
 	<body>

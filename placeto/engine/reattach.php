@@ -23,8 +23,16 @@
 	$tmpfile='templates/'.$prefs['template'].$location;
 	$mbase=str_ireplace('reattach.php', '', __FILE__);
 
+	foreach ($templates['simple']['files'] as $tmpfile)
+	{
+		if ('/'.$tmpfile==$location)
+		{
+			$break=true;
+		}
+	}
+
 	//is waldo missing?
-	if (file_exists($mbase.$tmpfile) && $location!=='/')
+	if (file_exists($mbase.$tmpfile) && $location!=='/' && !$break)
 	{
 		//what's waldo's mime type?
 		$extension=strrchr($path, '.');
@@ -66,6 +74,6 @@
 		header('Content-Type: '.$config['type']);
 		header('HTTP/1.0 404 Not Found');
 
-		include('templates/'.$prefs['template'].'/index.php');
+		include('templates/'.$prefs['template'].'/'.$content['template']);
 	}
 ?>

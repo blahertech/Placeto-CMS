@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `content`
 	`content` longtext CHARACTER SET utf8 NOT NULL COMMENT 'Content',
 	`dependent` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 for dependent, 1 for independent and 2 for independent ONLY IF the param is set',
 	`dependentparam` varchar(32) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'Has to be an $_GET value',
+	`template` varchar(256) COLLATE latin1_general_ci DEFAULT NULL COMMENT 'What template file to use, by default is index.php',
 	`dynamic` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'Ignore caching or not to ignore, that is the question.',
 	`lastmod` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last modification date',
 
@@ -37,12 +38,12 @@ CREATE TABLE IF NOT EXISTS `content`
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci COMMENT='Content pages';;
 
 -- content samples
-INSERT INTO `content` (`page`, `title`, `description`, `keywords`, `header`, `content`, `dependent`, `dependentparam`, `dynamic`, `lastmod`) VALUES
-	('/', 'Home Page', 'This is the home page', 'home, page', 'Welcome to your new Website!', 'Welcome to the Home page', 0, NULL, 0, NOW()),
-	('/error', 'Page not found', 'This is the 40x error page', 'Page, Not Found, 404, Error, no result, search', 'Page Not Found:', 'This page was not found. Please go back.', 0, NULL, 0, NOW()),
-	('/about', 'About Us', 'This is the about page', 'about, us', 'About Us', 'about us', 0, NULL, 0, NOW()),
-	('/contact', 'Contact Us', 'This is the contact page', 'contact, us', 'Contact Us', 'contact', 0, NULL, 1, NOW()),
-	('/images', 'Images', 'All the attached images can be found on this page.', 'image, svg, png, jpg, gif, bmp, grapic, directory', 'Image Directory', '<?php\r\n	if (isset($file))\r\n	{\r\n		ahobbler_images_show($file);\r\n	}\r\n	else\r\n	{\r\n		ahobbler_images($_GET[''sort''], $_GET[''way'']);\r\n	}\r\n?>', 2, 'file', 0, NOW());;
+INSERT INTO `content` (`page`, `title`, `description`, `keywords`, `header`, `content`, `dependent`, `dependentparam`, `template`, `dynamic`, `lastmod`) VALUES
+	('/', 'Home Page', 'This is the home page', 'home, page', 'Welcome to your new Website!', 'Welcome to the Home page', 0, NULL, 'index.php', 0, NOW()),
+	('/error', 'Page not found', 'This is the 40x error page', 'Page, Not Found, 404, Error, no result, search', 'Page Not Found:', 'This page was not found. Please go back.', 0, NULL, 'index.php', 0, NOW()),
+	('/about', 'About Us', 'This is the about page', 'about, us', 'About Us', 'about us', 0, NULL, 'index.php', 0, NOW()),
+	('/contact', 'Contact Us', 'This is the contact page', 'contact, us', 'Contact Us', 'contact', 0, NULL, 'index.php', 1, NOW()),
+	('/images', 'Images', 'All the attached images can be found on this page.', 'image, svg, png, jpg, gif, bmp, grapic, directory', 'Image Directory', '<?php\r\n\tif (isset($file))\r\n\t{\r\n\t\tahobbler_images_show($file);\r\n\t}\r\n\telse\r\n\t{\r\n\t\tahobbler_images($_GET[''sort''], $_GET[''way'']);\r\n\t}\r\n?>', 2, 'file', 'index.php', 0, NOW());;
 -- end content
 
 

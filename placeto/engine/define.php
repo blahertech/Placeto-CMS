@@ -58,6 +58,10 @@
 		$content=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'content WHERE page="/error"'));
 		$nf=true;
 	}
+	if ($content['template']=='' || $content['template']==NULL)
+	{
+		$content['template']=='index.php';
+	}
 	$prefs=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'preferences'));
 
 	if (!isset($dependent))

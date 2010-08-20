@@ -21,4 +21,9 @@
 		'description'=>'The default template for Placeto CMS.',
 		'release'=>'2010-02-05'
 	);
+	$templates['simple']['files']=array
+	(
+		'index.php',
+		'minimal.php'
+	);
 ?>

@@ -27,4 +27,10 @@
 		'description'=>'A template designed to show the basic functions of Placeto\'s template framework.', // Description of template
 		'release'=>'2010-02-05' // Release date
 	);
+
+	//All usable main template files the user will be able to select.
+	$templates['simple']['files']=array
+	(
+		'index.php'
+	);
 ?>

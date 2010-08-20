@@ -22,5 +22,6 @@
 	function placeto_mod_uninstall()
 	{
 		//Make to remove all of your generated tables and mod_vars
+		echo 'Done.';
 	}
 ?>

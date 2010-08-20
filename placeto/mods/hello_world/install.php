@@ -22,5 +22,6 @@
 	function placeto_mod_install()
 	{
 		//If you need to create a table, prefix it with "$prefix.'mod_'.[mod_name]"
+		echo 'Done.';
 	}
 ?>

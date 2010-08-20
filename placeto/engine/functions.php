@@ -18,7 +18,7 @@
 	*	You may also use these functions within your mods and templates.
 	**/
 
-	include('../library/virtual.php');
-	include('../library/physical.php');
-	include('../library/security.php');
+	include($base.'placeto/library/virtual.php');
+	include($base.'placeto/library/physical.php');
+	include($base.'placeto/library/security.php');
 ?>

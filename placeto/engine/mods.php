@@ -26,7 +26,7 @@
 		$mod_starts[$mod_temps['name']]=$mod_temps['enable'];
 	}
 
-	$mfiles=scandir($base.'inc/mods');
+	$mfiles=scandir($base.'placeto/mods');
 
 	//attach all the enabled mods
 	foreach ($mfiles as $mfile)
@@ -46,7 +46,7 @@
 			{
 				$mfile='_'.$mfile;
 			}
-			@include($base.'inc/mods/'.$mfile.'/mod.php');
+			@include($base.'placeto/mods/'.$mfile.'/mod.php');
 		}
 		else if (!strrpos($mfile, '.') && $mfile!=='.') //include the prototype, incase someone forgot to rid the functions
 		{
@@ -54,7 +54,7 @@
 			{
 				$mfile='_'.$mfile;
 			}
-			@include($base.'inc/mods/'.$mfile.'/prototype.php');
+			@include($base.'placeto/mods/'.$mfile.'/prototype.php');
 		}
 	}
 
@@ -78,7 +78,7 @@
 			$mod_ary[$mod_temps['name']]=$mod_temps['enable'];
 		}
 	
-		$mfiles=scandir($base.'inc/mods');
+		$mfiles=scandir($base.'placeto/mods');
 
 		//attach all the enabled mods
 		foreach ($mfiles as $mfile)
@@ -99,9 +99,9 @@
 					$mfile='_'.$mfile;
 				}
 
-				if (file_exists($base.'inc/mods/'.$mfile.'/end.php'))
+				if (file_exists($base.'placeto/mods/'.$mfile.'/end.php'))
 				{
-					include($base.'inc/mods/'.$mfile.'/end.php');
+					include($base.'placeto/mods/'.$mfile.'/end.php');
 				}
 			}
 		}

@@ -23,9 +23,10 @@
 	$tmpfile='templates/'.$prefs['template'].$location;
 	$mbase=str_ireplace('reattach.php', '', __FILE__);
 
-	foreach ($templates['simple']['files'] as $tmpfile)
+	@include($base.'placeto/templates/'.$prefs['template'].'/data.php');
+	foreach ($templates[$prefs['template']]['files'] as &$tempd)
 	{
-		if ('/'.$tmpfile==$location)
+		if ('/'.$tempd==$location)
 		{
 			$break=true;
 		}
@@ -64,16 +65,17 @@
 
 		//bye waldo
 		placeto_mod_end();
-		unset($mbase, $tmpfile);
+		unset($mbase, $tmpfile, $tempd, $break);
 		include('mysql/close.php');
 		die();
 	}
 	else
 	{
+		unset($tempd, $break);
 		//in the case the file was not found in the template directory, uh oh
 		header('Content-Type: '.$config['type']);
 		header('HTTP/1.0 404 Not Found');
 
-		include('templates/'.$prefs['template'].'/'.$content['template']);
+		include($base.'placeto/templates/'.$prefs['template'].'/'.$content['template']);
 	}
 ?>

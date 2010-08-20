@@ -24,20 +24,24 @@
 	{
 		$base='./';
 	}
-
-	//make sure that config.php is ready or go to setup
-	if (!file_exists($base.'inc/config.php'))
-	{
-		header('Location: '.$base.'setup');
-		die();
-	}
-
 	//multiple site support check
 	if (!isset($cfg))
 	{
-		$cfg='config.php';
+		$cfg='default.config.php';
 	}
-	require($cfg);
+	else
+	{
+		$cfg.='.php';
+	}
+
+	//make sure that config.php is ready or go to setup
+	if (!file_exists($base.'placeto/config/'.$cfg))
+	{
+		header('Location: '.$base.'placeto/setup');
+		die();
+	}
+
+	require($base.'placeto/config/'.$cfg);
 
 	require('mysql/connect.php');
 	require('define.php');

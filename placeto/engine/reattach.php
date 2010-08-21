@@ -20,8 +20,8 @@
 	**/
 
 	//where's waldo?
-	$tmpfile='templates/'.$prefs['template'].$location;
-	$mbase=str_ireplace('reattach.php', '', __FILE__);
+	$tmpfile='placeto/templates/'.$prefs['template'].$location;
+	$mbase=str_ireplace('placeto/engine/reattach.php', '', __FILE__);
 
 	@include($base.'placeto/templates/'.$prefs['template'].'/data.php');
 	foreach ($templates[$prefs['template']]['files'] as &$tempd)

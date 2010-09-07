@@ -17,7 +17,7 @@
 	*	All make safe functions of the library.
 	**/
 
-	function placeto_key_encrypt($string, $key)
+	function placeto_key_encrypt(&$string, &$key)
 	{
 		$result = '';
 		for($i=0; $i<strlen($string); $i++)
@@ -31,7 +31,7 @@
 		return base64_encode($result);
 	}
 		
-	function placeto_key_decrypt($string, $key)
+	function placeto_key_decrypt($string, &$key)
 	{
 		$result = '';
 		$string = base64_decode($string);

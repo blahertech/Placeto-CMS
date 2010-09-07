@@ -18,7 +18,7 @@
 	**/
 
 	//returns the mime type of a given known web extension, this is mostly used in the reattachment of you template includes
-	function placeto_extension($ext)
+	function placeto_extension(&$ext)
 	{
 		include('extensions.array.php');
 

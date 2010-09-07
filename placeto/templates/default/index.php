@@ -48,7 +48,7 @@
 		
 			<div id="top">
 				<div id="logo">
-					<a href="./" rel="home" rev="home"><img src="./images/logo.png" alt="<?php placeto('site'); ?>" title="Click to go Home" /></a>
+					<a href="./" rel="home" rev="home"><?php placeto('site'); ?></a>
 				</div>
 				
 				<!-- Nav -->

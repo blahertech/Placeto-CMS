@@ -14,9 +14,9 @@
 	**/
 
 	//check and make cache directory
-	if (!file_exists($base.'.cache'))
+	if (!file_exists($base.'placeto/.cache'))
 	{
-		mkdir($base.'.cache', 0777);
+		mkdir($base.'placeto/.cache', 0777);
 	}
 
 	//time for server caching
@@ -24,9 +24,9 @@
 	{
 		//set up pre-reqs
 		$mdhash=md5($_SERVER['REQUEST_URI']);
-		$mdplace=$base.'.cache/'.$mdhash;
+		$mdplace=$base.'placeto/.cache/'.$mdhash;
 
-		$tmpfile='templates/'.$config['template'].$location;
+		$tmpfile='placeto/templates/'.$config['template'].$location;
 		$mbase=str_ireplace('reattach.php', '', __FILE__);
 
 		//see if it's a reattached file or db file
@@ -106,6 +106,9 @@
 	//cache clear function
 	function placeto_cache_clear()
 	{
+		//////////////////////////////////////////////////////
+		//	TODO: Fix this
+		/////////////////////////////////////////////////////
 		$files=scandir('../.cache/');
 		foreach ($files as $file)
 		{
@@ -120,8 +123,8 @@
 	if ($nf)
 	{
 		//where's waldo?
-		$tmpfile='templates/'.$prefs['template'].$location;
-		$mbase=str_ireplace('mods/_cache/mod.php', '', __FILE__);
+		$tmpfile='placeto/templates/'.$prefs['template'].$location;
+		$mbase=str_ireplace('placeto/mods/_cache/mod.php', '', __FILE__);
 
 		//found it
 		if (file_exists($mbase.$tmpfile) && $location!=='/')

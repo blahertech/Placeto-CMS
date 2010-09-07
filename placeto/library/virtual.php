@@ -18,25 +18,23 @@
 	**/
 
 	//pull $prefs
-	function placeto_prefs($dbtype)
+	function placeto_prefs(&$dbtype)
 	{
 		global $prefs;
 		echo $prefs[$dbtype];
-		unset($dbtype);
 		return true;
 	}
 
 	//pull $configs
-	function placeto_configs($dbtype)
+	function placeto_configs(&$dbtype)
 	{
 		global $config;
 		echo $config[$dbtype];
-		unset($dbtype);
 		return true;
 	}
 
 	//pulls you mainly used content needed for the templates
-	function placeto($dbtype)
+	function placeto(&$dbtype)
 	{
 		//globalizing stabalizer variable allocations
 		global $content, $prefs, $config, $location;
@@ -87,7 +85,6 @@
 		{
 			echo $content[$dbtype];
 		}
-		unset($dbtype);
 		return true;
 	}
 

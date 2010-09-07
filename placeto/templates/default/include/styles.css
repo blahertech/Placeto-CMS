@@ -18,7 +18,7 @@ body
 {
 	height: 100%;
 	margin: 0;
-	background: #223244;
+	background: #4583b6 url("../images/bg.png") repeat-x;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #222;
@@ -56,7 +56,7 @@ a img
 }
 h1
 {
-	width: 100%;
+	width: 787px;
 	height: 35px;
 	padding-top: 10px;
 	margin-top: 0.4em;
@@ -193,10 +193,17 @@ dd img
 #logo
 {
 	float: left;
-	height: 79px;
+	height: 64px;
 	margin: 0 28px;
 	text-align: center;
-	padding: 20px 10px 0 10px;
+	padding: 35px 10px 0 10px;
+	font-size: 20px;
+	font-weight: bold;
+}
+#logo a, #logo a:link, #logo a:active, #logo a:hover, #logo a:visited
+{
+	text-decoration: none;
+	color: #6d6d6d;
 }
 #logo, #nav a
 {

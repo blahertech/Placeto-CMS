@@ -18,9 +18,12 @@
 	*
 	*	Make sure to close your connection as soon as possible.
 	**/
+	
+	require('../../library/config.php');
+	$config=new placeto_config();
 
-	@$mysqlconnect=mysql_connect($sql_login['server'], $sql_login['user'], $sql_login['pass']) or die($sql_login['die']);
-	mysql_select_db($sql_login['db'], $mysqlconnect);
-	$prefix=$sql_login['prefix'];
-	unset($sql_login);
+	@$mysqlconnect=mysql_connect($config->getServer(), $config->getUser(), $config->getPassword()) or die($config->getDieMessage());
+	mysql_select_db($config->getDatabase(), $mysqlconnect);
+	
+	$config=new placeto_config_lock();
 ?>

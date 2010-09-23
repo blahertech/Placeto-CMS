@@ -25,13 +25,13 @@
 		$base='./';
 	}
 	//multiple site support check
-	if (!isset($cfg))
+	if (!isset($config_name))
 	{
-		$cfg='default.config.php';
+		$config_name='default.config.php';
 	}
 	else
 	{
-		$cfg.='.php';
+		$config_name.='.php';
 	}
 
 	//make sure that config.php is ready or go to setup
@@ -40,8 +40,6 @@
 		header('Location: '.$base.'placeto/setup');
 		die();
 	}
-
-	require($base.'placeto/config/'.$cfg);
 
 	require('mysql/connect.php');
 	require('define.php');

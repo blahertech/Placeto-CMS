@@ -43,21 +43,6 @@
 					
 				}
 			}
-			class placeto_config_key
-			{
-				function __construct()
-				{
-					
-				}
-				function get()
-				{
-					
-				}
-				function set($setTo)
-				{
-					
-				}
-			}
 			class placeto_config_encoding
 			{
 				function __construct()
@@ -90,11 +75,29 @@
 			}
 		class placeto_config
 		{
-			$this->site=new placeto_config_site;
-			$this->directory=new placeto_config_directory;
-			$this->key=new placeto_config_key;
-			$this->encoding=new placeto_config_encoding;
-			$this->MIMEtype=new placeto_config_MIMEtype;
+			function __construct()
+			{
+				$this->site=new placeto_config_site;
+				$this->directory=new placeto_config_directory;
+				$this->encoding=new placeto_config_encoding;
+				$this->MIMEtype=new placeto_config_MIMEtype;
+			}
+			function site()
+			{
+				
+			}
+			function directory()
+			{
+				
+			}
+			function encoding()
+			{
+				
+			}
+			function MIMEtype()
+			{
+				
+			}
 		}
 			class placeto_mySQL_connection
 			{
@@ -162,22 +165,51 @@
 			}
 		class placeto_mySQL
 		{
-			$this->connection=new placeto_mySQL_connection;
-			$this->database=new placeto_mySQL_database;
-			$this->prefix=new placeto_mySQL_prefix;
-			$this->dieMessage=new placeto_mySQL_dieMessage;
+			function __construct()
+			{
+				$this->connection=new placeto_mySQL_connection;
+				$this->database=new placeto_mySQL_database;
+				$this->prefix=new placeto_mySQL_prefix;
+				$this->dieMessage=new placeto_mySQL_dieMessage;
+			}
+			function server()
+			{
+				
+			}
+			function user()
+			{
+				
+			}
+			function password()
+			{
+				
+			}
+			function lock()
+			{
+				
+			}
 		}
 		class placeto_preferences
 		{
+			function __construct()
+			{
+				
+			}
 			//not sure what's in here, yet
 		}
 		class placeto_location
 		{
-			
+			function __construct()
+			{
+				
+			}
 		}
 		class placeto_base
 		{
-			
+			function __construct()
+			{
+				
+			}
 		}
 			class placeto_content_site
 			{
@@ -241,19 +273,57 @@
 			}
 		class placeto_content
 		{
-			$this->site=new placeto_content_site;
-			$this->canonical=new placeto_content_canonical;
-			$this->content=new placeto_content_content;
-			$this->copyright=new placeto_content_copyright;
+			function __construct()
+			{
+				$this->site=new placeto_content_site;
+				$this->canonical=new placeto_content_canonical;
+				$this->content=new placeto_content_content;
+				$this->copyright=new placeto_content_copyright;
+			}
+			function get()
+			{
+			
+			}
+			function set()
+			{
+			
+			}
+			function site()
+			{
+			
+			}
+			function canonical()
+			{
+			
+			}
+			function copyright()
+			{
+			
+			}
 		}
 	class placeto
 	{
-		$this->config=new placeto_config;
-		$this->mySQL=new placeto_mySQL;
-		$this->preferences=new placeto_preferences;
-		$this->location=new placeto_location;
-		$this->base=new placeto_base;
-		$this->content=new placeto_content
+		function __construct()
+		{
+			$this->config=new placeto_config;
+			$this->mySQL=new placeto_mySQL;
+			$this->preferences=new placeto_preferences;
+			$this->location=new placeto_location;
+			$this->base=new placeto_base;
+			$this->content=new placeto_content;
+		}
+		function location()
+		{
+			
+		}
+		function base()
+		{
+			
+		}
+		function content()
+		{
+			
+		}
 	}
 	$placeto=new placeto;
 ?>

@@ -46,7 +46,7 @@
 	include_once('functions.php');
 	include_once('mods.php');
 
-	if ($nf)
+	if ($notFound)
 	{
 		//used for files in the template
 		require('reattach.php');
@@ -60,7 +60,7 @@
 	else
 	{
 		//normal pages in the db
-		header('Content-Type: '.$config['type']);
+		header('Content-Type: '.$config->getMIMEtype());
 
 		//stop, template time
 		include($base.'placeto/templates/'.$prefs['template'].'/'.$content['template']);

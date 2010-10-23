@@ -15,18 +15,5 @@
 #	robots.txt restricts good robot crawlers from indexing certain parts of your website.
 
 User-agent: *
-Disallow: /.cache/
+Disallow: /placeto/
 Disallow: /cgi-bin/
-Disallow: /inc/
-
-Disallow: /admin/
-Allow: /admin/index.php
-Allow: /admin/login.php
-Allow: /admin/favicon.ico
-Allow: /admin/include/
-Allow: /admin/images/
-
-Disallow: /setup/
-Allow: /setup/index.php
-Allow: /setup/favicon.ico
-Allow: /setup/inc/

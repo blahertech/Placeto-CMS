@@ -1,0 +1,21 @@
+Requirments:
+
+	Apache HTTPd Server 2.0 or greater
+	PHP 5.0 or greater
+	Mysql 4.0 or greater
+
+
+* You may be able to run placeto on lower specs, however we don't support doing so.
+
+
+
+How to install Placeto CMS:
+
+	1. Unextract the files somewhere on to your website
+
+	2. Go to the website URL you wish your users to view the pages (do not install locally, if you're setting up a public website)
+
+	3. Once there, Placeto will redirect to the proper installation script and will guide you the rest of the way.
+
+
+* You will need to have a mysql user with create access. If you have a user that doesn't have create access, then you can create any empty db manually and use that db as the name instead (just uncheck create).

@@ -1,0 +1,16 @@
+// testing environment
+apache=2.2.16
+php=5.2.14
+mysql=5.1.47
+cpanel=11.25.0
+
+// software imports
+    //engine
+smarty=
+
+    //for designer
+jquery=
+
+    //admin
+ckeditor=3.1
+editarea=0.8.2

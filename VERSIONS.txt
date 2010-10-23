@@ -6,7 +6,7 @@ cpanel=11.25.0
 
 // software imports
     //engine
-smarty=
+smarty=3.0RC4
 
     //for designer
 jquery=

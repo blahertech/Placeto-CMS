@@ -99,7 +99,7 @@
 				
 			}
 		}
-			class placeto_mySQL_connection
+			class placeto_database_connection
 			{
 				function __construct()
 				{
@@ -114,7 +114,7 @@
 					
 				}
 			}
-			class placeto_mySQL_database
+			class placeto_database_database
 			{
 				function __construct()
 				{
@@ -133,7 +133,7 @@
 					
 				}
 			}
-			class placeto_mySQL_prefix
+			class placeto_database_prefix
 			{
 				function __construct()
 				{
@@ -148,7 +148,7 @@
 					
 				}
 			}
-			class placeto_mySQL_dieMessage
+			class placeto_database_dieMessage
 			{
 				function __construct()
 				{
@@ -163,14 +163,14 @@
 					
 				}
 			}
-		class placeto_mySQL
+		class placeto_database
 		{
 			function __construct()
 			{
-				$this->connection=new placeto_mySQL_connection;
-				$this->database=new placeto_mySQL_database;
-				$this->prefix=new placeto_mySQL_prefix;
-				$this->dieMessage=new placeto_mySQL_dieMessage;
+				$this->connection=new placeto_database_connection;
+				$this->database=new placeto_database_database;
+				$this->prefix=new placeto_database_prefix;
+				$this->dieMessage=new placeto_database_dieMessage;
 			}
 			function server()
 			{

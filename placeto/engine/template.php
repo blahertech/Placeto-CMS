@@ -41,6 +41,13 @@
 		die();
 	}
 
+	require_once($base.'placeto/config/'.$config_name);
+	require_once($base.'placeto/library/placeto.php');
+	$placeto=new placeto;
+
+	var_dump(get_defined_vars());
+	die();
+
 	require('mysql/connect.php');
 	require('define.php');
 	include_once('functions.php');

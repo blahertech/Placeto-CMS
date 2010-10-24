@@ -12,93 +12,9 @@
 	*	Author: Benjamin Jay Young
 	*		http://www.blahertech.org/projects/placeto/
 	**/
-	
-			class placeto_config_site
-			{
-				function __construct()
-				{
-					
-				}
-				function get()
-				{
-					
-				}
-				function set($setTo)
-				{
-					
-				}
-			}
-			class placeto_config_directory
-			{
-				function __construct()
-				{
-					
-				}
-				function get()
-				{
-					
-				}
-				function set($setTo)
-				{
-					
-				}
-			}
-			class placeto_config_encoding
-			{
-				function __construct()
-				{
-					
-				}
-				function get()
-				{
-					
-				}
-				function set($setTo)
-				{
-					
-				}
-			}
-			class placeto_config_MIMEtype
-			{
-				function __construct()
-				{
-					
-				}
-				function get()
-				{
-					
-				}
-				function set($setTo)
-				{
-					
-				}
-			}
-		class placeto_config
-		{
-			function __construct()
-			{
-				$this->site=new placeto_config_site;
-				$this->directory=new placeto_config_directory;
-				$this->encoding=new placeto_config_encoding;
-				$this->MIMEtype=new placeto_config_MIMEtype;
-			}
-			function site()
-			{
-				
-			}
-			function directory()
-			{
-				
-			}
-			function encoding()
-			{
-				
-			}
-			function MIMEtype()
-			{
-				
-			}
-		}
+
+	require_once($base.'placeto/library/config.php');
+
 			class placeto_database_connection
 			{
 				function __construct()
@@ -165,12 +81,37 @@
 			}
 		class placeto_database
 		{
+			private $dbh;
+
 			function __construct()
 			{
+				global $config;
+				$this->database=$GLOBALS['database'];
+
+				if ($this->database['type']=='oci') //oracle
+				{
+
+				}
+				elseif ($this->database['type']=='sqlite2')
+				{
+
+				}
+				elseif ($this->database['type']=='odbc')
+				{
+
+				}
+				else //mysql by default
+				{
+					$this->dbh=new PDO('mysql:host='.$this->database['host'].';dbname='.$this->database['dbname'].'', $this->database['user'], $this->database['pass']);
+				}
+				$this->dbh->exec('SET CHARACTER SET '.$config['encoding']);
+
 				$this->connection=new placeto_database_connection;
 				$this->database=new placeto_database_database;
 				$this->prefix=new placeto_database_prefix;
 				$this->dieMessage=new placeto_database_dieMessage;
+
+				unset($GLOBALS['database'], $GLOBALS['config']);
 			}
 			function server()
 			{
@@ -306,7 +247,7 @@
 		function __construct()
 		{
 			$this->config=new placeto_config;
-			$this->mySQL=new placeto_mySQL;
+			$this->database=new placeto_database;
 			$this->preferences=new placeto_preferences;
 			$this->location=new placeto_location;
 			$this->base=new placeto_base;
@@ -325,5 +266,4 @@
 			
 		}
 	}
-	$placeto=new placeto;
 ?>

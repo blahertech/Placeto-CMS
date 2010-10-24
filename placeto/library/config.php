@@ -13,75 +13,74 @@
 	*		http://www.blahertech.org/projects/placeto/
 	**/
 	
-	class placeto_config
-	{
-		global $base, $config_name;
-		private $config, $sql_login;
-		require($base.'placeto/config/'.$cfg);
-		
-		public function getSite()
+			class placeto_config_encoding
+			{
+				private $encoding;
+
+				function __construct(&$enc)
+				{
+					$this->encoding=&$enc;
+				}
+				function get()
+				{
+					return $this->encoding;
+				}
+				function set($setTo)
+				{
+					$this->encoding=$setTo;
+				}
+			}
+			class placeto_config_MIMEtype
+			{
+				private $mimetype;
+
+				function __construct(&$mime)
+				{
+					$this->mimetype=&$mime;
+				}
+				function get()
+				{
+					return $this->mimetype;
+				}
+				function set($setTo)
+				{
+					$this->mimetype=$setTo;
+				}
+			}
+		class placeto_config
 		{
-			return $config['site'];
+			private $config;
+
+			function __construct()
+			{
+				global $base;
+				$this->config=$GLOBALS['config'];
+				$this->config['base']=$base;
+
+				$this->encoding=new placeto_config_encoding($this->config['encoding']);
+				$this->MIMEtype=new placeto_config_MIMEtype($this->config['mimetype']);
+
+				unset($GLOBALS['base'], $GLOBALS['config_name']);
+			}
+			function base()
+			{
+				return $this->config['base'];
+			}
+			function site()
+			{
+				return $this->config['site'];
+			}
+			function directory()
+			{
+				return $this->config['directory'];
+			}
+			function encoding()
+			{
+				return $this->encoding->get();
+			}
+			function MIMEtype()
+			{
+				return $this->MIMEtype->get();
+			}
 		}
-		public function getDirectory()
-		{
-			return $config['directory'];
-		}
-		public function getEncoding()
-		{
-			return $config['encode'];
-		}
-		public function getMIMEtype()
-		{
-			return $config['type'];
-		}
-		
-		public function setSite($input)
-		{
-			$config['site']=$input;
-		}
-		public function setDirectory($input)
-		{
-			$config['directory']=$input;
-		}
-		public function setEncoding($input)
-		{
-			$config['encode']=$input;
-		}
-		public function setMIMEtype($input)
-		{
-			$config['type']=$input;
-		}
-		
-		public function getServer()
-		{
-			return $sql_login['server'];
-		}
-		public function getDatabase()
-		{
-			return $sql_login['db'];
-		}
-		public function getUser()
-		{
-			return $sql_login['user'];
-		}
-		public function getPassword()
-		{
-			return $sql_login['pass'];
-		}
-		public function getPrefix()
-		{
-			return $sql_login['prefix'];
-		}
-		public function getDieMessage()
-		{
-			return $sql_login['die'];
-		}
-		
-	}
-	class placeto_config_lock extends placeto_config
-	{
-		private function getUser();
-		private function getPassword();
-	}
 ?>

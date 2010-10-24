@@ -42,13 +42,15 @@
 	}
 
 	require_once($base.'placeto/config/'.$config_name);
-	require_once($base.'placeto/library/placeto.php');
-	$placeto=new placeto;
+	require_once($base.'placeto/library/placeto.class.php');
+	$config['base']=$base;
+	$placeto=new placeto($database, $config);
+	unset($config, $config_name, $database, $base, $location);
 
-	var_dump(get_defined_vars());
+
+	//var_dump(get_defined_vars());
 	die();
 
-	require('mysql/connect.php');
 	require('define.php');
 	include_once('functions.php');
 	include_once('mods.php');

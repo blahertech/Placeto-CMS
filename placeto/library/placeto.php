@@ -88,23 +88,34 @@
 				global $config;
 				$this->database=$GLOBALS['database'];
 
-				if ($this->database['type']=='oci') //oracle
+				try
 				{
-
+					if ($this->database['type']=='oci') //Oracle
+					{
+						$this->dbh=new PDO('oci:', $this->database['user'], $this->database['pass']);
+					}
+					elseif ($this->database['type']=='informix')
+					{
+						$this->dbh=new PDO('informix:DSN='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
+					}
+					elseif ($this->database['type']=='pgsql') //PostgreSQL
+					{
+						$this->dbh=new PDO('pgsql:host='.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
+					}
+					elseif ($this->database['type']=='sqlite')
+					{
+						$this->dbh=new PDO('sqlite:'.$this->database['host']);
+					}
+					else //mySQL by default
+					{
+						$this->dbh=new PDO('mysql:host='.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
+					}
+					$this->dbh->exec('SET CHARACTER SET '.$config['encoding']);
 				}
-				elseif ($this->database['type']=='sqlite2')
+				catch (PDOException $e)
 				{
-
+					die($e->getMessage());
 				}
-				elseif ($this->database['type']=='odbc')
-				{
-
-				}
-				else //mysql by default
-				{
-					$this->dbh=new PDO('mysql:host='.$this->database['host'].';dbname='.$this->database['dbname'].'', $this->database['user'], $this->database['pass']);
-				}
-				$this->dbh->exec('SET CHARACTER SET '.$config['encoding']);
 
 				$this->connection=new placeto_database_connection;
 				$this->database=new placeto_database_database;

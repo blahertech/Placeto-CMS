@@ -13,10 +13,10 @@
 	*		http://www.blahertech.org/projects/placeto/
 	**/
 
-	require_once($base.'placeto/library/placeto.config.class.php');
-	require_once($base.'placeto/library/placeto.database.php.class');
-	require_once($base.'placeto/library/placeto.preferences.class.php');
-	require_once($base.'placeto/library/placeto.content.class.php');
+	require_once($base.'placeto/library/class.placeto.config.php');
+	require_once($base.'placeto/library/class.placeto.database.php');
+	require_once($base.'placeto/library/class.placeto.preferences.php');
+	require_once($base.'placeto/library/class.placeto.content.php');
 
 	class placeto
 	{
@@ -67,8 +67,8 @@
 				$this->location=substr($this->location, 0, strlen($this->location)-1);
 			}
 
-			$this->preferences=new placeto_preferences($this->database->connection);
-			$this->content=new placeto_content($this->database->connection);
+			$this->preferences=new placeto_preferences($this->database);
+			$this->content=new placeto_content($this->database);
 		}
 		function location()
 		{

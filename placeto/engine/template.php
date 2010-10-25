@@ -40,9 +40,9 @@
 		header('Location: '.$base.'placeto/setup');
 		die();
 	}
-
+	
 	require_once($base.'placeto/config/'.$config_name);
-	require_once($base.'placeto/library/placeto.class.php');
+	require_once($base.'placeto/library/class.placeto.php');
 	$config['base']=$base;
 	$placeto=new placeto($database, $config);
 	unset($config, $config_name, $database, $base, $location);

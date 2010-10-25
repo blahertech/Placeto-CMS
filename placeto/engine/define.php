@@ -32,7 +32,6 @@
 	{
 		$content['template']=='index.php';
 	}
-	$prefs=mysql_fetch_assoc(mysql_query('SELECT * FROM '.$prefix.'preferences'));
 
 	if (!isset($dependent))
 	{

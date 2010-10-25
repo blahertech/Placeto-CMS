@@ -15,10 +15,37 @@
 
 	class placeto_preferences
 	{
-		function __construct($db)
-		{
+		private $preferences;
 
+		function __construct(&$db)
+		{
+			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'preferences LIMIT 1');
+			$query->execute();
+			$this->preferences=$query->fetch(PDO::FETCH_ASSOC);
 		}
-		//not sure what's in here, yet
+		function get()
+		{
+			return $this->preferences;
+		}
+		function name()
+		{
+			return $this->preferences['name'];
+		}
+		function owner()
+		{
+			return $this->preferences['owner'];
+		}
+		function copyright()
+		{
+			return $this->preferences['copyright'];
+		}
+		function email()
+		{
+			return $this->preferences['adminemail'];
+		}
+		function template()
+		{
+			return $this->preferences['template'];
+		}
 	}
 ?>

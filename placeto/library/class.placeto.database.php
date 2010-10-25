@@ -61,7 +61,7 @@
 
 		function prefix()
 		{
-			return $this->database['type'];
+			return $this->database['prefix'];
 		}
 	}
 ?>

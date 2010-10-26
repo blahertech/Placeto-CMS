@@ -68,7 +68,7 @@
 			}
 
 			$this->preferences=new placeto_preferences($this->database);
-			$this->content=new placeto_content($this->database);
+			$this->content=new placeto_content($this->database, $this->location);
 		}
 		function location()
 		{

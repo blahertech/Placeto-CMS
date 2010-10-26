@@ -15,7 +15,7 @@
 
 	class placeto_content_site
 	{
-		function __construct()
+		function __construct(&$site)
 		{
 
 		}
@@ -30,7 +30,7 @@
 	}
 	class placeto_content_canonical
 	{
-		function __construct()
+		function __construct(&$canonical)
 		{
 
 		}
@@ -43,9 +43,9 @@
 
 		}
 	}
-	class placeto_content_content
+	class placeto_content_main
 	{
-		function __construct()
+		function __construct(&$main)
 		{
 
 		}
@@ -60,7 +60,7 @@
 	}
 	class placeto_content_copyright
 	{
-		function __construct()
+		function __construct(&$copyright)
 		{
 
 		}
@@ -75,32 +75,42 @@
 	}
 	class placeto_content
 	{
-		function __construct($db)
+		private $content;
+
+		function __construct(&$db, &$location)
 		{
-			$this->site=new placeto_content_site;
-			$this->canonical=new placeto_content_canonical;
-			$this->content=new placeto_content_content;
-			$this->copyright=new placeto_content_copyright;
+			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page="'.$location.'" LIMIT 1');
+			$query->execute();
+			$this->content=$query->fetch(PDO::FETCH_ASSOC);
+
+			$this->site=new placeto_content_site($this->content['site']);
+			$this->canonical=new placeto_content_canonical($this->content['canonical']);
+			$this->main=new placeto_content_main($this->content['main']);
+			$this->copyright=new placeto_content_copyright($this->content['copyright']);
 		}
 		function get()
 		{
-
+			return $this->content;
 		}
-		function set()
+		function set($setTo)
 		{
-
+			$this->content=$setTo;
 		}
 		function site()
 		{
-
+			return $this->site-get();
 		}
 		function canonical()
 		{
-
+			return $this->canonical-get();
+		}
+		function main()
+		{
+			return $this->main-get();
 		}
 		function copyright()
 		{
-
+			return $this->copyright-get();
 		}
 	}
 ?>

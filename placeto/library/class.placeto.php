@@ -24,6 +24,7 @@
 
 		function __construct($db=false, $cfg=false, $location=false)
 		{
+			//TODO: SECURITY!
 			if (!$location) //optional param
 			{
 				global $_GET;

@@ -45,10 +45,11 @@
 	require_once($base.'placeto/library/class.placeto.php');
 	$config['base']=$base;
 	$placeto=new placeto($database, $config);
+	//TODO: make $p an easy accessor for designers to the class
 	unset($config, $config_name, $database, $base, $location);
 
 
-	//var_dump(get_defined_vars());
+	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 	die();
 
 	require('define.php');

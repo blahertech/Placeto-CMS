@@ -5,10 +5,6 @@ mysql=5.1.47
 cpanel=11.25.0
 
 // software imports
-    //engine
-smarty=3.0RC4
-
-    //for designer
 jquery=
 
     //admin

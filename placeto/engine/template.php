@@ -45,26 +45,31 @@
 	require_once($base.'placeto/library/class.placeto.php');
 	$config['base']=$base;
 	$placeto=new placeto($database, $config);
+
 	//TODO: make $p an easy accessor for designers to the class
+	//TODO: rename to engine.php
 	unset($config, $config_name, $database, $base, $location);
 
+	if (isset($dependent))
+	{
+		$placeto->content->dependent->set($dependent);
+	}
 
 	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 	die();
 
-	require('define.php');
 	include_once('functions.php');
 	include_once('mods.php');
 
-	if ($notFound)
+	if (!$placeto->content->found)
 	{
 		//used for files in the template
 		require('reattach.php');
 	}
-	else if ($dependent==='1' || ($dependent==='2' && isset($_GET[$content['dependentparam']])))
+	else if ($placeto->content->dependent==='1' || ($placeto->content->dependent==='2' && isset($_GET[$placeto->content->dependent->param])))
 	{
 		///independent pages in the db
-		eval('?>'.$content['content']);
+		eval('?>'.$placeto->content->main);
 		placeto_mod_end();
 	}
 	else

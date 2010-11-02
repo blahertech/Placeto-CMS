@@ -13,80 +13,84 @@
 	*		http://www.blahertech.org/projects/placeto/
 	**/
 
-	class placeto_content_site
+	class placeto_content_dependent_param
 	{
-		function __construct(&$site)
+		function __construct(&$param)
 		{
-
+			$this->param=&$param;
 		}
 		function get()
 		{
-
+			return $this->param;
 		}
 		function set($setTo)
 		{
-
+			$this->param=$setTo;
 		}
 	}
-	class placeto_content_canonical
+	class placeto_content_dependent
 	{
-		function __construct(&$canonical)
+		function __construct(&$dependent, &$param)
 		{
-
+			$this->dependent=&$dependent;
+			$this->dependentparam=&$param;
+			$this->param=new placeto_content_dependent_param($this->dependentparam);
+		}
+		function param()
+		{
+			return $this->dependentparam;
 		}
 		function get()
 		{
-
+			return $this->dependent;
 		}
 		function set($setTo)
 		{
-
+			$this->dependent=$setTo;
 		}
 	}
 	class placeto_content_main
 	{
 		function __construct(&$main)
 		{
-
+			$this->main=&$main;
 		}
 		function get()
 		{
-
+			return $this->main;
 		}
 		function set($setTo)
 		{
-
-		}
-	}
-	class placeto_content_copyright
-	{
-		function __construct(&$copyright)
-		{
-
-		}
-		function get()
-		{
-
-		}
-		function set($setTo)
-		{
-
+			$this->main=$setTo;
 		}
 	}
 	class placeto_content
 	{
 		private $content;
+		public $found;
 
 		function __construct(&$db, &$location)
 		{
+			$this->found=true;
 			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page="'.$location.'" LIMIT 1');
 			$query->execute();
 			$this->content=$query->fetch(PDO::FETCH_ASSOC);
+			
+			if (!$this->content)
+			{
+				$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page="/error" LIMIT 1');
+				$query->execute();
+				$this->content=$query->fetch(PDO::FETCH_ASSOC);
+				$this->found=false;
+			}
+			if ($this->content['template']=='')
+			{
+				$this->content['template']=='index.php';
+			}
 
-			$this->site=new placeto_content_site($this->content['site']);
-			$this->canonical=new placeto_content_canonical($this->content['canonical']);
 			$this->main=new placeto_content_main($this->content['main']);
-			$this->copyright=new placeto_content_copyright($this->content['copyright']);
+			$this->dependent=new placeto_content_dependent($this->content['dependent'], $this->content['dependentparam']);
+
 		}
 		function get()
 		{
@@ -98,19 +102,51 @@
 		}
 		function site()
 		{
-			return $this->site-get();
+			return $this->content['site'];
 		}
 		function canonical()
 		{
-			return $this->canonical-get();
+			return $this->content['canonical'];
+		}
+		function title()
+		{
+			return $this->content['title'];
+		}
+		function description()
+		{
+			return $this->content['description'];
+		}
+		function keywords()
+		{
+			return $this->content['keywords'];
+		}
+		function header()
+		{
+			return $this->content['header'];
 		}
 		function main()
 		{
-			return $this->main-get();
+			return $this->main->get();
 		}
 		function copyright()
 		{
-			return $this->copyright-get();
+			return $this->content['copyright'];
+		}
+		function lastmod()
+		{
+			return $this->content['lastmod'];
+		}
+		function dependent()
+		{
+			return $this->dependent->get();
+		}
+		function dynamic()
+		{
+			return $this->content['dynamic'];
+		}
+		function template()
+		{
+			return $this->content['template'];
 		}
 	}
 ?>

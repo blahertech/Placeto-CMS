@@ -88,9 +88,8 @@
 				$this->content['template']=='index.php';
 			}
 
-			$this->main=new placeto_content_main($this->content['main']);
+			$this->main=new placeto_content_main($this->content['content']);
 			$this->dependent=new placeto_content_dependent($this->content['dependent'], $this->content['dependentparam']);
-
 		}
 		function get()
 		{
@@ -100,13 +99,9 @@
 		{
 			$this->content=$setTo;
 		}
-		function site()
+		function page()
 		{
 			return $this->content['site'];
-		}
-		function canonical()
-		{
-			return $this->content['canonical'];
 		}
 		function title()
 		{
@@ -128,11 +123,7 @@
 		{
 			return $this->main->get();
 		}
-		function copyright()
-		{
-			return $this->content['copyright'];
-		}
-		function lastmod()
+		function modified()
 		{
 			return $this->content['lastmod'];
 		}

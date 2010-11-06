@@ -14,7 +14,7 @@
 	*
 	*	//////////////////////////////////////////////////
 	*
-	*	template.php is your main file that should include from the outside.
+	*	template.php is your main file that should be included from the outside.
 	*
 	*	If you need to include template.php from anywhere other than the root, remember to set $base to how the root directory is relative to the current location.
 	**/
@@ -56,6 +56,7 @@
 	}
 
 	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
+	var_dump($placeto);
 	die();
 
 	include_once('functions.php');

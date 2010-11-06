@@ -25,6 +25,7 @@
 		function __construct($db=false, $cfg=false, $location=false)
 		{
 			//TODO: SECURITY!
+			//TODO: Move location to config
 			if (!$location) //optional param
 			{
 				global $_GET;
@@ -78,6 +79,10 @@
 		function path()
 		{
 			return $this->path;
+		}
+		function preferences()
+		{
+			return $this->preferences-get();
 		}
 		function content()
 		{

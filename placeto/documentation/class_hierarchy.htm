@@ -2,23 +2,15 @@
 <body>
 
 <dl>
-<dt>placeto</dt>
+<dt>$placeto - The programmer class (returns all variables).</dt>
 <dd>
 	<ul>
 	<li>config
 		<ul>
-		<li>site()
-			<ul>
-			<li>get()</li>
-			<li>set($setTo)</li>
-			</ul>
-		</li>
-		<li>directory()
-			<ul>
-			<li>get()</li>
-			<li>set($setTo)</li>
-			</ul>
-		</li>
+		<li>base()</li>
+		<li>site()</li>
+		<li>directory()</li>
+		<li>location()</li>
 		<li>encoding()
 			<ul>
 			<li>get()</li>
@@ -33,83 +25,101 @@
 		</li>
 		</ul>
 	</li>
-	<li>mySQL
+	<li>database
 		<ul>
-		<li>connection
-			<ul>
-			<li>connect()</li>
-			<li>disconnect()</li>
-			</ul>
-		</li>
-		<li>database
-			<ul>
-			<li>get()</li>
-			<li>set($setTo)</li>
-			<li>select($selectTo)</li>
-			</ul>
-		</li>
-		<li>server()</li>
-		<li>prefix
-			<ul>
-			<li>get()</li>
-			<li>set($setTo)</li>
-			</ul>
-		</li>
-		<li>dieMessage
-			<ul>
-			<li>get()</li>
-			<li>set($setTo)</li>
-			</ul>
-		</li>
+		<li>connection() [PDO]</li>
+		<li>prefix()</li>
 		</ul>
 	</li>
-	<li>preferences
-	</li>
-	<li>location()
+	<li>preferences()
 		<ul>
 		<li>get()</li>
-		<li>set($setTo)</li>
-		</ul>
-	</li>
-	<li>base()
-		<ul>
-		<li>get()</li>
-		<li>set($setTo)</li>
+		<li>template()</li>
+		<li>owner()</li>
+		<li>email()</li>
+		<li>name()</li>
+		<li>copyright()</li>
 		</ul>
 	</li>
 	<li>content()
 		<ul>
 		<li>get()</li>
-		<li>set($setTo)</li>
-		<li>site()
+		<li>set(array $setTo)</li>
+		<li>page()</li>
+		<li>title()</li>
+		<li>description()</li>
+		<li>keywords()</li>
+		<li>header()
 			<ul>
 			<li>get()</li>
 			<li>set($setTo)</li>
 			</ul>
 		</li>
-		<li>canonical()
+		<li>main()
 			<ul>
 			<li>get()</li>
 			<li>set($setTo)</li>
 			</ul>
 		</li>
-		<li>content()
+		<li>modified()
 			<ul>
 			<li>get()</li>
 			<li>set($setTo)</li>
 			</ul>
 		</li>
-		<li>copyright()
+		<li>dependent()
+			<ul>
+			<li>get()</li>
+			<li>set($setTo)</li>
+			<li>param()
+				<ul>
+				<li>get()</li>
+				<li>set($setTo)</li>
+				</ul>
+			</li>
+			</ul>
+		</li>
+		<li>dynamic()
 			<ul>
 			<li>get()</li>
 			<li>set($setTo)</li>
 			</ul>
 		</li>
+		<li>template()</li>
 		</ul>
 	</li>
-	
+	<li>security
+		<ul>
+		<li>gets [$_GET]</li>
+		<li>posts [$_POST]</li>
+		<li>sessions [$_SESSION]</li>
+		<li>cookies [$_COOKIE]</li>
+		<li>files [$_FILES]</li>
+		<ul>
+	</li>
 </ul>
 </dd>
 
+<dt>$p - The designer class (echos all variables).</dt>
+<dd>
+<ul>
+	<li>name() - Website name in preferences.</li>
+	<li>website() - Website URL.</li>
+	<li>directory() - Current directory.</li>
+	<li>encode() - encoding type in config.</li>
+	<li>mime() - mime-type in config.</li>
+	<li>owner() - The owner's name.</li>
+	<li>email() - The owner's email (encoded).</li>
+	<li>title() - Page Title.</li>
+	<li>description() - Page description.</li>
+	<li>keywords() - Page keywords.</li>
+	<li>header() - Page header/h1.</li>
+	<li>content() - Page content</li>
+	<li>copyright() - The copyright line.</li>
+	<li>modified() - Last modified time of the page.</li>
+	<li>mod->[Module_Name]->[Widget_Name]()</li>
+</ul>
+</dd>
+</dl>
 <body>
 </html>

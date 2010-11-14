@@ -15,51 +15,57 @@
 
 	class placeto_content_dependent_param
 	{
-		function __construct(&$param)
+		private $param;
+
+		public function __construct(&$param)
 		{
 			$this->param=&$param;
 		}
-		function get()
+		public function get()
 		{
 			return $this->param;
 		}
-		function set($setTo)
+		public function set($setTo)
 		{
 			$this->param=$setTo;
 		}
 	}
 	class placeto_content_dependent
 	{
-		function __construct(&$dependent, &$param)
+		private $dependent, $dependentparam, $param;
+
+		public function __construct(&$dependent, &$param)
 		{
 			$this->dependent=&$dependent;
 			$this->dependentparam=&$param;
 			$this->param=new placeto_content_dependent_param($this->dependentparam);
 		}
-		function param()
+		public function param()
 		{
 			return $this->dependentparam;
 		}
-		function get()
+		public function get()
 		{
 			return $this->dependent;
 		}
-		function set($setTo)
+		public function set($setTo)
 		{
 			$this->dependent=$setTo;
 		}
 	}
 	class placeto_content_main
 	{
-		function __construct(&$main)
+		private $main;
+
+		public function __construct(&$main)
 		{
 			$this->main=&$main;
 		}
-		function get()
+		public function get()
 		{
 			return $this->main;
 		}
-		function set($setTo)
+		public function set($setTo)
 		{
 			$this->main=$setTo;
 		}
@@ -67,13 +73,13 @@
 	class placeto_content
 	{
 		private $content;
-		public $found;
+		public $found, $main, $dependent;
 
-		function __construct(&$db, &$location)
+		public function __construct(&$db, &$location)
 		{
 			$this->found=true;
-			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page="'.$location.'" LIMIT 1');
-			$query->execute();
+			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page=:location LIMIT 1');
+			$query->execute(array(':location'=>$location));
 			$this->content=$query->fetch(PDO::FETCH_ASSOC);
 			
 			if (!$this->content)
@@ -91,51 +97,51 @@
 			$this->main=new placeto_content_main($this->content['content']);
 			$this->dependent=new placeto_content_dependent($this->content['dependent'], $this->content['dependentparam']);
 		}
-		function get()
+		public function get()
 		{
 			return $this->content;
 		}
-		function set($setTo)
+		public function set($setTo)
 		{
 			$this->content=$setTo;
 		}
-		function page()
+		public function page()
 		{
 			return $this->content['site'];
 		}
-		function title()
+		public function title()
 		{
 			return $this->content['title'];
 		}
-		function description()
+		public function description()
 		{
 			return $this->content['description'];
 		}
-		function keywords()
+		public function keywords()
 		{
 			return $this->content['keywords'];
 		}
-		function header()
+		public function header()
 		{
 			return $this->content['header'];
 		}
-		function main()
+		public function main()
 		{
 			return $this->main->get();
 		}
-		function modified()
+		public function modified()
 		{
 			return $this->content['lastmod'];
 		}
-		function dependent()
+		public function dependent()
 		{
 			return $this->dependent->get();
 		}
-		function dynamic()
+		public function dynamic()
 		{
 			return $this->content['dynamic'];
 		}
-		function template()
+		public function template()
 		{
 			return $this->content['template'];
 		}

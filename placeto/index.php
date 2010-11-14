@@ -11,13 +11,7 @@
 	*
 	*	Author: Benjamin Jay Young
 	*		http://www.blahertech.org/projects/placeto/
-	*
-	*	//////////////////////////////////////////////////
-	*
-	*	Keep this here!
-	*
-	*	In the source version it will include template.php, however in the build version it's renamed to engine.php.
 	*/
 
-	include('engine/template.php');
+	include('engine/engine.php');
 ?>

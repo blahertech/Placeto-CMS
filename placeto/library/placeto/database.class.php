@@ -18,7 +18,7 @@
 		public $connection;
 		private $database;
 
-		function __construct($db)
+		public function __construct($db)
 		{
 			if (!$db) //in the case the developer didn't use the class correctly
 			{
@@ -59,7 +59,7 @@
 			}
 		}
 
-		function prefix()
+		public function prefix()
 		{
 			return $this->database['prefix'];
 		}

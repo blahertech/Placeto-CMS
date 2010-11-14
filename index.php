@@ -13,5 +13,5 @@
 	*		http://www.blahertech.org/projects/placeto/
 	*/
 
-	include('placeto/engine/template.php');
+	include('placeto/engine/engine.php');
 ?>

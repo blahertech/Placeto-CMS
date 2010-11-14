@@ -17,33 +17,33 @@
 	{
 		private $preferences;
 
-		function __construct(&$db)
+		public function __construct(&$db)
 		{
 			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'preferences LIMIT 1');
 			$query->execute();
 			$this->preferences=$query->fetch(PDO::FETCH_ASSOC);
 		}
-		function get()
+		public function get()
 		{
 			return $this->preferences;
 		}
-		function name()
+		public function name()
 		{
 			return $this->preferences['name'];
 		}
-		function owner()
+		public function owner()
 		{
 			return $this->preferences['owner'];
 		}
-		function copyright()
+		public function copyright()
 		{
 			return $this->preferences['copyright'];
 		}
-		function email()
+		public function email()
 		{
 			return $this->preferences['adminemail'];
 		}
-		function template()
+		public function template()
 		{
 			return $this->preferences['template'];
 		}

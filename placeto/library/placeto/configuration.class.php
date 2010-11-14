@@ -17,15 +17,15 @@
 	{
 		private $encoding;
 
-		function __construct(&$enc)
+		public function __construct(&$enc)
 		{
 			$this->encoding=&$enc;
 		}
-		function get()
+		public function get()
 		{
 			return $this->encoding;
 		}
-		function set($setTo)
+		public function set($setTo)
 		{
 			$this->encoding=$setTo;
 		}
@@ -34,15 +34,15 @@
 	{
 		private $mimetype;
 
-		function __construct(&$mime)
+		public function __construct(&$mime)
 		{
 			$this->mimetype=&$mime;
 		}
-		function get()
+		public function get()
 		{
 			return $this->mimetype;
 		}
-		function set($setTo)
+		public function set($setTo)
 		{
 			$this->mimetype=$setTo;
 		}
@@ -50,8 +50,9 @@
 	class placeto_config
 	{
 		private $config;
+		public $encoding, $MIMEtype;
 
-		function __construct($cfg)
+		public function __construct($cfg)
 		{
 			if (!$cfg) //in the case the developer didn't use the class correctly
 			{
@@ -84,23 +85,23 @@
 			$this->encoding=new placeto_config_encoding($this->config['encoding']);
 			$this->MIMEtype=new placeto_config_MIMEtype($this->config['mimetype']);
 		}
-		function base()
+		public function base()
 		{
 			return $this->config['base'];
 		}
-		function site()
+		public function site()
 		{
 			return $this->config['site'];
 		}
-		function directory()
+		public function directory()
 		{
 			return $this->config['directory'];
 		}
-		function encoding()
+		public function encoding()
 		{
 			return $this->encoding->get();
 		}
-		function MIMEtype()
+		public function MIMEtype()
 		{
 			return $this->MIMEtype->get();
 		}

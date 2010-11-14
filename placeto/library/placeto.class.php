@@ -13,19 +13,20 @@
 	*		http://www.blahertech.org/projects/placeto/
 	**/
 
-	require_once($base.'placeto/library/class.placeto.config.php');
-	require_once($base.'placeto/library/class.placeto.database.php');
-	require_once($base.'placeto/library/class.placeto.preferences.php');
-	require_once($base.'placeto/library/class.placeto.content.php');
+	require_once($base.'placeto/library/placeto/configuration.class.php');
+	require_once($base.'placeto/library/placeto/database.class.php');
+	require_once($base.'placeto/library/placeto/preferences.class.php');
+	require_once($base.'placeto/library/placeto/content.class.php');
+	require_once($base.'placeto/library/placeto/security.class.php');
 
 	class placeto
 	{
 		private $location, $path;
+		public $config, $database, $preferences, $content, $security;
 
-		function __construct($db=false, $cfg=false, $location=false)
+		public function __construct($db=false, $cfg=false, $location=false)
 		{
-			//TODO: SECURITY!
-			//TODO: Move location to config
+			//TODO: Move $location to config
 			if (!$location) //optional param
 			{
 				global $_GET;
@@ -71,22 +72,23 @@
 
 			$this->preferences=new placeto_preferences($this->database);
 			$this->content=new placeto_content($this->database, $this->location);
+			$this->security=new placeto_security();
 		}
-		function location()
+		public function location()
 		{
 			return $this->location;
 		}
-		function path()
+		public function path()
 		{
 			return $this->path;
 		}
-		function preferences()
+		public function preferences()
 		{
 			return $this->preferences-get();
 		}
-		function content()
+		public function content()
 		{
-			
+			return $this->content->get();
 		}
 	}
 ?>

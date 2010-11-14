@@ -53,13 +53,12 @@
 		$placeto->content->dependent->set($dependent);
 	}
 
+	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 	//TODO: make $p an easy accessor for designers to the class
 	unset($placeto);
 
-	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 	die();
 
-	include_once('functions.php');
 	include_once('mods.php');
 
 	if (!$placeto->content->found)

@@ -26,49 +26,9 @@
 
 		public function __construct($db=false, $cfg=false, $location=false)
 		{
-			//TODO: Move $location to config
-			if (!$location) //optional param
-			{
-				global $_GET;
-
-				if (isset($_GET['url']))
-				{
-					$this->location='/'.$_GET['url'];
-				}
-				else
-				{
-					global $_SERVER;
-					$this->location=$_SERVER['PHP_SELF'];
-				}
-			}
-			else
-			{
-				$this->location=$location;
-			}
-
-			//for those who are trying to view your config or any other file, damn them
-			while (stristr($this->location, '../'))
-			{
-				$this->location=str_replace('../', '', $this->location);
-			}
-
-			//used for later
-			$this->path=$this->location;
-
-			$this->config=new placeto_config($this->cfg);
+			$this->config=new placeto_config($this->cfg, $this->location);
 			$this->database=new placeto_database($this->db);
 			unset($this->cfg, $this->db);
-
-			//checks to make sure that $location didn't go wacky
-			$this->location=str_replace('index.php', '', $this->location);
-			if (($this->config->directory()!=='/' || $this->config->directory()==NULL) && $this->config->directory()===substr($this->location, 0, strlen($this->config->directory())))
-			{
-				$this->location=substr($this->location, strlen($this->config->directory()), strlen($this->location));
-			}
-			if (substr($this->location, strlen($this->location)-1)==='/' && strlen($this->location)!==1)
-			{
-				$this->location=substr($this->location, 0, strlen($this->location)-1);
-			}
 
 			$this->preferences=new placeto_preferences($this->database);
 			$this->content=new placeto_content($this->database, $this->location);

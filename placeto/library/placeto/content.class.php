@@ -89,9 +89,9 @@
 				$this->content=$query->fetch(PDO::FETCH_ASSOC);
 				$this->found=false;
 			}
-			if ($this->content['template']=='')
+			if (!$this->content['template'])
 			{
-				$this->content['template']=='index.php';
+				$this->content['template']='index.php';
 			}
 
 			$this->main=new placeto_content_main($this->content['content']);

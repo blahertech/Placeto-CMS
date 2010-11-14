@@ -32,19 +32,19 @@
 
 			try
 			{
-				if ($this->database['type']=='oci') //Oracle
+				if (strtolower($this->database['type'])==='oci') //Oracle
 				{
 					$this->connection=new PDO('oci:', $this->database['user'], $this->database['pass']);
 				}
-				elseif ($this->database['type']=='informix')
+				elseif (strtolower($this->database['type'])==='informix')
 				{
 					$this->connection=new PDO('informix:DSN='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
 				}
-				elseif ($this->database['type']=='pgsql') //PostgreSQL
+				elseif (strtolower($this->database['type'])==='pgsql') //PostgreSQL
 				{
 					$this->connection=new PDO('pgsql:host='.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
 				}
-				elseif ($this->database['type']=='sqlite')
+				elseif (strtolower($this->database['type'])==='sqlite')
 				{
 					$this->connection=new PDO('sqlite:'.$this->database['host']);
 				}

@@ -49,25 +49,38 @@
 	}
 	class placeto_config
 	{
-		private $config;
+		private $config, $location, $path;
 		public $encoding, $MIMEtype;
 
-		public function __construct($cfg)
+		public function base()
+		{
+			return $this->config['base'];
+		}
+		public function site()
+		{
+			return $this->config['site'];
+		}
+		public function directory()
+		{
+			return $this->config['directory'];
+		}
+
+		public function __construct($cfg, $location=false)
 		{
 			if (!$cfg) //in the case the developer didn't use the class correctly
 			{
 				global $base, $config, $config_name;
-				if (!isset($cfg['base']) || $cfg['base']=='') //oh my, what a mess to clean up
+				if (!$cfg['base']) //oh my, what a mess to clean up
 				{
-					if (!isset($base) || $base=='') //just more and more dirt
+					if (!$base) //just more and more dirt
 					{
 						$base='./';
 					}
 					$this->config['base']=$base;
 				}
-				if (!isset($config) || $config=='') //the developer really dosn't know what they're doing
+				if (!$config) //the developer really dosn't know what they're doing
 				{
-					if (!isset($config_name) || $config_name=='') //please, read the documentation
+					if (!$config_name) //please, read the documentation
 					{
 						$config_name='default.config.php'; //we're in a big mess if this doesn't work
 					}
@@ -82,20 +95,57 @@
 				$this->config=$cfg;
 			}
 
+			//now then, since that mess is out of the way, let's get back to work
+			if (!$location) //optional param
+			{
+				global $_GET;
+
+				if (isset($_GET['url']))
+				{
+					$this->location='/'.$_GET['url'];
+				}
+				else
+				{
+					global $_SERVER;
+					$this->location=$_SERVER['PHP_SELF'];
+				}
+			}
+			else
+			{
+				$this->location=$location;
+			}
+
+			//for those who are trying to view your config or any other file, damn them
+			while (stristr($this->location, '../'))
+			{
+				$this->location=str_replace('../', '', $this->location);
+			}
+
+			//used for later
+			$this->path=$this->location;
+
+			//checks to make sure that $location didn't go wacky
+			$this->location=str_replace('index.php', '', $this->location);
+			if (($this->directory()!=='/' || $this->directory()==NULL) && $this->directory()===substr($this->location, 0, strlen($this->directory())))
+			{
+				$this->location=substr($this->location, strlen($this->directory()), strlen($this->location));
+			}
+			if (substr($this->location, strlen($this->location)-1)==='/' && strlen($this->location)!==1)
+			{
+				$this->location=substr($this->location, 0, strlen($this->location)-1);
+			}
+
 			$this->encoding=new placeto_config_encoding($this->config['encoding']);
 			$this->MIMEtype=new placeto_config_MIMEtype($this->config['mimetype']);
 		}
-		public function base()
+
+		public function location()
 		{
-			return $this->config['base'];
+			return $this->location;
 		}
-		public function site()
+		public function path()
 		{
-			return $this->config['site'];
-		}
-		public function directory()
-		{
-			return $this->config['directory'];
+			return $this->path;
 		}
 		public function encoding()
 		{

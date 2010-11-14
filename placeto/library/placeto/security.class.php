@@ -94,6 +94,8 @@
 			{
 				$this->cookies[$this->safe($key)]=$this->safe($value);
 			}
+
+			//TODO: $_FILES
 		}
 	}
 ?>

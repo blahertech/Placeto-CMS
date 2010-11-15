@@ -28,6 +28,7 @@
 				$result.=$char;
 			}
 
+			unset($i, $char, $keychar);
 			return base64_encode($result);
 		}
 		public function decrypt($string, &$key)
@@ -43,6 +44,7 @@
 				$result.=$char;
 			}
 
+			unset($i, $char, $keychar);
 			return $result;
 		}
 
@@ -94,8 +96,9 @@
 			{
 				$this->cookies[$this->safe($key)]=$this->safe($value);
 			}
-
 			//TODO: $_FILES
+
+			unset($key, $value);
 		}
 	}
 ?>

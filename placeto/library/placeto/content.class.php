@@ -13,6 +13,8 @@
 	*		http://www.blahertech.org/projects/placeto/
 	**/
 
+	//TODO: Tags in seperate table
+
 	class placeto_content_dependent_param
 	{
 		private $param;
@@ -28,6 +30,7 @@
 		public function set($setTo)
 		{
 			$this->param=$setTo;
+			unset($setTo);
 		}
 	}
 	class placeto_content_dependent
@@ -51,6 +54,7 @@
 		public function set($setTo)
 		{
 			$this->dependent=$setTo;
+			unset($setTo);
 		}
 	}
 	class placeto_content_main
@@ -68,6 +72,7 @@
 		public function set($setTo)
 		{
 			$this->main=$setTo;
+			unset($setTo);
 		}
 	}
 	class placeto_content
@@ -93,6 +98,9 @@
 			{
 				$this->content['template']='index.php';
 			}
+
+			$query->closeCursor();
+			unset($query);
 
 			$this->main=new placeto_content_main($this->content['content']);
 			$this->dependent=new placeto_content_dependent($this->content['dependent'], $this->content['dependentparam']);

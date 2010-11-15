@@ -21,26 +21,17 @@
 
 	class placeto
 	{
-		private $location, $path;
 		public $config, $database, $preferences, $content, $security;
 
 		public function __construct($db=false, $cfg=false, $location=false)
 		{
 			$this->config=new placeto_config($this->cfg, $this->location);
 			$this->database=new placeto_database($this->db);
-			unset($this->cfg, $this->db);
+			unset($cfg, $db, $location);
 
 			$this->preferences=new placeto_preferences($this->database);
-			$this->content=new placeto_content($this->database, $this->location);
+			$this->content=new placeto_content($this->database, $this->config->location());
 			$this->security=new placeto_security();
-		}
-		public function location()
-		{
-			return $this->location;
-		}
-		public function path()
-		{
-			return $this->path;
 		}
 		public function preferences()
 		{

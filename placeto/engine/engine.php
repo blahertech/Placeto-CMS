@@ -53,13 +53,13 @@
 		$placeto->content->dependent->set($dependent);
 	}
 
+	include_once($placeto->config->base().'placeto/engine/modules.php');
+	
 	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 	//TODO: make $p an easy accessor for designers to the class
 	unset($placeto);
 
 	die();
-
-	include_once('mods.php');
 
 	if (!$placeto->content->found)
 	{

@@ -19,17 +19,24 @@
 	*	Remember, if you define functions in your mod, always use a prototype.php to define those functions as null, in the case the user unenables your mod but does not remove the mod function from the template.
 	**/
 
+	//TODO: put in class
+
 	//see if the mods are enabled
-	$result=mysql_query('SELECT * FROM '.$prefix.'mods');
-	while ($mod_temps=mysql_fetch_assoc($result))
+	$query=$placeto->database->connection->prepare('SELECT * FROM '.$placeto->database->prefix().'mods ORDER BY name');
+	$query->execute();
+	$results=$query->fetchAll(PDO::FETCH_ASSOC);
+	$query->closeCursor();
+	unset($query);
+
+	foreach ($results as $mod)
 	{
-		$mod_starts[$mod_temps['name']]=$mod_temps['enable'];
+		$mods[$mod['name']]=$mod['enable'];
 	}
 
-	$mfiles=scandir($base.'placeto/mods');
+	$dirList=scandir($placeto->config->base().'placeto/modules');
 
 	//attach all the enabled mods
-	foreach ($mfiles as $mfile)
+	foreach ($dirList as $dir)
 	{
 		//for non-content mods
 		$mpre=0;

@@ -13,6 +13,8 @@
 	*		http://www.blahertech.org/projects/placeto/
 	**/
 
+	//TODO: extend private PDO class to handle prefixes
+
 	class placeto_database
 	{
 		public $connection;
@@ -29,6 +31,7 @@
 			{
 				$this->database=$db;
 			}
+			unset($db);
 
 			try
 			{
@@ -48,7 +51,11 @@
 				{
 					$this->connection=new PDO('sqlite:'.$this->database['host']);
 				}
-				else //mySQL by default
+				elseif (strtolower($this->database['type'])==='mssql')
+				{
+					$this->connection=new PDO('mssql:'.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']); //MicroSoft SQL
+				}
+				else //MySQL by default
 				{
 					$this->connection=new PDO('mysql:host='.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
 				}

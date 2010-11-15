@@ -22,6 +22,9 @@
 			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'preferences LIMIT 1');
 			$query->execute();
 			$this->preferences=$query->fetch(PDO::FETCH_ASSOC);
+
+			$query->closeCursor();
+			unset($query);
 		}
 		public function get()
 		{

@@ -28,6 +28,7 @@
 		public function set($setTo)
 		{
 			$this->encoding=$setTo;
+			unset($setTo);
 		}
 	}
 	class placeto_config_MIMEtype
@@ -45,6 +46,7 @@
 		public function set($setTo)
 		{
 			$this->mimetype=$setTo;
+			unset($setTo);
 		}
 	}
 	class placeto_config
@@ -89,11 +91,13 @@
 				}
 
 				$this->config=$config;
+				unset($config, $config_name, $base);
 			}
 			else
 			{
 				$this->config=$cfg;
 			}
+			unset($cfg);
 
 			//now then, since that mess is out of the way, let's get back to work
 			if (!$location) //optional param
@@ -114,6 +118,7 @@
 			{
 				$this->location=$location;
 			}
+			unset($location);
 
 			//for those who are trying to view your config or any other file, damn them
 			while (stristr($this->location, '../'))
@@ -121,7 +126,7 @@
 				$this->location=str_replace('../', '', $this->location);
 			}
 
-			//used for later
+			//used for later (e.g. in reattach)
 			$this->path=$this->location;
 
 			//checks to make sure that $location didn't go wacky

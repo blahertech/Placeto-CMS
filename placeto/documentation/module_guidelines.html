@@ -12,14 +12,30 @@
 			<li>We only accept open-source, specified by either the <a href="http://www.opensource.org/">OSI</a> or <a href="http://www.fsf.org/">FSF</a> foundations.</li>
 			<li>Make sure to include the GPL statement, if using GPL.</li>
 			<li>Do not leave any class function scope's unset (e.g. private, public, protected), same goes for class variables.</li>
-			<li>Unset any variables when you're done with them.</li>
-			<li>Stay away from double quotes as much as possible, only used for phrasing.</li>
 			<li>Programming style must be readable, we also prefer using the Allman style.</li>
 			<li>Like drinking water, using comments is a healthy part of Placeto's diet.</li>
+                        <li>Don't use php short tags.</li>
+			<li>Remember to give credit to yourself and your staff, where it can be applied.</li>
+		</ul>
+                <h2>Performance</h2>
+                <ul>
+			<li>Unset any variables when you're done with them.</li>
+			<li>Stay away from double quotes as much as possible, only use for phrasing. Use single quotes.</li>
+                        <li>for > while > foreach, unless you're counting up, then use while.</li>
+                        <li>Always make sure an variable is set (isset), before using is_array.</li>
+                        <li>Try to use '===' and '!==', where ever possible.</li>
+                        <li>No using switch casing.</li>
+                        <li>Don't forget about pointers, especially in function parameters.</li>
+                        <li>Do any possible pre-calculations before a loop.</li>
+                        <li>Keep PDO::prepare out of any loop!</li>
+                        <li>Make sure you PDO:closeCursor, after any PDO::fetch or PDO::fetchAll.</li>
+                </ul>
+                <h2>Security</h2>
+                <ul>
 			<li>Use PDO to get SQL feedback, we provide you with an already running object.</li>
 			<li>Do not directly concatinate anything in to SQL, append them with PDO Object::execute.</li>
+                        <li>Don't directly reference $_GET, $_POST, or any other global variable the vistitor has access to.</li>
 			<li>Please use the security tools we provide you, whenever possible.</li>
-			<li>Remember to give credit to yourself and your staff, where it can be applied.</li>
 		</ul>
 	</body>
 </html>

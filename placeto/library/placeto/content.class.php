@@ -117,21 +117,22 @@
 			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page=:location LIMIT 1');
 			$query->execute(array(':location'=>$location));
 			$this->content=$query->fetch(PDO::FETCH_ASSOC);
+			$query->closeCursor();
+			unset($query);
 			
 			if (!$this->content)
 			{
 				$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page="/error" LIMIT 1');
 				$query->execute();
 				$this->content=$query->fetch(PDO::FETCH_ASSOC);
+				$query->closeCursor();
+				unset($query);
 				$this->found=false;
 			}
 			if (!$this->content['template'])
 			{
 				$this->content['template']='index.php';
 			}
-
-			$query->closeCursor();
-			unset($query);
 
 			$this->main=new placeto_content_main($this->content['content']);
 			$this->dependent=new placeto_content_dependent($this->content['dependent'], $this->content['dependentparam']);

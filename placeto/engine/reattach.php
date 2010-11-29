@@ -35,20 +35,25 @@
 	*/
 
 	//where's waldo?
-	$tmpfile='placeto/templates/'.$prefs['template'].$location;
-	$mbase=str_ireplace('placeto/engine/reattach.php', '', __FILE__);
+	$tmpfile=
+		$placeto->config->base().'placeto/templates/'
+		.$placeto->preferences->template().$placeto->config->location();
 
-	@include($base.'placeto/templates/'.$prefs['template'].'/data.php');
-	foreach ($templates[$prefs['template']]['files'] as &$tempd)
+	@include
+	(
+		$placeto->config->base().'placeto/templates/'
+		.$placeto->preferences->template().'/data.php'
+	);
+	/*foreach ($templates[$prefs['template']]['files'] as &$tempd)
 	{
 		if ('/'.$tempd==$location)
 		{
 			$break=true;
 		}
-	}
+	}*/
 
 	//is waldo missing?
-	if (file_exists($mbase.$tmpfile) && $location!=='/' && !$break)
+	if (file_exists($tmpfile) && $placeto->config->location()!=='/' && !$break)
 	{
 		//what's waldo's mime type?
 		$extension=strrchr($path, '.');
@@ -62,33 +67,33 @@
 		{
 			//new way
 			$finfo=finfo_open(FILEINFO_MIME);
-			header('Content-Type: '.finfo_file($finfo, $mbase.$tmpfile));
+			header('Content-Type: '.finfo_file($finfo, $tmpfile));
 			finfo_close($finfo);
 			unset($finfo);
 		}
 		else
 		{
 			//old way, please update your phpd
-			header('Content-Type: '.mime_content_type($mbase.$tmpfile));
+			header('Content-Type: '.mime_content_type($tmpfile));
 		}
 
 		unset($path, $extension);
-		header('Content-Length:'.filesize($mbase.$tmpfile));
+		header('Content-Length:'.filesize($tmpfile));
 
 		//readfile is faster than include, trust me
-		readfile($mbase.$tmpfile);
+		readfile($tmpfile);
 
 		//bye waldo
-		placeto_mod_end();
-		unset($mbase, $tmpfile, $tempd, $break);
-		include('mysql/close.php');
+		//placeto_mod_end();
+		unset($tmpfile, $tempd, $break);
+		//include('cleanup.php');
 		die();
 	}
 	else
 	{
 		unset($tempd, $break);
 		//in the case the file was not found in the template directory, uh oh
-		header('Content-Type: '.$config['type']);
+		header('Content-Type: '.$placeto->config->encoding());
 		header('HTTP/1.0 404 Not Found');
 
 		include($base.'placeto/templates/'.$prefs['template'].'/'.$content['template']);

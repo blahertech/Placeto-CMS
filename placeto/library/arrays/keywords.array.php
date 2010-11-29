@@ -17,10 +17,22 @@
 	*	ignore_keywords.php is a HUGE list of common words that are not proper SEO keywords.
 	**/
 
-	$ignore_list=new array
+	$keywords=array
 	(
-		'a', 'an', 'and',
-		'be',
-		'the', 'their', 'there', 'they'
+		'a', 'after', 'all', 'also', 'am', 'an', 'and', 'are', 'as', 'at',
+		'be', 'because', 'before', 'but',
+		'can',
+		'do',
+		'each', 'else',
+		'for',
+		'have', 'he', 'here',
+		'i', 'i\'m', 'if', 'is', 'it',
+		'not',
+		'of', 'only', 'our', 'ourselfs',
+		'she', 'so',
+		'that', 'the', 'their', 'there', 'they', 'to',
+		'unlike', 'us',
+		'we', 'we\'re', 'where', 'while', 'will', 'with',
+		'you', 'you\'re', 'your'
 	);
 ?>

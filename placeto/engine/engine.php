@@ -58,6 +58,7 @@
 	
 	require_once($base.'placeto/config/'.$config_name);
 	require_once($base.'placeto/library/placeto.class.php');
+	require_once($base.'placeto/library/common.php');
 	$config['base']=$base;
 	$placeto=new placeto($database, $config);
 
@@ -66,38 +67,42 @@
 	if (isset($dependent))
 	{
 		$placeto->content->dependent->set($dependent);
+		unset($dependent);
 	}
 
-	include_once($placeto->config->base().'placeto/engine/modules.php');
+	//include_once($placeto->config->base().'placeto/engine/modules.php');
 	
 	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 	//TODO: make $p an easy accessor for designers to the class
-	unset($placeto);
-
-	die();
 
 	if (!$placeto->content->found)
 	{
 		//used for files in the template
-		require('reattach.php');
+		require($placeto->config->base().'placeto/engine/reattach.php');
 	}
-	else if ($placeto->content->dependent==='1' || ($placeto->content->dependent==='2' && isset($_GET[$placeto->content->dependent->param])))
+	else if
+	(
+		$placeto->content->dependent==='1'
+		|| (
+			$placeto->content->dependent==='2'
+			&& isset($_GET[$placeto->content->dependent->param])
+		)
+	)
 	{
 		///independent pages in the db
 		eval('?>'.$placeto->content->main);
-		placeto_mod_end();
+		//placeto_mod_end();
 	}
 	else
 	{
 		//normal pages in the db
-		header('Content-Type: '.$config->getMIMEtype());
-
+		header('Content-Type: '.$placeto->config->MIMEtype());
 		//stop, template time
-		include($base.'placeto/templates/'.$prefs['template'].'/'.$content['template']);
-		placeto_mod_end();
+		include_once($placeto->config->base().'placeto/engine/templates.php');
+		//placeto_mod_end();
 	}
 
 	//watch Asta swim away and await for his next request
-	include('clean.php');
+	//include('cleanup.php');
 	exit(0);
 ?>

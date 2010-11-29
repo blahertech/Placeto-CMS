@@ -99,7 +99,7 @@
 
 		public function __construct($cfg, $location=false)
 		{
-			if (!$cfg) //in the case the developer didn't use the class correctly
+			if (!$cfg) //in case the developer didn't use the class correctly
 			{
 				global $base, $config, $config_name;
 				if (!$cfg['base']) //oh my, what a mess to clean up
@@ -110,7 +110,7 @@
 					}
 					$this->config['base']=$base;
 				}
-				if (!$config) //the developer really dosn't know what they're doing
+				if (!$config) //developer really dosn't know what they're doing
 				{
 					if (!$config_name) //please, read the documentation
 					{
@@ -129,7 +129,7 @@
 			}
 			unset($cfg);
 
-			//now then, since that mess is out of the way, let's get back to work
+			//since that mess is out of the way, let's get back to work
 			if (!$location) //optional param
 			{
 				global $_GET;
@@ -150,7 +150,7 @@
 			}
 			unset($location);
 
-			//for those who are trying to view your config or any other file, damn them
+			//for those who are trying to view your config, damn them
 			while (stristr($this->location, '../'))
 			{
 				$this->location=str_replace('../', '', $this->location);

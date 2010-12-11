@@ -9,34 +9,47 @@
 		</head>
 		<body>
 						<a href="#Post-parsing">Post-parsing</a><br>
+<a href="#configuration.class.php">configuration.class.php</a><br>
 <a href="#content.class.php">content.class.php</a><br>
 <a href="#database.class.php">database.class.php</a><br>
+<a href="#encoding.class.php">encoding.class.php</a><br>
 <a href="#engine.php">engine.php</a><br>
+<a href="#example.config.php">example.config.php</a><br>
 <a href="#extensions.array.php">extensions.array.php</a><br>
 <a href="#index.php">index.php</a><br>
 <a href="#keywords.array.php">keywords.array.php</a><br>
+<a href="#mimetype.class.php">mimetype.class.php</a><br>
 <a href="#modules.php">modules.php</a><br>
+<a href="#p.class.php">p.class.php</a><br>
 <a href="#placeto.class.php">placeto.class.php</a><br>
 <a href="#preferences.class.php">preferences.class.php</a><br>
 <a href="#reattach.php">reattach.php</a><br>
 <a href="#security.class.php">security.class.php</a><br>
+<a href="#templates.php">templates.php</a><br>
+<a name="common.php"></a>
+<h1>common.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 49</b> - Page-level DocBlock precedes "function placeto_extension", use another DocBlock to document the source element<br>
 <a name="configuration.class.php"></a>
 <h1>configuration.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 35</b> - DocBlock would be page-level, but precedes class "placeto_config_encoding", use another DocBlock to document the file<br>
-<b>Warning on line 53</b> - no @package tag was used in a DocBlock for class placeto_config_MIMEtype<br>
-<b>Warning on line 82</b> - no @package tag was used in a DocBlock for class placeto_config<br>
+<b>Warning on line 34</b> - Page-level DocBlock precedes "require_once $base.'placeto/library/placeto/config/encoding.class.php'", use another DocBlock to document the source element<br>
+<b>Warning on line 48</b> - no @package tag was used in a DocBlock for class placeto_Config<br>
 <a name="content.class.php"></a>
 <h1>content.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 37</b> - DocBlock would be page-level, but precedes class "placeto_content_dependent_param", use another DocBlock to document the file<br>
-<b>Warning on line 55</b> - no @package tag was used in a DocBlock for class placeto_content_dependent<br>
-<b>Warning on line 79</b> - no @package tag was used in a DocBlock for class placeto_content_main<br>
-<b>Warning on line 109</b> - no @package tag was used in a DocBlock for class placeto_content<br>
+<b>Warning on line 37</b> - DocBlock would be page-level, but precedes class "placeto_content_dependent_Param", use another DocBlock to document the file<br>
+<b>Warning on line 55</b> - no @package tag was used in a DocBlock for class placeto_content_Dependent<br>
+<b>Warning on line 79</b> - no @package tag was used in a DocBlock for class placeto_content_Main<br>
+<b>Warning on line 109</b> - no @package tag was used in a DocBlock for class placeto_Content<br>
 <a name="database.class.php"></a>
 <h1>database.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 47</b> - no @package tag was used in a DocBlock for class placeto_database<br>
+<b>Warning on line 47</b> - no @package tag was used in a DocBlock for class placeto_Database<br>
+<a name="encoding.class.php"></a>
+<h1>encoding.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 43</b> - no @package tag was used in a DocBlock for class placeto_config_Encoding<br>
 <a name="engine.php"></a>
 <h1>engine.php</h1>
 <h2>Warnings:</h2><br>
@@ -44,41 +57,63 @@
 <a name="extensions.array.php"></a>
 <h1>extensions.array.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 36</b> - File "/home/blaher/projects/placeto/branches/beta/placeto/library/arrays/extensions.array.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 37</b> - File "/home/blaher/projects/placeto/branches/beta/placeto/library/arrays/extensions.array.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="index.php"></a>
 <h1>index.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 28</b> - Page-level DocBlock precedes "include 'placeto/engine/engine.php'", use another DocBlock to document the source element<br>
 <b>Warning on line 31</b> - Page-level DocBlock precedes "include $base.'placeto/engine/engine.php'", use another DocBlock to document the source element<br>
 <b>Warning on line 33</b> - Page-level DocBlock precedes "include $base.'placeto/engine/engine.php'", use another DocBlock to document the source element<br>
 <b>Warning on line 34</b> - Page-level DocBlock precedes "include $base.'placeto/engine/engine.php'", use another DocBlock to document the source element<br>
+<h2>Errors:</h2><br>
+<b>Error on line 40</b> - global variable $config_name The name of the config file.
+ <code>
+     $config_name='default.config';
+ </code> specified in @global tag was never found<br>
+<b>Error on line 43</b> - global variable $dependent If the page should be dependent of the template. specified in @global tag was never found<br>
 <a name="keywords.array.php"></a>
 <h1>keywords.array.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 25</b> - File "/home/blaher/projects/placeto/branches/beta/placeto/library/arrays/keywords.array.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<b>Warning on line 37</b> - File "/home/blaher/projects/placeto/branches/beta/placeto/library/arrays/keywords.array.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
+<a name="mimetype.class.php"></a>
+<h1>mimetype.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 43</b> - no @package tag was used in a DocBlock for class placeto_config_MIMEtype<br>
 <a name="modules.php"></a>
 <h1>modules.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 70</b> - Page-level DocBlock precedes "include $base.'placeto/mods/'.$mfile.'/mod.php'", use another DocBlock to document the source element<br>
+<a name="p.class.php"></a>
+<h1>p.class.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 6</b> - File "/home/blaher/projects/placeto/branches/beta/placeto/library/p.class.php" has no page-level DocBlock, use @package in the first DocBlock to create one<br>
 <a name="placeto.class.php"></a>
 <h1>placeto.class.php</h1>
 <h2>Warnings:</h2><br>
 <b>Warning on line 34</b> - Page-level DocBlock precedes "require_once $base.'placeto/library/placeto/configuration.class.php'", use another DocBlock to document the source element<br>
-<b>Warning on line 53</b> - no @package tag was used in a DocBlock for class placeto<br>
+<b>Warning on line 53</b> - no @package tag was used in a DocBlock for class Placeto<br>
 <a name="preferences.class.php"></a>
 <h1>preferences.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 43</b> - no @package tag was used in a DocBlock for class placeto_preferences<br>
+<b>Warning on line 43</b> - no @package tag was used in a DocBlock for class placeto_Preferences<br>
 <a name="reattach.php"></a>
 <h1>reattach.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 40</b> - Page-level DocBlock precedes "include $base.'placeto/templates/'.$prefs['template'].'/data.php'", use another DocBlock to document the source element<br>
+<b>Warning on line 45</b> - Page-level DocBlock precedes "include $placeto->config->base().'placeto/templates/'.$placeto->preferences->template().'/data.php'", use another DocBlock to document the source element<br>
 <a name="security.class.php"></a>
 <h1>security.class.php</h1>
 <h2>Warnings:</h2><br>
-<b>Warning on line 44</b> - no @package tag was used in a DocBlock for class placeto_security<br>
+<b>Warning on line 44</b> - no @package tag was used in a DocBlock for class placeto_Security<br>
+<a name="templates.php"></a>
+<h1>templates.php</h1>
+<h2>Warnings:</h2><br>
+<b>Warning on line 47</b> - Page-level DocBlock precedes "function placeto_templater", use another DocBlock to document the source element<br>
+<a name="example.config.php"></a>
+<h1>example.config.php</h1>
+<h2>Errors:</h2><br>
+<b>Error on line 40</b> - global variable $config The array of set attributes of the site configuration. specified in @global tag was never found<br>
+<b>Error on line 50</b> - global variable $database The array of set attributes of the database conenction. specified in @global tag was never found<br>
 	<p class="notes" id="credit">
-		Documentation generated on Sat, 20 Nov 2010 11:19:55 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
+		Documentation generated on Sat, 11 Dec 2010 13:21:01 -0500 by <a href="http://www.phpdoc.org" target="_blank">phpDocumentor 1.4.3</a>
 	</p>
 	</body>
 </html>

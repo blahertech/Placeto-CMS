@@ -41,7 +41,7 @@
 	* @version 2.0
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*/
-	class placeto_security
+	class placeto_Security
 	{
 		public $gets, $posts, $sessions, $cookies;
 
@@ -87,7 +87,7 @@
 				$input=stripslashes($input);
 			}
 
-			$input=htmlentities($input, ENT_QUOTES);
+			$input=htmlentities($input);
 			$input=strip_tags($input);
 
 			return $input;

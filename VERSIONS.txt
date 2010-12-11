@@ -1,14 +1,14 @@
-// testing environment
+# testing environment
 apache=2.2.16
 php=5.2.14
 mysql=5.1.47
 cpanel=11.25.0
 
-// software imports
+# software imports
 jquery=1.4.3
 mootools=1.3
 googlegears=1.0
 
-    //admin
+# admin
 ckeditor=3.1
 editarea=0.8.2

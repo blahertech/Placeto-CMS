@@ -26,5 +26,20 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
+   /**
+	* @name $config_name
+    * @global string $config_name The name of the config file.
+    * <code>
+    * 	$config_name='default.config';
+    * </code>
+	*/
+	$config_name=NULL;
+
+   /**
+	* @name $dependent
+    * @global bool $dependent If the page should be dependent of the template.
+	*/
+	$dependent=NULL;
+
 	include('placeto/engine/engine.php');
 ?>

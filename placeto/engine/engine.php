@@ -34,12 +34,12 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	//checks base
+	// checks base
 	if (!isset($base))
 	{
 		$base='./';
 	}
-	//multiple site support check
+	// multiple site support check
 	if (!isset($config_name))
 	{
 		$config_name='default.config.php';
@@ -49,7 +49,7 @@
 		$config_name.='.php';
 	}
 
-	//make sure that config.php is ready or go to setup
+	// make sure that config.php is ready or go to setup
 	if (!file_exists($base.'placeto/config/'.$cfg))
 	{
 		header('Location: '.$base.'placeto/setup');
@@ -60,7 +60,7 @@
 	require_once($base.'placeto/library/placeto.class.php');
 	require_once($base.'placeto/library/common.php');
 	$config['base']=$base;
-	$placeto=new placeto($database, $config);
+	$placeto=new Placeto($database, $config);
 
 	unset($config, $config_name, $database, $base, $location);
 
@@ -73,11 +73,11 @@
 	//include_once($placeto->config->base().'placeto/engine/modules.php');
 	
 	if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
-	//TODO: make $p an easy accessor for designers to the class
+	// TODO: make $p an easy accessor for designers to the class
 
 	if (!$placeto->content->found)
 	{
-		//used for files in the template
+		// used for files in the template
 		require($placeto->config->base().'placeto/engine/reattach.php');
 	}
 	else if
@@ -89,20 +89,20 @@
 		)
 	)
 	{
-		///independent pages in the db
+		// independent pages in the db
 		eval('?>'.$placeto->content->main);
-		//placeto_mod_end();
+		// placeto_mod_end();
 	}
 	else
 	{
-		//normal pages in the db
+		// normal pages in the db
 		header('Content-Type: '.$placeto->config->MIMEtype());
-		//stop, template time
+		// stop, template time
 		include_once($placeto->config->base().'placeto/engine/templates.php');
 		//placeto_mod_end();
 	}
 
-	//watch Asta swim away and await for his next request
+	// watch Asta swim away and await for his next request
 	//include('cleanup.php');
 	exit(0);
 ?>

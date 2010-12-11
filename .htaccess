@@ -1,43 +1,48 @@
+#
+# Placeto CMS.
+#   A lightweight, easy to use PHP content management system. Written to be as
+#   fast as possible and to use as little memory as possible. Placeto provides
+#   browser caching, server caching, deflating, and gzip compression, if
+#   necessary to cut down on bandwidth and cpu usage.
+#
+# This program is free software: you can redistribute it and/or modify it under
+# the terms of the GNU General Public License as published by the Free Software
+# Foundation, either version 3 of the License, or (at your option) any later
+# version. This program is distributed in the hope that it will be useful,  but
+# WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+# FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+# more details. You should have received a copy of the GNU General Public
+# License along with this program, as license.txt.  If not, see
+# <http://www.gnu.org/licenses/>.
+#
 
-#	Placeto CMS
-#		A lightweight, easy to use PHP content management system. Written to be as fast as possible and to use as little memory as possible. Placeto provides browser caching, server caching, deflating and gzip compression if necessary to cut down on bandwidth and cpu time.
 #
-#	Copyright (C) 2009-2010 BlaherTech
+# .htaccess is an Apache configuration file. If you're not fimilar with Apache
+#  config and mod_rewrite, please stay out.
 #
-#	This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-#	This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
-#	You should have received a copy of the GNU General Public License along with this program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
-#
-#	Author: Benjamin Jay Young
-#		http://www.blahertech.org/projects/placeto/
-#
-#	//////////////////////////////////////////////////
-#
-#	.htaccess is an Apache configuration file. If you're not fimilar with Apache config or mod_rewrite, please stay out.
 
-
-#Indexing settings
+# Indexing settings
 Options All Indexes
-DirectoryIndex index.php index.htm index.html index.phtml
+DirectoryIndex index.php index.phtml index.htm index.html index.shtml
 IndexOptions FancyIndexing
 RemoveHandler .php
 
-#Error documents
+# Error documents
 ErrorDocument 400 /error/index.php
 ErrorDocument 404 /error/index.php
 
-#Rewrite engine for main pages
+# Rewrite engine for main pages
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)?$ ./index.php?url=$1 [L,QSA]
+RewriteRule ^(.*)?$ ./index.php?uri=$1 [L,QSA]
 
-#Keep people out of folders that you don't want them in
+# Keep people out of folders that you don't want them in
 RewriteCond %{REQUEST_URI} "^/cgi-bin(/|$)"
-RewriteCond %{REQUEST_URI} "^/inc(/|$)"
+RewriteCond %{REQUEST_URI} "^/placeto(/|$)"
 RewriteRule ^(.*)$ - [R=404,L]
 
-#Block access to any ht file, incase not already set
+# Block access to any ht file, incase not already set
 <Files ~ "\.ht(access|group|passwd)$">
 	Order Allow,Deny
 	Deny From All

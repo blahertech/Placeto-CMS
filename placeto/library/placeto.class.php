@@ -46,11 +46,11 @@
 	* @version 2.2
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
-	* @param array $db The database configuration array.
-	* @param array $cfg The general configuration array.
-	* @param string $location OPTIONAL:Modified $_GET['url'] set bt HTaccess.
+	* @param array $aryDatabase The database configuration array.
+	* @param array $aryConfig The general configuration array.
+	* @param string $strLocation OPTIONAL:Modified $_GET['url'] set bt HTaccess.
 	*/
-	class placeto
+	class Placeto
 	{
 		//TODO: use _server path instead of base
 		public $config, $database, $preferences, $content, $security;
@@ -62,23 +62,28 @@
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		*
 		* @access public
-		* @param array $db The database configuration array.
-		* @param array $cfg The general configuration array.
-		* @param string $location OPTIONAL: Modified $_GET['url'].
+		* @param array $aryDatabase The database configuration array.
+		* @param array $aryConfig The general configuration array.
+		* @param string $strLocation OPTIONAL: Modified $_GET['url'].
 		*/
-		public function __construct($db=false, $cfg=false, $location=false)
+		public function __construct
+		(
+			$aryDatabase=false, $aryConfig=false, $strLocation=false
+		)
 		{
-			$this->config=new placeto_config($this->cfg, $this->location);
-			$this->database=new placeto_database($this->db);
-			unset($cfg, $db, $location);
-
-			$this->preferences=new placeto_preferences($this->database);
-			$this->content=new placeto_content
+			$this->config=new placeto_Config
 			(
-				$this->database,
-				$this->config->location()
+				$this->aryConfig, $this->strLocation
 			);
-			$this->security=new placeto_security();
+			$this->database=new placeto_Database($this->aryDatabase);
+			unset($aryConfig, $aryDatabase, $strLocation);
+
+			$this->preferences=new placeto_Preferences($this->database);
+			$this->content=new placeto_Content
+			(
+				$this->database, $this->config->location()
+			);
+			$this->security=new placeto_Security();
 		}
 
 	   /**

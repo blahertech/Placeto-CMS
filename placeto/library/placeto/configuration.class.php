@@ -31,43 +31,9 @@
 	*	received a copy of the GNU General Public License along with this
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
-	
-	class placeto_config_encoding
-	{
-		private $encoding;
 
-		public function __construct(&$enc)
-		{
-			$this->encoding=&$enc;
-		}
-		public function get()
-		{
-			return $this->encoding;
-		}
-		public function set($setTo)
-		{
-			$this->encoding=$setTo;
-			unset($setTo);
-		}
-	}
-	class placeto_config_MIMEtype
-	{
-		private $mimetype;
-
-		public function __construct(&$mime)
-		{
-			$this->mimetype=&$mime;
-		}
-		public function get()
-		{
-			return $this->mimetype;
-		}
-		public function set($setTo)
-		{
-			$this->mimetype=$setTo;
-			unset($setTo);
-		}
-	}
+	require_once($base.'placeto/library/placeto/config/encoding.class.php');
+	require_once($base.'placeto/library/placeto/config/mimetype.class.php');
 
    /**
 	* The main config class, that builds off of the childern. Here you can find
@@ -79,45 +45,51 @@
 	* @param array $cfg The general configuration array.
 	* @param string $location OPTIONAL:Modified $_GET['url'] set bt HTaccess.
 	*/
-	class placeto_config
+	class placeto_Config
 	{
 		private $config, $location, $path;
 		public $encoding, $MIMEtype;
 
-		public function base()
+	   /**
+		* The placeto_Config class constructor.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @param array $aryConfig The general configuration array.
+		* @param string $strLocation OPTIONAL: Modified $_GET['url'].
+		*/
+		public function __construct($aryConfig, $strLocation=false)
 		{
-			return $this->config['base'];
-		}
-		public function site()
-		{
-			return $this->config['site'];
-		}
-		public function directory()
-		{
-			return $this->config['directory'];
-		}
-
-		public function __construct($cfg, $location=false)
-		{
-			if (!$cfg) //in case the developer didn't use the class correctly
+			// in case the developer didn't use the class correctly
+			if (!$aryConfig)
 			{
 				global $base, $config, $config_name;
-				if (!$cfg['base']) //oh my, what a mess to clean up
+				if (!$aryConfig['base']) // oh my, what a mess to clean up
 				{
-					if (!$base) //just more and more dirt
+					if (!$base) // just more and more dirt
 					{
 						$base='./';
 					}
 					$this->config['base']=$base;
 				}
-				if (!$config) //developer really dosn't know what they're doing
+				if (!$config) // developer really dosn't know what they're doing
 				{
-					if (!$config_name) //please, read the documentation
+					if (!$config_name) // please, read the documentation
 					{
-						$config_name='default.config.php'; //we're in a big mess if this doesn't work
+						// we're in a big mess if this doesn't work
+						$config_name='default.config.php';
 					}
-					require_once($this->config['base'].'placeto/config/'.$config_name);
-					$GLOBALS['database']=$database; //doesn't belong here, but it's the only way to save this mess
+					require_once
+					(
+						$this->config['base'].'placeto/config/'.$config_name
+					);
+					/*
+					 * doesn't belong here, but it's the only way to save
+					 * this mess
+					 */
+					$GLOBALS['database']=$database; 
 				}
 
 				$this->config=$config;
@@ -125,18 +97,18 @@
 			}
 			else
 			{
-				$this->config=$cfg;
+				$this->config=$aryConfig;
 			}
 			unset($cfg);
 
-			//since that mess is out of the way, let's get back to work
-			if (!$location) //optional param
+			// since that mess is out of the way, let's get back to work
+			if (!$strLocation) // optional param
 			{
 				global $_GET;
 
-				if (isset($_GET['url']))
+				if (isset($_GET['uri']))
 				{
-					$this->location='/'.$_GET['url'];
+					$this->location='/'.$_GET['uri'];
 				}
 				else
 				{
@@ -146,46 +118,155 @@
 			}
 			else
 			{
-				$this->location=$location;
+				$this->location=$strLocation;
 			}
-			unset($location);
+			unset($strLocation);
 
-			//for those who are trying to view your config, damn them
+			// for those who are trying to view your config, damn them
 			while (stristr($this->location, '../'))
 			{
 				$this->location=str_replace('../', '', $this->location);
 			}
 
-			//used for later (e.g. in reattach)
+			// used for later (e.g. in reattach)
 			$this->path=$this->location;
 
-			//checks to make sure that $location didn't go wacky
+			// checks to make sure that $location didn't go wacky
 			$this->location=str_replace('index.php', '', $this->location);
-			if (($this->directory()!=='/' || $this->directory()==NULL) && $this->directory()===substr($this->location, 0, strlen($this->directory())))
+			if
+			(
+				(
+					$this->directory()!=='/'
+					|| $this->directory()==NULL
+				)
+				&& $this->directory()===substr
+				(
+					$this->location, 0, strlen($this->directory())
+				)
+			)
 			{
-				$this->location=substr($this->location, strlen($this->directory()), strlen($this->location));
+				$this->location=substr
+				(
+					$this->location,
+					strlen($this->directory()),
+					strlen($this->location)
+				);
 			}
-			if (substr($this->location, strlen($this->location)-1)==='/' && strlen($this->location)!==1)
+			if
+			(
+				substr($this->location, strlen($this->location)-1)==='/'
+				&& strlen($this->location)!==1
+			)
 			{
-				$this->location=substr($this->location, 0, strlen($this->location)-1);
+				$this->location=substr
+				(
+					$this->location, 0, strlen($this->location)-1
+				);
 			}
 
-			$this->encoding=new placeto_config_encoding($this->config['encoding']);
-			$this->MIMEtype=new placeto_config_MIMEtype($this->config['mimetype']);
+			$this->encoding=new placeto_config_Encoding
+			(
+				$this->config['encoding']
+			);
+			$this->MIMEtype=new placeto_config_MIMEtype
+			(
+				$this->config['mimetype']
+			);
 		}
 
+	   /**
+		* Returned base.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The base that leads to where the initial file was at.
+		*/
+		public function base()
+		{
+			return $this->config['base'];
+		}
+
+	   /**
+		* Returned URL.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The URL of the website.
+		*/
+		public function site()
+		{
+			return $this->config['site'];
+		}
+
+	   /**
+		* Returned directory.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The current directory that the CMS is located.
+		*/
+		public function directory()
+		{
+			return $this->config['directory'];
+		}
+
+	   /**
+		* Returned location.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The set URI.
+		*/
 		public function location()
 		{
 			return $this->location;
 		}
+
+	   /**
+		* Returned path.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The orginal path.
+		*/
 		public function path()
 		{
 			return $this->path;
 		}
+
+	   /**
+		* Returned encoding.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The site encoding.
+		*/
 		public function encoding()
 		{
 			return $this->encoding->get();
 		}
+
+	   /**
+		* Returned MIME-type.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		*
+		* @access public
+		* @return string The MIME-type.
+		*/
 		public function MIMEtype()
 		{
 			return $this->MIMEtype->get();

@@ -34,7 +34,7 @@
 
 	//TODO: Tags in seperate table
 
-	class placeto_content_dependent_param
+	class placeto_content_dependent_Param
 	{
 		private $param;
 
@@ -52,7 +52,7 @@
 			unset($setTo);
 		}
 	}
-	class placeto_content_dependent
+	class placeto_content_Dependent
 	{
 		private $dependent, $dependentparam, $param;
 
@@ -60,7 +60,7 @@
 		{
 			$this->dependent=&$dependent;
 			$this->dependentparam=&$param;
-			$this->param=new placeto_content_dependent_param($this->dependentparam);
+			$this->param=new placeto_content_dependent_Param($this->dependentparam);
 		}
 		public function param()
 		{
@@ -76,7 +76,7 @@
 			unset($setTo);
 		}
 	}
-	class placeto_content_main
+	class placeto_content_Main
 	{
 		private $main;
 
@@ -106,7 +106,7 @@
 	* @param placeto_database $db The PDO handler.
 	* @param string $location OPTIONAL:Modified $_GET['url'] set bt HTaccess.
 	*/
-	class placeto_content
+	class placeto_Content
 	{
 		private $content;
 		public $found, $main, $dependent;
@@ -134,8 +134,8 @@
 				$this->content['template']='index.php';
 			}
 
-			$this->main=new placeto_content_main($this->content['content']);
-			$this->dependent=new placeto_content_dependent($this->content['dependent'], $this->content['dependentparam']);
+			$this->main=new placeto_content_Main($this->content['content']);
+			$this->dependent=new placeto_content_Dependent($this->content['dependent'], $this->content['dependentparam']);
 		}
 		public function get()
 		{

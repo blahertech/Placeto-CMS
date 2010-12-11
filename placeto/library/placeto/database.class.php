@@ -44,7 +44,7 @@
 	*
 	* @param array $db The database configuration array.
 	*/
-	class placeto_database
+	class placeto_Database
 	{
 		public $connection;
 		private $database;

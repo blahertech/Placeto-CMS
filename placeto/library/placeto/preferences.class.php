@@ -40,7 +40,7 @@
 	*
 	* @param placeto_database $db The PDO handler.
 	*/
-	class placeto_preferences
+	class placeto_Preferences
 	{
 		private $preferences;
 
@@ -71,7 +71,7 @@
 		}
 		public function email()
 		{
-			return $this->preferences['adminemail'];
+			return $this->preferences['admin_email'];
 		}
 		public function template()
 		{

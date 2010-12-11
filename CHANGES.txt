@@ -1,3 +1,6 @@
+Beta RC.1
+* Complete revision
+
 Alpha Rv.5
 * Added EditArea, for source syntax highlighting
 * Revised robots.txt

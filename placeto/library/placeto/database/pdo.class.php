@@ -33,66 +33,40 @@
 	*/
 
    /**
-	* The MIME-type class, used in the configuration class.
+	* The extended PDO class, we use in Placeto. Comes with added and simpler
+    * functionallity.
 	*
-	* @version 2.2
+	* @version 1.0
 	* @author Benjamin Jay Young <blaher@blahertech.org>
-	*
-	* @param string $strMIME The mime-type.
 	*/
-	class placeto_config_MIMEtype
+	class placeto_PDO extends PDO
 	{
-		private $mimetype;
+		public $sql_find, $sql_replace;
 
-	   /**
-		* The placeto_config_MIMEtype class constructor.
-		*
-		* @version 1.0
-		* @author Benjamin Jay Young <blaher@blahertech.org>
-		*
-		* @access public
-		* @param string $strMIME The mime-type.
-		*/
-		public function __construct(&$strMIME)
+$sql_find=array
+(
+'~(FROM\s+)~',
+'~(INTO\s+)~',
+'~(JOIN\s+)~',
+'~(UPDATE\s+)~',
+'~(CREATE TABLE\s+)~'
+);
+
+$sql_replace=array
+(
+'$1'.$prefix,
+'$1'.$prefix,
+'$1'.$prefix,
+'$1'.$prefix,
+'$1'.$prefix
+);
+		function prepare($strQuery)
 		{
-			$this->mimetype=&$strMIME;
+			parent::prepare($strQuery);
 		}
-
-	   /**
-		* Get the MIME-type.
-		*
-		* @version 1.0
-		* @author Benjamin Jay Young <blaher@blahertech.org>
-		*
-		* @access public
-		* @return string The MIME-type.
-		*/
-		public function get()
+		function prepare($strQuery, $driver_options=NULL)
 		{
-			return $this->mimetype;
-		}
-
-	   /**
-		* Set the MIME-type.
-		*
-		* @version 1.0
-		* @author Benjamin Jay Young <blaher@blahertech.org>
-		*
-		* @access public
-		* @return bool If successful.
-		*/
-		public function set($strMIME)
-		{
-			if (gettype($strMIME)==='string' && $this->mimetype=&$strMIME)
-			{
-				unset($strMIME);
-				return true;
-			}
-			else
-			{
-				unset($strMIME);
-				return false;
-			}
+			parent::prepare($strQuery, $driver_options);
 		}
 	}
 ?>

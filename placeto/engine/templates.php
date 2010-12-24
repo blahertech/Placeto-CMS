@@ -37,7 +37,7 @@
 	function placeto_templater(&$placeto)
 	{
 		include_once($placeto->config->base().'placeto/library/p.class.php');
-		//$p=new p($placeto);
+		$p=new P($placeto);
 
 		require_once
 		(

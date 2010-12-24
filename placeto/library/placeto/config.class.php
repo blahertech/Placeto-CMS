@@ -36,14 +36,14 @@
 	require_once($base.'placeto/library/placeto/config/mimetype.class.php');
 
    /**
-	* The main config class, that builds off of the childern. Here you can find
-    * anything put in the user selected config file.
+	* The main configuration class, that builds off of the childern. Here you
+    * can find anything put in the user selected config file.
 	*
 	* @version 1.4
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
-	* @param array $cfg The general configuration array.
-	* @param string $location OPTIONAL:Modified $_GET['url'] set bt HTaccess.
+	* @param array $aryConfig The general configuration array.
+	* @param string $strLocation OPTIONAL:Modified $_GET['url'] set bt HTaccess.
 	*/
 	class placeto_Config
 	{

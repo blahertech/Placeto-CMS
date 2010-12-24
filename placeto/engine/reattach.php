@@ -34,7 +34,7 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	//where's waldo?
+	// where's waldo?
 	$tmpfile=
 		$placeto->config->base().'placeto/templates/'
 		.$placeto->preferences->template().$placeto->config->location();
@@ -44,6 +44,7 @@
 		$placeto->config->base().'placeto/templates/'
 		.$placeto->preferences->template().'/data.php'
 	);
+	// TODO figure out why I wrote this and update it to match the new placeto
 	/*foreach ($templates[$prefs['template']]['files'] as &$tempd)
 	{
 		if ('/'.$tempd==$location)
@@ -52,16 +53,24 @@
 		}
 	}*/
 
-	//is waldo missing?
+	// is waldo missing?
 	if (file_exists($tmpfile) && $placeto->config->location()!=='/' && !$break)
 	{
 		//what's waldo's mime type?
-		$extension=strrchr($path, '.');
-		//check php compatibilty
-		if (placeto_extension($extension))
+		$extension=strrchr($placeto->config->path(), '.');
+
+		// check php compatibilty
+		if (placeto_extension($extension, $placeto->config->base()))
 		{
-			//prefered way
-			header('Content-Type: '.placeto_extension($extension));
+			// prefered way
+			header
+			(
+				'Content-Type: '
+				.placeto_extension
+				(
+					$extension, $placeto->config->base()
+				)
+			);
 		}
 		else if (function_exists('finfo_file'))
 		{
@@ -73,18 +82,18 @@
 		}
 		else
 		{
-			//old way, please update your phpd
+			// old way, please update your phpd
 			header('Content-Type: '.mime_content_type($tmpfile));
 		}
 
-		unset($path, $extension);
+		unset($extension);
 		header('Content-Length:'.filesize($tmpfile));
 
-		//readfile is faster than include, trust me
+		// readfile is faster than include, trust me
 		readfile($tmpfile);
 
-		//bye waldo
-		//placeto_mod_end();
+		// bye waldo
+		// placeto_mod_end();
 		unset($tmpfile, $tempd, $break);
 		//include('cleanup.php');
 		die();
@@ -92,10 +101,14 @@
 	else
 	{
 		unset($tempd, $break);
-		//in the case the file was not found in the template directory, uh oh
+		// in the case the file was not found in the template directory, uh oh
 		header('Content-Type: '.$placeto->config->encoding());
 		header('HTTP/1.0 404 Not Found');
 
-		include($base.'placeto/templates/'.$prefs['template'].'/'.$content['template']);
+		include
+		(
+			$placeto->config->base().'placeto/templates/'.$prefs['template']
+			.'/'.$content['template']
+		);
 	}
 ?>

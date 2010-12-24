@@ -14,7 +14,7 @@
 	*
 	*	@package placeto
 	*	@subpackage accessor
-	*	@version 1.0
+	*	@version 1.3
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -34,7 +34,7 @@
 	*/
 
    /**
-	* ...
+	* The easy accessor class.
 	*
 	* @version 1.0
 	* @author Benjamin Jay Young <blaher@blahertech.org>
@@ -48,7 +48,7 @@
 	   /**
 		* The p class constructor.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		*
 		* @access public
@@ -62,169 +62,253 @@
 	   /**
 		* Website name in preferences.
 		*
-		* @version 1.0
+		* @version 1.2
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
-		public function name()
+		public function site_name()
 		{
-			echo $this->placeto->preferences->name();
+			if ($this->placeto->preferences->name())
+			{
+				echo $this->placeto->preferences->name();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* Website URL.
 		*
-		* @version 1.0
+		* @version 1.2
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
-		public function website()
+		public function site_url()
 		{
-			echo $this->placeto->config->site();
+			if ($this->placeto->config->site())
+			{
+				echo $this->placeto->config->site();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* Current Directory.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function directory()
 		{
-			echo $this->placeto->config->directory();
+			if ($this->placeto->config->directory())
+			{
+				echo $this->placeto->config->directory();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* Encoding type in config.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function encoding()
 		{
-			echo $this->placeto->config->encoding->get();
+			if ($this->placeto->config->encoding->get())
+			{
+				echo $this->placeto->config->encoding->get();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* MIME-type in config.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function mime()
 		{
-			echo $this->placeto->config->MIMEtype->get();
+			if ($this->placeto->config->MIMEtype->get())
+			{
+				echo $this->placeto->config->MIMEtype->get();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* The website owner's name.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function owner()
 		{
-			echo $this->placeto->preferences->owner();
+			if ($this->placeto->preferences->owner())
+			{
+				echo $this->placeto->preferences->owner();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* The website admin's email.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function email()
 		{
-			echo $this->placeto->preferences->email();
+			if ($this->placeto->preferences->email())
+			{
+				echo $this->placeto->preferences->email();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* Page META title.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function title()
 		{
-			echo $this->placeto->content->title();
+			if ($this->placeto->content->title())
+			{
+				echo $this->placeto->content->title();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* Page META description.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function description()
 		{
-			echo $this->placeto->content->description();
+			if ($this->placeto->content->description())
+			{
+				echo $this->placeto->content->description();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* Page META keywords.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function keywords()
 		{
-			echo $this->placeto->content->keywords();
+			if ($this->placeto->content->keywords())
+			{
+				echo $this->placeto->content->keywords();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* The page header or H1.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function header()
 		{
-			echo $this->placeto->content->header();
+			if ($this->placeto->content->header())
+			{
+				echo $this->placeto->content->header();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* The page's main content.
 		*
-		* @version 1.0
+		* @version 1.2
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function content()
 		{
-			echo $this->placeto->content->main->get();
+			if ($this->placeto->content->main->get())
+			{
+				eval('?>'.$this->placeto->content->main->get());
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* The timestamp when the page was last modified.
 		*
-		* @version 1.0
+		* @version 1.2
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
-		public function modified()
+		public function revised()
 		{
-			echo $this->placeto->content->modified();
+			if ($this->placeto->content->modified())
+			{
+				echo $this->placeto->content->modified();
+				return true;
+			}
+			return false;
 		}
 
 	   /**
 		* The copyright statement.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
+	    * @return bool If exists and successful.
 		*/
 		public function copyright()
 		{
-			echo $this->placeto->preferences->copyright();
+			if ($this->placeto->preferences->copyright())
+			{
+				echo $this->placeto->preferences->copyright();
+				return true;
+			}
+			return false;
 		}
 	}
 ?>

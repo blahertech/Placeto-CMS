@@ -31,20 +31,20 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	//returns the mime type of a given known web extension, this is mostly used in the reattachment of you template includes
-	function placeto_extension(&$ext)
+	// returns the mime type of a given known web extension,
+	// this is mostly used in the reattachment of you template includes.
+	function placeto_extension(&$ext, &$base='./')
 	{
-		include('arrays/extensions.array.php');
-		if ($extentions[$ext])
+		include($base.'placeto/library/arrays/extensions.array.php');
+		if ($extensions[$ext])
 		{
-			//if we have a match
-			$extentions=$extentions[$ext];
-			return $extentions;
+			// if we have a match
+			return $extensions[$ext];
 		}
 		else
 		{
-			//eeerrrrrrr!!!!
-			unset($extentions);
+			// eeerrrrrrr!!!!
+			unset($extensions);
 			return false;
 		}
 	}

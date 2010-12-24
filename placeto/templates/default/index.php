@@ -25,7 +25,7 @@
 		<meta http-equiv="content-language" name="language" content="en" />
 		<meta name="description" content="<?php $p->description(); ?>" />
 		<meta name="keywords" content="<?php $p->keywords(); ?>" />
-		<meta name="revised" content="<?php $p->modified(); ?>" />
+		<meta name="revised" content="<?php $p->revised(); ?>" />
 		<meta name="robots" content="all" />
 		<meta name="generator" content="Placeto CMS" />
 
@@ -48,19 +48,19 @@
 		
 			<div id="top">
 				<div id="logo">
-					<a href="./" rel="home" rev="home"><?php $p->name(); ?></a>
+					<a href="./" rel="home" rev="home"><?php $p->site_name(); ?></a>
 				</div>
 				
 				<!-- Nav -->
 				<ul id="nav">
-					<?php //placeto_nav(); ?>
+					<?php //$p->mods->navigation(); //(DEFAULT 1,2) ?>
 				</ul>
 				<!-- close #nav -->
 				<br class="clear" />
 			</div>
 			
 			<!-- Bread Crumbs -->
-			<div id="bread"><?php //placeto_breadcrumb(); ?></div>
+			<div id="bread"><?php //$p->mods->breadcrumb(); ?></div>
 			<!-- End Bread Crumbs -->
 			
 			<!-- Header -->

@@ -31,8 +31,11 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	// a list of ignored words.
-	$keywords=array
+   /**
+    * @name $aryKeywords
+    * @global array $aryKeywords Array of ignored/common keywords.
+	*/
+	$aryKeywords=array
 	(
 		'a', 'after', 'all', 'also', 'am', 'an', 'and', 'are', 'as', 'at',
 		'be', 'because', 'before', 'but',

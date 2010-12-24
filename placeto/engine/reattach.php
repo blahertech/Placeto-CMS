@@ -35,8 +35,7 @@
 	*/
 
 	// where's waldo?
-	$tmpfile=
-		$placeto->config->base().'placeto/templates/'
+	$strFile=$placeto->config->base().'placeto/templates/'
 		.$placeto->preferences->template().$placeto->config->location();
 
 	@include
@@ -44,23 +43,27 @@
 		$placeto->config->base().'placeto/templates/'
 		.$placeto->preferences->template().'/data.php'
 	);
-	// TODO figure out why I wrote this and update it to match the new placeto
-	/*foreach ($templates[$prefs['template']]['files'] as &$tempd)
+
+	$boolBreak=false;
+	// TODO: figure out why I wrote this and update it to match the new placeto.
+	// NOTE: It may be a list of ingored tempalte files.
+	/*foreach ($templates[$prefs['template']]['files'] as &$strTempFile)
 	{
-		if ('/'.$tempd==$location)
+		if ('/'.$strTempFile==$location)
 		{
-			$break=true;
+			$bolBreak=true;
 		}
 	}*/
+	unset($strTempFile);
 
 	// is waldo missing?
-	if (file_exists($tmpfile) && $placeto->config->location()!=='/' && !$break)
+	if (file_exists($strFile) && $placeto->config->location()!=='/' && !$bool)
 	{
 		//what's waldo's mime type?
-		$extension=strrchr($placeto->config->path(), '.');
+		$strExtension=strrchr($placeto->config->path(), '.');
 
 		// check php compatibilty
-		if (placeto_extension($extension, $placeto->config->base()))
+		if (placeto_extension($strExtension, $placeto->config->base()))
 		{
 			// prefered way
 			header
@@ -68,7 +71,7 @@
 				'Content-Type: '
 				.placeto_extension
 				(
-					$extension, $placeto->config->base()
+					$strExtension, $placeto->config->base()
 				)
 			);
 		}
@@ -76,39 +79,40 @@
 		{
 			//new way
 			$finfo=finfo_open(FILEINFO_MIME);
-			header('Content-Type: '.finfo_file($finfo, $tmpfile));
+			header('Content-Type: '.finfo_file($finfo, $strFile));
 			finfo_close($finfo);
 			unset($finfo);
 		}
 		else
 		{
 			// old way, please update your phpd
-			header('Content-Type: '.mime_content_type($tmpfile));
+			header('Content-Type: '.mime_content_type($strFile));
 		}
 
-		unset($extension);
-		header('Content-Length:'.filesize($tmpfile));
+		unset($strExtension);
+		header('Content-Length:'.filesize($strFile));
 
 		// readfile is faster than include, trust me
-		readfile($tmpfile);
+		readfile($strFile);
 
 		// bye waldo
 		// placeto_mod_end();
-		unset($tmpfile, $tempd, $break);
+		unset($strFile, $bool);
 		//include('cleanup.php');
 		die();
 	}
 	else
 	{
-		unset($tempd, $break);
+		unset($strTempFile, $bool);
 		// in the case the file was not found in the template directory, uh oh
 		header('Content-Type: '.$placeto->config->encoding());
 		header('HTTP/1.0 404 Not Found');
 
 		include
 		(
-			$placeto->config->base().'placeto/templates/'.$prefs['template']
-			.'/'.$content['template']
+			$placeto->config->base()
+			.'placeto/templates/'.$placeto->preferences->template()
+			.'/'.$placeto->content->template()
 		);
 	}
 ?>

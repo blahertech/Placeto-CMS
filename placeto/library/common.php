@@ -33,18 +33,30 @@
 
 	// returns the mime type of a given known web extension,
 	// this is mostly used in the reattachment of you template includes.
-	function placeto_extension(&$ext, &$base='./')
+   /**
+	* Fetches the MIME type of an file extension.
+	*
+	* @version 1.0
+	* @author Benjamin Jay Young <blaher@blahertech.org>
+	*
+	* @access public
+    * @param string $strExtension Extension (e.g. '.png', '.gif', '.jpeg').
+    * @param string $strBase The base, easily grabbed from the placeto object.
+	* @return string MIME type of extension.
+	*/
+	function placeto_extension(&$strExtension, &$strBase='./')
 	{
-		include($base.'placeto/library/arrays/extensions.array.php');
-		if ($extensions[$ext])
+		// TODO: Add support if they sent the param as the entire file name.
+		include($strBase.'placeto/library/arrays/extensions.array.php');
+		if ($aryExtensions[$strExtension])
 		{
 			// if we have a match
-			return $extensions[$ext];
+			return $aryExtensions[$strExtension];
 		}
 		else
 		{
 			// eeerrrrrrr!!!!
-			unset($extensions);
+			unset($aryExtensions);
 			return false;
 		}
 	}

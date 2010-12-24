@@ -37,11 +37,13 @@
 	// checks base
 	if (!isset($base))
 	{
+		// TODO: Add better support for finding it, if it's not set.
 		$base='./';
 	}
 	// multiple site support check
 	if (!isset($config_name))
 	{
+		// TODO: Check if the default exists, if not, get one that exists.
 		$config_name='default.config.php';
 	}
 	else
@@ -72,7 +74,7 @@
 
 	//include_once($placeto->config->base().'placeto/engine/modules.php');
 	
-	/* // */if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
+/* // */if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 
 	if (!$placeto->content->found)
 	{
@@ -90,7 +92,7 @@
 	{
 		// independent pages in the db
 		eval('?>'.$placeto->content->main);
-		// placeto_mod_end();
+		//placeto_mod_end();
 	}
 	else
 	{
@@ -103,5 +105,5 @@
 
 	// watch Asta swim away and await for his next request
 	//include('cleanup.php');
-	exit(0);
+	exit(0); // 0 means success
 ?>

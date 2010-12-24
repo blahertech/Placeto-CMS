@@ -34,7 +34,7 @@
 
    /**
     * @name $config
-    * @global array $config The array of set attributes of the site configuration.
+    * @global array $config The array of attributes of the site configuration.
 	*/
 	$config=array();
 	// url of domain, no directory
@@ -44,7 +44,7 @@
 
    /**
 	* @name $database
-    * @global array $database The array of set attributes of the database conenction.
+    * @global array $database The array of attributes of the DB conenction.
 	*/
 	$database=array();
 	// database type: mysql, oci (Oracle), sqlite, pgsql (PostgreSQL), informix

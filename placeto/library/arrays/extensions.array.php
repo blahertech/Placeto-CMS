@@ -31,8 +31,11 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	// list of mime types referenced by extensions.
-	$extensions=array
+   /**
+    * @name $aryExtensions
+    * @global array $aryExtensions MIME type references of file extensions.
+	*/
+	$aryExtensions=array
 	(
 		'.css'=>'text/css',
 		'.js'=>'text/javascript',

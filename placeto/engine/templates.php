@@ -34,7 +34,7 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	function placeto_templater(&$placeto)
+	function placeto_templator(&$placeto)
 	{
 		include_once($placeto->config->base().'placeto/library/p.class.php');
 		$p=new P($placeto);
@@ -47,5 +47,5 @@
 		);
 	}
 
-	placeto_templater($placeto); //for certain security reasons
+	placeto_templator($placeto); //for certain security reasons
 ?>

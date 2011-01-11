@@ -19,7 +19,7 @@
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -39,7 +39,7 @@
     * used on Placeto. We provide support for several database types and take
     * care of any user set properties.
 	*
-	* @version 2.1
+	* @version 2.2
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
 	* @param array $db The database configuration array.
@@ -51,7 +51,7 @@
 
 		public function __construct($db)
 		{
-			if (!$db) //in the case the developer didn't use the class correctly
+			if (!$db) // in case the developer didn't use the class correctly
 			{
 				global $database;
 				$this->database=$database;
@@ -64,34 +64,79 @@
 
 			try
 			{
-				if (strtolower($this->database['type'])==='oci') //Oracle
+				if (strtolower($this->database['type'])==='oci') // Oracle
 				{
-					$this->connection=new PDO('oci:', $this->database['user'], $this->database['pass']);
+					$this->connection=new PPDO
+					(
+						'oci:',
+						$this->database['user'],
+						$this->database['pass'],
+						NULL,
+						$this->database['prefix']
+					);
 				}
 				elseif (strtolower($this->database['type'])==='informix')
 				{
-					$this->connection=new PDO('informix:DSN='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
+					$this->connection=new PPDO
+					(
+						'informix:DSN='.$this->database['dbname'],
+						$this->database['user'],
+						$this->database['pass'],
+						NULL,
+						$this->database['prefix']
+					);
 				}
-				elseif (strtolower($this->database['type'])==='pgsql') //PostgreSQL
+				elseif (strtolower($this->database['type'])==='pgsql')
 				{
-					$this->connection=new PDO('pgsql:host='.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
+					$this->connection=new PPDO
+					(
+						'pgsql:host='.$this->database['host']
+							.';dbname='.$this->database['dbname'],
+						$this->database['user'],
+						$this->database['pass'],
+						NULL,
+						$this->database['prefix']
+					);
 				}
 				elseif (strtolower($this->database['type'])==='sqlite')
 				{
-					$this->connection=new PDO('sqlite:'.$this->database['host']);
+					$this->connection=new PPDO
+					(
+						'sqlite:'.$this->database['host'],
+						NULL,
+						NULL,
+						NULL,
+						$this->database['prefix']
+					);
 				}
 				elseif (strtolower($this->database['type'])==='mssql')
 				{
-					$this->connection=new PDO('mssql:'.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']); //MicroSoft SQL
+					$this->connection=new PPDO
+					(
+						'mssql:'.$this->database['host']
+							.';dbname='.$this->database['dbname'],
+						$this->database['user'],
+						$this->database['pass'],
+						NULL,
+						$this->database['prefix']
+					);
 				}
-				else //MySQL by default
+				else // MySQL by default
 				{
-					$this->connection=new PDO('mysql:host='.$this->database['host'].';dbname='.$this->database['dbname'], $this->database['user'], $this->database['pass']);
+					$this->connection=new PPDO
+					(
+						'mysql:host='.$this->database['host']
+							.';dbname='.$this->database['dbname'],
+						$this->database['user'],
+						$this->database['pass'],
+						NULL,
+						$this->database['prefix']
+					);
 				}
 			}
 			catch (PDOException $e)
 			{
-				die('Database failed to connect, please contact the website webmaster.');
+				die('Failed to connect to the database!');
 			}
 		}
 

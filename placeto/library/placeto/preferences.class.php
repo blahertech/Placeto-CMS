@@ -19,7 +19,7 @@
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -46,7 +46,12 @@
 
 		public function __construct(&$db)
 		{
-			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'preferences LIMIT 1');
+			$query=$db->connection->prepare
+			(
+				'SELECT *
+					FROM preferences
+					LIMIT 1'
+			);
 			$query->execute();
 			$this->preferences=$query->fetch(PDO::FETCH_ASSOC);
 

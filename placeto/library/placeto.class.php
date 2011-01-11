@@ -13,13 +13,13 @@
 	*
 	*	@package placeto
 	*	@subpackage class
-	*	@version 1.0.2
+	*	@version 1.1.2
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -31,6 +31,8 @@
 	*	received a copy of the GNU General Public License along with this
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
+
+	require_once($base.'placeto/library/ppdo.class.php');
 
 	require_once($base.'placeto/library/placeto/config.class.php');
 	require_once($base.'placeto/library/placeto/database.class.php');

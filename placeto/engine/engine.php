@@ -21,7 +21,7 @@
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -60,7 +60,7 @@
 	
 	require_once($base.'placeto/config/'.$config_name);
 	require_once($base.'placeto/library/placeto.class.php');
-	require_once($base.'placeto/library/common.php');
+	require_once($base.'placeto/library/common.functions.php');
 	$config['base']=$base;
 	$placeto=new Placeto($database, $config);
 

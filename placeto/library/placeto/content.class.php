@@ -19,7 +19,7 @@
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -60,7 +60,10 @@
 		{
 			$this->dependent=&$dependent;
 			$this->dependentparam=&$param;
-			$this->param=new placeto_content_dependent_Param($this->dependentparam);
+			$this->param=new placeto_content_dependent_Param
+			(
+				$this->dependentparam
+			);
 		}
 		public function param()
 		{
@@ -114,7 +117,13 @@
 		public function __construct(&$db, &$location)
 		{
 			$this->found=true;
-			$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page=:location LIMIT 1');
+			$query=$db->connection->prepare
+			(
+				'SELECT *
+					FROM content
+					WHERE page=:location
+					LIMIT 1'
+			);
 			$query->execute(array(':location'=>$location));
 			$this->content=$query->fetch(PDO::FETCH_ASSOC);
 			$query->closeCursor();
@@ -122,7 +131,13 @@
 			
 			if (!$this->content)
 			{
-				$query=$db->connection->prepare('SELECT * FROM '.$db->prefix().'content WHERE page="/error" LIMIT 1');
+				$query=$db->connection->prepare
+				(
+					'SELECT *
+						FROM content
+						WHERE page="/error"
+						LIMIT 1'
+				);
 				$query->execute();
 				$this->content=$query->fetch(PDO::FETCH_ASSOC);
 				$query->closeCursor();

@@ -8,7 +8,7 @@
 	-	Author: Benjamin Jay Young
 	-		http://www.blahertech.org/projects/placeto
 	-
-    -	Copyright (C) 2009-2010 BlaherTech
+    -	Copyright (C) 2009-2011 BlaherTech
     -
 	-	This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 	-	This program is distributed in the hope that it will be useful,  but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
@@ -44,38 +44,36 @@
 		</noscript>
 
 		<div id="stretcher">
-		<div id="wrapper">
-		
-			<div id="top">
-				<div id="logo">
-					<a href="./" rel="home" rev="home"><?php $p->site_name(); ?></a>
+			<div id="wrapper">
+
+				<div id="top">
+					<div id="logo">
+						<a href="./" rel="home" rev="home"><?php $p->site_name(); ?></a>
+					</div>
+
+					<!-- Nav -->
+					<ul id="nav">
+						<?php //$p->mods->navigation(); //(DEFAULT 1,2) ?>
+					</ul>
+					<!-- close #nav -->
+					<br class="clear" />
 				</div>
-				
-				<!-- Nav -->
-				<ul id="nav">
-					<?php //$p->mods->navigation(); //(DEFAULT 1,2) ?>
-				</ul>
-				<!-- close #nav -->
-				<br class="clear" />
-			</div>
-			
-			<!-- Bread Crumbs -->
-			<div id="bread"><?php //$p->mods->breadcrumb(); ?></div>
-			<!-- End Bread Crumbs -->
-			
-			<!-- Header -->
-			<h1><?php $p->header(); ?></h1>
-			<!-- End Header -->
-			
-			<!-- Content -->
-			<?php $p->content(); ?>
-			<!-- End Content -->
-			
-			 <div id="ballon"></div>
-		</div>
-		<!-- close #wrapper -->
-		</div>
-		<!-- close #stretcher -->
+
+				<!-- Bread Crumbs -->
+				<div id="bread"><?php //$p->mods->breadcrumb(); ?></div>
+				<!-- End Bread Crumbs -->
+
+				<!-- Header -->
+				<h1><?php $p->header(); ?></h1>
+				<!-- End Header -->
+
+				<!-- Content -->
+				<?php $p->content(); ?>
+				<!-- End Content -->
+
+				 <div id="ballon"></div>
+			</div> <!-- close #wrapper -->
+		</div> <!-- close #stretcher -->
 		
 		<!-- Floating footer -->
 		
@@ -91,15 +89,12 @@
                         Powered by <a href="http://www.blahertech.org/projects/placeto/">Placeto CMS</a>
 					</div>
 					<!-- End Copyright -->
-				</div>
-				<!-- close #panel -->
+				</div> <!-- close #panel -->
 				
 				<div class="edge"></div>
-			</div>
-			<!-- close #wrap -->
+			</div> <!-- close #wrap -->
 
-		</div>
-		<!-- close #footer -->
+		</div> <!-- close #footer -->
 
 	</body>
 </html>

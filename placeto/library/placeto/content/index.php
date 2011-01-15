@@ -7,16 +7,8 @@
 	*		gzip compression, if necessary to cut down on bandwidth and cpu
 	*		usage.
 	*
-	*	Engine.
-	*		The engine is what handles the requested content and generates
-	*		everything on demand, manipulating what needs to be where and what
-	*		is provided, based on what is in the database, template, and
-	*		modules.
-	*
 	*	@package placeto
-	*	@subpackage engine
-	*	@version 1.0.5
-	*
+	*	@version 0.1.0
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
@@ -34,25 +26,6 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	// engine security check
-	if (TOKEN!=='21ffddec9e9360f0c35c4185f3696ea3')
-	{
-		header('Location: ../../');
-		die();
-	}
-
-	function placeto_templator(&$placeto)
-	{
-		include_once($placeto->config->base().'placeto/library/p.class.php');
-		$p=new P($placeto);
-
-		require_once
-		(
-			$placeto->config->base().'placeto/templates/'
-			.$placeto->preferences->template()
-			.'/'.$placeto->content->template()
-		);
-	}
-
-	placeto_templator($placeto); //for certain security reasons
+	header('Location: ../../../../');
+	die();
 ?>

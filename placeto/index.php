@@ -9,12 +9,11 @@
 	*
 	*	@package placeto
 	*	@version 0.1.0
-    *
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -27,10 +26,13 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	if (!$base)
+	if (isset($config_name) || isset($base))
 	{
-		$base='../';
+		include('engine/engine.php');
 	}
-
-	include($base.'placeto/engine/engine.php');
+	else
+	{
+		header('Location: ../');
+		die();
+	}
 ?>

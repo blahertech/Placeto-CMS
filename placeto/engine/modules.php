@@ -21,7 +21,7 @@
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2010
+	*	@copyright BlaherTech 2009-2011
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -33,6 +33,13 @@
 	*	received a copy of the GNU General Public License along with this
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
+
+	// engine security check
+	if (TOKEN!=='21ffddec9e9360f0c35c4185f3696ea3')
+	{
+		header('Location: ../../');
+		die();
+	}
 
 	//TODO: put in class
 

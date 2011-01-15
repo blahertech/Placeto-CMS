@@ -34,6 +34,8 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
+	define('TOKEN', '21ffddec9e9360f0c35c4185f3696ea3');
+
 	// checks base
 	if (!isset($base))
 	{
@@ -46,7 +48,7 @@
 		// TODO: Check if the default exists, if not, get one that exists.
 		$config_name='default.config.php';
 	}
-	else
+	else if (substr(strrev($config_name), 0, 4)!=='php.')
 	{
 		$config_name.='.php';
 	}

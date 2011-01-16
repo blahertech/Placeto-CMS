@@ -32,8 +32,8 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	require_once($base.'placeto/library/placeto/config/encoding.class.php');
-	require_once($base.'placeto/library/placeto/config/mimetype.class.php');
+	require_once('config/encoding.class.php');
+	require_once('config/mimetype.class.php');
 
    /**
 	* The main configuration class, that builds off of the childern. Here you
@@ -100,6 +100,32 @@
 				$this->config=$aryConfig;
 			}
 			unset($cfg);
+
+			// make sure they didn't put a '/' on the end of the domain
+			if (substr(strrev($this->config['site']), 0, 1)==='/')
+			{
+				$this->config['site']=substr
+				(
+					$this->config['directory'],
+					0,
+					strlen($this->config['directory'])-1
+				);
+			}
+
+			// make sure they didn't put a '/' on the end of the directory
+			if
+			(
+				substr(strrev($this->config['directory']), 0, 1)==='/'
+				&& $this->config['directory']!=='/'
+			)
+			{
+				$this->config['directory']=substr
+				(
+					$this->config['directory'],
+					0,
+					strlen($this->config['directory'])-1
+				);
+			}
 
 			// since that mess is out of the way, let's get back to work
 			if (!$strLocation) // optional param

@@ -32,13 +32,13 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	require_once($base.'placeto/library/ppdo.class.php');
+	require_once('ppdo.class.php');
 
-	require_once($base.'placeto/library/placeto/config.class.php');
-	require_once($base.'placeto/library/placeto/database.class.php');
-	require_once($base.'placeto/library/placeto/preferences.class.php');
-	require_once($base.'placeto/library/placeto/content.class.php');
-	require_once($base.'placeto/library/placeto/security.class.php');
+	require_once('placeto/config.class.php');
+	require_once('placeto/database.class.php');
+	require_once('placeto/preferences.class.php');
+	require_once('placeto/content.class.php');
+	require_once('placeto/security.class.php');
 
    /**
 	* The main abstraction class to be used during the programming side

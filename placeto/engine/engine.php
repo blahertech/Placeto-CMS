@@ -34,7 +34,7 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	define('TOKEN', '21ffddec9e9360f0c35c4185f3696ea3');
+	define('TOKEN', '21ffddec9e9360f0c35c4185f3696ea3'); // md5('placeto')
 
 	// checks base
 	if (!isset($base))
@@ -76,12 +76,12 @@
 
 	//include_once($placeto->config->base().'placeto/engine/modules.php');
 	
-/* // */if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
+/* //*/if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 
 	if (!$placeto->content->found)
 	{
 		// used for files in the template
-		require($placeto->config->base().'placeto/engine/reattach.php');
+		require('reattach.php');
 	}
 	else if
 	(
@@ -101,7 +101,7 @@
 		// normal pages in the db
 		header('Content-Type: '.$placeto->config->MIMEtype());
 		// stop, template time
-		include_once($placeto->config->base().'placeto/engine/templates.php');
+		include_once('templates.php');
 		//placeto_mod_end();
 	}
 

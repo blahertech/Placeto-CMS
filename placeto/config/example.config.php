@@ -32,6 +32,13 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
+	// You might want to keep this part here for security reasons.
+	/* ignore this */ if (TOKEN!=='21ffddec9e9360f0c35c4185f3696ea3')
+	/* ignore this */ {
+	/* ignore this */ 	header('Location: ../../');
+	/* ignore this */ 	die();
+	/* ignore this */ }
+
    /**
     * @name $config
     * @global array $config The array of attributes of the site configuration.

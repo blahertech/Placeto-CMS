@@ -66,7 +66,7 @@
 	$config['base']=$base;
 	$placeto=new Placeto($database, $config);
 
-	unset($config, $config_name, $database, $base, $location);
+	unset($config, $config_name, $database, $base);
 
 	if (isset($dependent))
 	{

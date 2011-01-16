@@ -34,11 +34,11 @@
 
 	require_once('ppdo.class.php');
 
+	require_once('placeto/security.class.php');
 	require_once('placeto/config.class.php');
 	require_once('placeto/database.class.php');
 	require_once('placeto/preferences.class.php');
 	require_once('placeto/content.class.php');
-	require_once('placeto/security.class.php');
 
    /**
 	* The main abstraction class to be used during the programming side
@@ -73,9 +73,10 @@
 			$aryDatabase=false, $aryConfig=false, $strLocation=false
 		)
 		{
+			$this->security=new placeto_Security();
 			$this->config=new placeto_Config
 			(
-				$this->aryConfig, $this->strLocation
+				$this->aryConfig, $this->strLocation, $this->security
 			);
 			$this->database=new placeto_Database($this->aryDatabase);
 			unset($aryConfig, $aryDatabase, $strLocation);
@@ -85,7 +86,6 @@
 			(
 				$this->database, $this->config->location()
 			);
-			$this->security=new placeto_Security();
 		}
 
 	   /**

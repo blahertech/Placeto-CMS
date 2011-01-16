@@ -59,9 +59,17 @@
 		* @access public
 		* @param array $aryConfig The general configuration array.
 		* @param string $strLocation OPTIONAL: Modified $_GET['url'].
+	    * @param placeto_Security $security the security object
 		*/
-		public function __construct($aryConfig, $strLocation=false)
+		public function __construct
+		(
+			$aryConfig, $strLocation=false, &$security=false
+		)
 		{
+			if (!$security)
+			{
+				$security=new placeto_Security();
+			}
 			// in case the developer didn't use the class correctly
 			if (!$aryConfig)
 			{
@@ -85,11 +93,8 @@
 					(
 						$this->config['base'].'placeto/config/'.$config_name
 					);
-					/*
-					 * doesn't belong here, but it's the only way to save
-					 * this mess
-					 */
-					$GLOBALS['database']=$database; 
+					// doesn't belong here, but only way to save this mess
+					$GLOBALS['database']=$database;
 				}
 
 				$this->config=$config;
@@ -111,6 +116,60 @@
 					strlen($this->config['directory'])-1
 				);
 			}
+			
+			// let's make sure the url is correctly entered
+			if
+			(
+				substr($this->config['site'], 0, 7)!=='http://'
+				&& substr($this->config['site'], 0, 7)!=='https://'
+			)
+			{
+				if ($_SERVER['SERVER_PORT']==443 || $_SERVER['HTTPS'])
+				{
+					$this->config['site']='https://'.$this->config['site'];
+				}
+				else
+				{
+					$this->config['site']='http://'.$this->config['site'];
+				}
+			}
+
+			// validate the url, if it's not right, grab it
+			$strRegEx="#((http|https)://(\S*?\.\S*?))(\s|\;|\)|\]|\[|\{|\}|,|\"|'|:|\<|$|\.\s)#ie";
+			if (!preg_match($strRegEx, $this->config['site']))
+			{
+				if ($_SERVER['SERVER_PORT']==80)
+				{
+					$this->config['site']='http://'.$_SERVER['SERVER_NAME'];
+				}
+				elseif ($_SERVER['SERVER_PORT']==443 || $_SERVER['HTTPS'])
+				{
+					$this->config['site']='https://'.$_SERVER['SERVER_NAME'];
+				}
+				else
+				{
+					$this->config['site']='http://'.$_SERVER['SERVER_NAME']
+						.':'.$_SERVER['SERVER_PORT'];
+				}
+				unset($strDomain);
+			}
+			unset($strRegEx);
+
+			// make sure there is a directory
+			if
+			(
+				!isset($this->config['directory'])
+				|| $this->config['directory']==''
+			)
+			{
+				$this->config['directory']=substr
+				(
+					$_SERVER['REQUEST_URI'],
+					0,
+					strlen($_SERVER['REQUEST_URI'])
+						-strlen($security->gets['uri'])
+				);
+			}
 
 			// make sure they didn't put a '/' on the end of the directory
 			if
@@ -130,15 +189,12 @@
 			// since that mess is out of the way, let's get back to work
 			if (!$strLocation) // optional param
 			{
-				global $_GET;
-
-				if (isset($_GET['uri']))
+				if (isset($security->gets['uri']))
 				{
-					$this->location='/'.$_GET['uri'];
+					$this->location='/'.$security->gets['uri'];
 				}
 				else
 				{
-					global $_SERVER;
 					$this->location=$_SERVER['PHP_SELF'];
 				}
 			}

@@ -33,7 +33,7 @@
 	*/
 
 	// You might want to keep this part here for security reasons.
-	/* ignore this */ if (TOKEN!=='21ffddec9e9360f0c35c4185f3696ea3')
+	/* ignore this */ if (TOKEN!=='30c42e373acf6f3322f72875e59e677d')
 	/* ignore this */ {
 	/* ignore this */ 	header('Location: ../../');
 	/* ignore this */ 	die();
@@ -61,4 +61,7 @@
 	$config['encoding']='utf-8';
 	// your mime-type and encoding string
 	$config['mimetype']='text/html';
+
+	// the key used in encryption, don't change this after you begin
+	$config['key']=='p1ac3t0';
 ?>

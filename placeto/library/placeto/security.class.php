@@ -44,67 +44,44 @@
 	class placeto_Security
 	{
 		public $gets, $posts, $sessions, $cookies;
+		private $key, $salt;
 
-		public function encrypt(&$string, &$key)
+		public function safe($strPhrase)
 		{
-			$result='';
-			for($i=0; $i<strlen($string); $i++)
-			{
-				$char=substr($string, $i, 1);
-				$keychar=substr($key, ($i % strlen($key))-1, 1);
-				$char=chr(ord($char)+ord($keychar));
-				$result.=$char;
-			}
-
-			unset($i, $char, $keychar);
-			return base64_encode($result);
-		}
-		public function decrypt($string, &$key)
-		{
-			$result='';
-			$string=base64_decode($string);
-
-			for($i=0; $i<strlen($string); $i++)
-			{
-				$char=substr($string, $i, 1);
-				$keychar=substr($key, ($i % strlen($key))-1, 1);
-				$char=chr(ord($char)-ord($keychar));
-				$result.=$char;
-			}
-
-			unset($i, $char, $keychar);
-			return $result;
-		}
-
-		public function safe($input)
-		{
-			$input=str_replace('\r', '', $input);
-			$input=str_replace('\n', '', $input);
-			$input=str_replace('\t', '', $input);
+			$strPhrase=str_replace('\r', '', $strPhrase);
+			$strPhrase=str_replace('\n', '', $strPhrase);
+			$strPhrase=str_replace('\t', '', $strPhrase);
 
 			if (get_magic_quotes_gpc())
 			{
-				$input=stripslashes($input);
+				$strPhrase=stripslashes($strPhrase);
 			}
 
-			$input=htmlentities($input);
-			$input=strip_tags($input);
+			$strPhrase=htmlentities($strPhrase);
+			$strPhrase=strip_tags($strPhrase);
 
-			return $input;
+			return $strPhrase;
 		}
-		public function safeHTML($input)
+
+		public function  __construct($strKey=false, $strSalt=false)
 		{
-			if (get_magic_quotes_gpc())
+			if (!$strKey)
 			{
-				$input=stripslashes($input);
+				$this->key=sha1('placeto_key');
 			}
-			$input=htmlentities($input, ENT_QUOTES);
+			else
+			{
+				$this->key=sha1($strKey);
+			}
+			if (!$strSalt)
+			{
+				$this->salt=md5('placeto_salt');
+			}
+			else
+			{
+				$this->key=md5($strSalt);
+			}
 
-			return $input;
-		}
-
-		public function  __construct()
-		{
 			foreach ($_GET as $key=>$value)
 			{
 				$this->gets[$this->safe($key)]=$this->safe($value);
@@ -127,6 +104,118 @@
 			//TODO: $_FILES
 
 			unset($key, $value);
+		}
+
+		public function safeHTML($strPhrase)
+		{
+			if (get_magic_quotes_gpc())
+			{
+				$strPhrase=stripslashes($strPhrase);
+			}
+			$strPhrase=htmlentities($strPhrase, ENT_QUOTES);
+
+			return $strPhrase;
+		}
+
+		public function hash($strPhrase, $strSalt=false)
+		{
+			if (!$strSalt)
+			{
+				$strSalt=$this->salt;
+			}
+			$strSalt=md5(sha1($strSalt).$strSalt);
+
+			return hash('sha256', $strSalt.$strPhrase);
+		}
+
+		public function encrypt($strPhrase, $strKey=false, $strSalt=false)
+		{
+			if (!$strSalt)
+			{
+				$strSalt=$this->salt;
+			}
+			else
+			{
+				$strSalt=md5($strSalt);
+			}
+			if (!$strKey)
+			{
+				$strKey=$this->key;
+			}
+			else
+			{
+				$strKey=sha1($strKey);
+			}
+			$strKey.=$strSalt; // What!?! Did he just do that??? Oh, yes he did!
+
+			$strResult='';
+			$strPhrase=$strSalt.$strPhrase;
+			for($i=0; $i<strlen($strPhrase); $i++)
+			{
+				$strChar=substr($strPhrase, $i, 1);
+				$strKeyChar=substr($strKey, ($i % strlen($strKey))-1, 1);
+				$strResult.=chr(ord($strChar)+ord($strKeyChar));
+			}
+
+			unset($strPhrase, $i, $strChar, $strKeyChar);
+			return base64_encode($strSalt.$strResult);
+		}
+		public function decrypt($strPhrase, $strKey=false, $strSalt=false)
+		{
+			if (!$strSalt)
+			{
+				$strSalt=$this->salt;
+			}
+			else
+			{
+				$strSalt=md5($strSalt);
+			}
+			if (!$strKey)
+			{
+				$strKey=$this->key;
+			}
+			else
+			{
+				$strKey=sha1($strKey);
+			}
+			$strKey.=$strSalt; // What!?! Did he just do that??? Oh, yes he did!
+
+			$strResult='';
+			$strPhrase=substr(base64_decode($strPhrase), strlen($strSalt));
+
+			for($i=0; $i<strlen($strPhrase); $i++)
+			{
+				$strChar=substr($strPhrase, $i, 1);
+				$strKeyChar=substr($strKey, ($i % strlen($strKey))-1, 1);
+				$strResult.=chr(ord($strChar)-ord($strKeyChar));
+			}
+
+			$strResult=substr($strResult, strlen($strSalt));
+
+			unset($strPhrase, $i, $strChar, $strKeyChar);
+			return $strResult;
+		}
+
+		// encrypts, sends, stores in DB as AES. For personal information, like passwords, credit cards, addresses.
+		// returns as encrypted, you can decrypt. If hashed, compare hashes.
+		public function databaseSendSecure($strData, $bolEncrypt=true, $bolHash=false)
+		{
+			if ($bolHash)
+			{
+				$strData=$this->hash($strData);
+			}
+			if ($bolEncrypt)
+			{
+				$strData=$this->encrypt($strData);
+			}
+
+			return ' AES_ENCRYPT(\''.$strData.'\', \''.$this->key.'\') ';
+		}
+
+		// you still need to decrypt this
+		public function databaseGetSecure($strField)
+		{
+			return ' AES_DECRYPT(\''.$strField.'\', \''.$this->key.'\') AS '.$strField.' ';
 		}
 	}
 ?>

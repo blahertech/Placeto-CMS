@@ -34,7 +34,7 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	define('TOKEN', '21ffddec9e9360f0c35c4185f3696ea3'); // md5('placeto')
+	define('TOKEN', '30c42e373acf6f3322f72875e59e677d'); // md5('placeto_token')
 
 	// checks base
 	if (!isset($base))

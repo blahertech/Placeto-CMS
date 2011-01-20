@@ -73,7 +73,7 @@
 			$aryDatabase=false, $aryConfig=false, $strLocation=false
 		)
 		{
-			$this->security=new placeto_Security();
+			$this->security=new placeto_Security($aryConfig['key']);
 			$this->config=new placeto_Config
 			(
 				$this->aryConfig, $this->strLocation, $this->security

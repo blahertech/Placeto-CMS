@@ -35,7 +35,7 @@
 	*/
 
 	// engine security check
-	if (TOKEN!=='21ffddec9e9360f0c35c4185f3696ea3')
+	if (TOKEN!=='30c42e373acf6f3322f72875e59e677d')
 	{
 		header('Location: ../../');
 		die();

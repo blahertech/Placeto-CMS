@@ -33,7 +33,7 @@
 	*/
 
 	// You might want to keep this part here for security reasons.
-	/* ignore this */ if (TOKEN!=='21ffddec9e9360f0c35c4185f3696ea3')
+	/* ignore this */ if (TOKEN!=='30c42e373acf6f3322f72875e59e677d')
 	/* ignore this */ {
 	/* ignore this */ 	header('Location: ../../');
 	/* ignore this */ 	die();
@@ -59,16 +59,19 @@
 	// server location, most likely 'localhost'
 	$database['host']='localhost';
 	// the user name you login with
-	$database['user']='blaherte_placeto';
+	$database['user']='FooFighter95';
 	// the password
-	$database['pass']='90marcusofotecalp09';
+	$database['pass']='N0tAR391P955w0rd';
 	// the database that placeto goes in
-	$database['dbname']='blaherte_plbeta';
+	$database['dbname']='placetoCMSDB';
 	// the table prefixes
-	$database['prefix']='placeto_';
+	$database['prefix']='placeto_tbl';
 
 	// the encoding type
 	$config['encoding']='utf-8';
 	// your mime-type and encoding string
 	$config['mimetype']='text/html';
+
+	// not a great idea to change this, after you start storing passwords
+	$config['key']=='p1ac3t0';
 ?>

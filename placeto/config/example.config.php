@@ -43,35 +43,35 @@
     * @name $config
     * @global array $config The array of attributes of the site configuration.
 	*/
-	$config=array();
+	$CONFIG=array();
 	// url of domain, no directory
-	$config['site']='http://placeto.blahertech.net';
+	$CONFIG['site']='http://placeto.blahertech.net';
 	// entire url directory of placement, no ending '/'
-	$config['directory']='/beta';
+	$CONFIG['directory']='/beta';
 
    /**
 	* @name $database
     * @global array $database The array of attributes of the DB conenction.
 	*/
-	$database=array();
+	$DATABASE=array();
 	// database type: mysql, oci (Oracle), sqlite, pgsql (PostgreSQL), informix
-	$database['type']='mysql';
+	$DATABASE['type']='mysql';
 	// server location, most likely 'localhost'
-	$database['host']='localhost';
+	$DATABASE['host']='localhost';
 	// the user name you login with
-	$database['user']='FooFighter95';
+	$DATABASE['user']='FooFighter95';
 	// the password
-	$database['pass']='N0tAR391P955w0rd';
+	$DATABASE['pass']='N0tAR391P955w0rd';
 	// the database that placeto goes in
-	$database['dbname']='placetoCMSDB';
+	$DATABASE['dbname']='placetoCMSDB';
 	// the table prefixes
-	$database['prefix']='placeto_tbl';
+	$DATABASE['prefix']='placeto_tbl';
 
 	// the encoding type
-	$config['encoding']='utf-8';
+	$CONFIG['encoding']='utf-8';
 	// your mime-type and encoding string
-	$config['mimetype']='text/html';
+	$CONFIG['mimetype']='text/html';
 
 	// not a great idea to change this, after you start storing passwords
-	$config['key']=='p1ac3t0';
+	$CONFIG['key']=='p1ac3t0';
 ?>

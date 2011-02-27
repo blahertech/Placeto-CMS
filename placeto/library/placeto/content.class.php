@@ -38,63 +38,63 @@
 	{
 		private $param;
 
-		public function __construct(&$param)
+		public function __construct(&$strParam)
 		{
-			$this->param=&$param;
+			$this->param=&$strParam;
 		}
 		public function get()
 		{
 			return $this->param;
 		}
-		public function set($setTo)
+		public function set($strParam)
 		{
-			$this->param=$setTo;
-			unset($setTo);
+			$this->param=$strParam;
+			unset($strParam);
 		}
 	}
 	class placeto_content_Dependent
 	{
-		private $dependent, $dependentparam, $param;
+		private $dependent, $dependentParam, $param;
 
-		public function __construct(&$dependent, &$param)
+		public function __construct(&$boolDependent, &$strParam)
 		{
-			$this->dependent=&$dependent;
-			$this->dependentparam=&$param;
+			$this->dependent=&$boolDependent;
+			$this->dependentParam=&$strParam;
 			$this->param=new placeto_content_dependent_Param
 			(
-				$this->dependentparam
+				$this->dependentParam
 			);
 		}
 		public function param()
 		{
-			return $this->dependentparam;
+			return $this->dependentParam;
 		}
 		public function get()
 		{
 			return $this->dependent;
 		}
-		public function set($setTo)
+		public function set($boolDependent)
 		{
-			$this->dependent=$setTo;
-			unset($setTo);
+			$this->dependent=$boolDependent;
+			unset($boolDependent);
 		}
 	}
 	class placeto_content_Main
 	{
 		private $main;
 
-		public function __construct(&$main)
+		public function __construct(&$strContent)
 		{
-			$this->main=&$main;
+			$this->main=&$strContent;
 		}
 		public function get()
 		{
 			return $this->main;
 		}
-		public function set($setTo)
+		public function set($strContent)
 		{
-			$this->main=$setTo;
-			unset($setTo);
+			$this->main=$strContent;
+			unset($strContent);
 		}
 	}
 
@@ -106,42 +106,35 @@
 	* @version 1.2
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
-	* @param placeto_database $db The PDO handler.
-	* @param string $location OPTIONAL:Modified $_GET['url'] set bt HTaccess.
+	* @param placeto_Database $objDatabase The PDO handler.
+	* @param string $strLocation OPTIONAL:Modified $_GET['url'] set bt HTaccess.
 	*/
 	class placeto_Content
 	{
 		private $content;
 		public $found, $main, $dependent;
 
-		public function __construct(&$db, &$location)
+		public function __construct
+		(
+			placeto_Database &$objDatabase, &$strLocation
+		)
 		{
 			$this->found=true;
-			$query=$db->connection->prepare
+			$pdoContent=$objDatabase->connection->prepare
 			(
-				'SELECT *
-					FROM content
-					WHERE page=:location
-					LIMIT 1'
+				'SELECT c.*
+					FROM tblContent
+					WHERE c.Page=:Page
+					LIMIT 1
+				;'
 			);
-			$query->execute(array(':location'=>$location));
-			$this->content=$query->fetch(PDO::FETCH_ASSOC);
-			$query->closeCursor();
-			unset($query);
+			$pdoContent->execute(array(':Page'=>$strLocation));
+			$this->content=$pdoContent->fetch(PDO::FETCH_ASSOC);
 			
 			if (!$this->content)
 			{
-				$query=$db->connection->prepare
-				(
-					'SELECT *
-						FROM content
-						WHERE page="/error"
-						LIMIT 1'
-				);
-				$query->execute();
-				$this->content=$query->fetch(PDO::FETCH_ASSOC);
-				$query->closeCursor();
-				unset($query);
+				$pdoContent->execute(array(':Page'=>'/error'));
+				$this->content=$pdoContent->fetch(PDO::FETCH_ASSOC);
 				$this->found=false;
 			}
 			if (!$this->content['template'])
@@ -149,56 +142,14 @@
 				$this->content['template']='index.php';
 			}
 
+			$pdoContent->closeCursor();
+			unset($pdoContent);
+
 			$this->main=new placeto_content_Main($this->content['content']);
-			$this->dependent=new placeto_content_Dependent($this->content['dependent'], $this->content['dependentparam']);
-		}
-		public function get()
-		{
-			return $this->content;
-		}
-		public function set($setTo)
-		{
-			$this->content=$setTo;
-		}
-		public function page()
-		{
-			return $this->content['site'];
-		}
-		public function title()
-		{
-			return $this->content['title'];
-		}
-		public function description()
-		{
-			return $this->content['description'];
-		}
-		public function keywords()
-		{
-			return $this->content['keywords'];
-		}
-		public function header()
-		{
-			return $this->content['header'];
-		}
-		public function main()
-		{
-			return $this->main->get();
-		}
-		public function modified()
-		{
-			return $this->content['lastmod'];
-		}
-		public function dependent()
-		{
-			return $this->dependent->get();
-		}
-		public function dynamic()
-		{
-			return $this->content['dynamic'];
-		}
-		public function template()
-		{
-			return $this->content['template'];
+			$this->dependent=new placeto_content_Dependent
+			(
+				$this->content['dependent'], $this->content['dependentparam']
+			);
 		}
 	}
 ?>

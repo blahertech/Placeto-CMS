@@ -54,9 +54,9 @@
 		* @access public
 		* @param placeto $placeto Your built placeto object.
 		*/
-		public function __construct(&$placeto)
+		public function __construct(&$objPlaceto)
 		{
-			$this->placeto=&$placeto;
+			$this->placeto=&$objPlaceto;
 		}
 
 	   /**

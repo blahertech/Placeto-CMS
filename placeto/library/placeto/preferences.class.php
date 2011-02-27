@@ -48,9 +48,10 @@
 		{
 			$query=$db->connection->prepare
 			(
-				'SELECT *
-					FROM preferences
-					LIMIT 1'
+				'SELECT p.*
+					FROM tblpreferences AS p
+					LIMIT 1
+				;'
 			);
 			$query->execute();
 			$this->preferences=$query->fetch(PDO::FETCH_ASSOC);

@@ -76,9 +76,9 @@
 			$this->security=new placeto_Security($aryConfig['key']);
 			$this->config=new placeto_Config
 			(
-				$this->aryConfig, $this->strLocation, $this->security
+				$aryConfig, $strLocation, $this->security
 			);
-			$this->database=new placeto_Database($this->aryDatabase);
+			$this->database=new placeto_Database($aryDatabase);
 			unset($aryConfig, $aryDatabase, $strLocation);
 
 			$this->preferences=new placeto_Preferences($this->database);

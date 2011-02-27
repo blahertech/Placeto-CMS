@@ -63,48 +63,48 @@
 		*/
 		public function __construct
 		(
-			$aryConfig, $strLocation=false, &$security=false
+			$aryConfig=false, $strLocation=false, &$objSecurity=false
 		)
 		{
-			if (!$security)
+			if (!$objSecurity)
 			{
-				$security=new placeto_Security();
+				$objSecurity=new placeto_Security();
 			}
 			// in case the developer didn't use the class correctly
 			if (!$aryConfig)
 			{
-				global $base, $config, $config_name;
+				global $BASE, $CONFIG, $CONFIG_NAME, $DATABASE;
 				if (!$aryConfig['base']) // oh my, what a mess to clean up
 				{
-					if (!$base) // just more and more dirt
+					if (!$BASE) // just more and more dirt
 					{
-						$base='./';
+						$BASE='./';
 					}
-					$this->config['base']=$base;
+					$this->config['base']=$BASE;
 				}
-				if (!$config) // developer really dosn't know what they're doing
+				if (!$CONFIG) // developer really dosn't know what they're doing
 				{
-					if (!$config_name) // please, read the documentation
+					if (!$CONFIG_NAME) // please, read the documentation
 					{
 						// we're in a big mess if this doesn't work
-						$config_name='default.config.php';
+						$CONFIG_NAME='default.config.php';
 					}
 					require_once
 					(
-						$this->config['base'].'placeto/config/'.$config_name
+						$this->config['base'].'placeto/config/'.$CONFIG_NAME
 					);
 					// doesn't belong here, but only way to save this mess
-					$GLOBALS['database']=$database;
+					$GLOBALS['database']=$DATABASE;
 				}
 
-				$this->config=$config;
-				unset($config, $config_name, $base);
+				$this->config=$CONFIG;
+				unset($CONFIG, $CONFIG_NAME, $BASE, $DATABASE);
 			}
 			else
 			{
 				$this->config=$aryConfig;
 			}
-			unset($cfg);
+			unset($aryConfig);
 
 			// make sure they didn't put a '/' on the end of the domain
 			if (substr(strrev($this->config['site']), 0, 1)==='/')

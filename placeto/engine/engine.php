@@ -37,36 +37,36 @@
 	define('TOKEN', '30c42e373acf6f3322f72875e59e677d'); // md5('placeto_token')
 
 	// checks base
-	if (!isset($base))
+	if (!isset($BASE))
 	{
 		// TODO: Add better support for finding it, if it's not set.
-		$base='./';
+		$BASE='./';
 	}
 	// multiple site support check
-	if (!isset($config_name))
+	if (!isset($CONFIG_NAME))
 	{
 		// TODO: Check if the default exists, if not, get one that exists.
-		$config_name='default.config.php';
+		$CONFIG_NAME='default.config.php';
 	}
-	else if (substr(strrev($config_name), 0, 4)!=='php.')
+	else if (substr(strrev($CONFIG_NAME), 0, 4)!=='php.')
 	{
-		$config_name.='.php';
+		$CONFIG_NAME.='.php';
 	}
 
 	// make sure that config.php is ready or go to setup
-	if (!file_exists($base.'placeto/config/'.$cfg))
+	if (!file_exists($BASE.'placeto/config/'.$CONFIG_NAME))
 	{
-		header('Location: '.$base.'placeto/setup');
+		header('Location: '.$BASE.'placeto/setup');
 		die();
 	}
 	
-	require_once($base.'placeto/config/'.$config_name);
-	require_once($base.'placeto/library/placeto.class.php');
-	require_once($base.'placeto/library/common.functions.php');
-	$config['base']=$base;
-	$placeto=new Placeto($database, $config);
+	require_once($BASE.'placeto/config/'.$CONFIG_NAME);
+	require_once($BASE.'placeto/library/placeto.class.php');
+	require_once($BASE.'placeto/library/common.functions.php');
+	$CONFIG['base']=$BASE;
+	$placeto=new Placeto($DATABASE, $CONFIG);
 
-	unset($config, $config_name, $database, $base);
+	unset($CONFIG, $CONFIG_NAME, $DATABASE, $BASE);
 
 	if (isset($dependent))
 	{

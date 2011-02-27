@@ -27,19 +27,19 @@
 	*/
 
    /**
-	* @name $config_name
-    * @global string $config_name The name of the config file.
+	* @name $CONFIG_NAME
+    * @global string $CONFIG_NAME The name of the config file.
     * <code>
     * 	$config_name='default.config';
     * </code>
 	*/
-	$config_name=NULL;
+	$CONFIG_NAME=NULL;
 
    /**
-	* @name $dependent
-    * @global bool $dependent If the page should be dependent of the template.
+	* @name $DEPENDENT
+    * @global bool $DEPENDENT If the page should be dependent of the template.
 	*/
-	$dependent=NULL;
+	$DEPENDENT=NULL;
 
 	include('placeto/engine/engine.php');
 ?>

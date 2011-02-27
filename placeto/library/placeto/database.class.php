@@ -42,25 +42,25 @@
 	* @version 2.2
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
-	* @param array $db The database configuration array.
+	* @param array $aryDatabase The database configuration array.
 	*/
 	class placeto_Database
 	{
 		public $connection;
 		private $database;
 
-		public function __construct($db)
+		public function __construct($aryDatabase)
 		{
-			if (!$db) // in case the developer didn't use the class correctly
+			if (!$aryDatabase) // in case the developer didn't use the class correctly
 			{
 				global $database;
 				$this->database=$database;
 			}
 			else
 			{
-				$this->database=$db;
+				$this->database=$aryDatabase;
 			}
-			unset($db);
+			unset($aryDatabase);
 
 			try
 			{
@@ -134,7 +134,7 @@
 					);
 				}
 			}
-			catch (PDOException $e)
+			catch (PDOException $objException)
 			{
 				die('Failed to connect to the database!');
 			}

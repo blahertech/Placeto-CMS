@@ -40,28 +40,28 @@
 	/* ignore this */ }
 
 	// url of domain, no directory
-	$config['site']='http://placeto.blahertech.net';
+	$CONFIG['site']='http://placeto.blahertech.net';
 	// entire url directory of placement, no ending '/'
-	$config['directory']='/beta';
+	$CONFIG['directory']='/beta';
 
 	// database type: mysql, oci (Oracle), sqlite, pgsql (PostgreSQL), informix
-	$database['type']='mysql';
+	$DATABASE['type']='mysql';
 	// server location, most likely 'localhost'
-	$database['host']='localhost';
+	$DATABASE['host']='localhost';
 	// the user name you login with
-	$database['user']='blaherte_placeto';
+	$DATABASE['user']='blaherte_placeto';
 	// the password
-	$database['pass']='90marcusofotecalp09';
+	$DATABASE['pass']='90marcusofotecalp09';
 	// the database that placeto goes in
-	$database['dbname']='blaherte_plbeta';
+	$DATABASE['dbname']='blaherte_plbeta';
 	// the table prefixes
-	$database['prefix']='placeto_';
+	$DATABASE['prefix']='placeto_';
 
 	// the encoding type
-	$config['encoding']='utf-8';
+	$CONFIG['encoding']='utf-8';
 	// your mime-type and encoding string
-	$config['mimetype']='text/html';
+	$CONFIG['mimetype']='text/html';
 
 	// the key used in encryption, don't change this after you begin
-	$config['key']=='p1ac3t0';
+	$CONFIG['key']=='p1ac3t0';
 ?>

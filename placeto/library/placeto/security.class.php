@@ -7,13 +7,14 @@
 	*		gzip compression, if necessary to cut down on bandwidth and cpu
 	*		usage.
 	*
-	*	Class.
-	*		This is the main abstraction class to fetch all needed data, from
-	*		the database and other data resources.
+	*	Security.
+    *		Placeto's security platform. It does the work for you, and tightens
+    *		things up. It'll make the sandwhich, you've just got to deliver
+    *		the delicousness. Now with salt and garnishings.
 	*
 	*	@package placeto
-	*	@subpackage class
-	*	@version 1.0.2
+	*	@subpackage security
+	*	@version 1.0.3
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -44,7 +45,7 @@
 	class placeto_Security
 	{
 		public $gets, $posts, $sessions, $cookies;
-		private $key, $salt;
+		private $key, $salt, $garnish, $garnishStart, $garnishEnd;
 
 		public function safe($strPhrase)
 		{
@@ -63,8 +64,12 @@
 			return $strPhrase;
 		}
 
-		public function  __construct($strKey=false, $strSalt=false)
+		public function  __construct
+		(
+			$strKey=false, $strSalt=false, $strGarnish=false
+		)
 		{
+			// The key unlocks the lock.
 			if (!$strKey)
 			{
 				$this->key=sha1('placeto_key');
@@ -73,6 +78,8 @@
 			{
 				$this->key=sha1($strKey);
 			}
+
+			// Salt is a little extra something added before cooking.
 			if (!$strSalt)
 			{
 				$this->salt=md5('placeto_salt');
@@ -81,6 +88,28 @@
 			{
 				$this->key=md5($strSalt);
 			}
+
+			// Garnish is additional stuff added after the food is prepared.
+			if (!$strGarnish)
+			{
+				$this->garnish=crc32('placeto_garnish');
+			}
+			else
+			{
+				$this->garnish=crc32($strGarnish);
+			}
+
+			// I hope you enjoyed my new cryptography phrase, I hope it catches.
+			$intGarnishLength=strlen($this->garnish);
+			$this->garnishStart=substr
+			(
+				$this->garnish, 0, (int)$intGarnishLength/2
+			);
+			$this->garnishEnd=substr
+			(
+				$this->garnish, (int)$intGarnishLength/2, $intGarnishLength
+			);
+			unset($intGarnishLength);
 
 			foreach ($_GET as $key=>$value)
 			{
@@ -119,17 +148,22 @@
 
 		public function hash($strPhrase, $strSalt=false)
 		{
+			// Let's burn this beyond saving.
 			if (!$strSalt)
 			{
 				$strSalt=$this->salt;
 			}
+
 			$strSalt=md5(sha1($strSalt).$strSalt);
 
-			return hash('sha256', $strSalt.$strPhrase);
+			return $garnishStart
+				.hash('sha256', $strSalt.$strPhrase)
+				.$garnishEnd;
 		}
 
 		public function encrypt($strPhrase, $strKey=false, $strSalt=false)
 		{
+			// Yum, delicious, but I prefer dpkg.
 			if (!$strSalt)
 			{
 				$strSalt=$this->salt;
@@ -158,7 +192,7 @@
 			}
 
 			unset($strPhrase, $i, $strChar, $strKeyChar);
-			return base64_encode($strSalt.$strResult);
+			return $garnishStart.base64_encode($strSalt.$strResult).$garnishEnd;
 		}
 		public function decrypt($strPhrase, $strKey=false, $strSalt=false)
 		{
@@ -181,6 +215,11 @@
 			$strKey.=$strSalt; // What!?! Did he just do that??? Oh, yes he did!
 
 			$strResult='';
+			$strPhrase=substr($strPhrase, strlen($this->garnishStart));
+			$strPhrase=substr
+			(
+				$strPhrase, 0, strlen($strPhrase)-strlen($this->garnishEnd)
+			);
 			$strPhrase=substr(base64_decode($strPhrase), strlen($strSalt));
 
 			for($i=0; $i<strlen($strPhrase); $i++)

@@ -40,11 +40,12 @@
 	*/
 	class PPDO extends PDO // Stands for Placeto PDO or Prefixed PDO
 	{
-		public $aryFind, $aryReplace;
+		public $bolStrictPrepend=true;
+		private $aryFind, $aryReplace;
 
 		public function __construct
 		(
-			$dsn, $username, $passwd, $options, $strPrefix=''
+			$strDSN, $strUsername, $strPassword, $aryOptions=NULL, $strPrefix=''
 		)
 		{
 			$this->strPrefix=$strPrefix;
@@ -54,7 +55,8 @@
 				'~(INTO\s+)~',
 				'~(JOIN\s+)~',
 				'~(UPDATE\s+)~',
-				'~(CREATE TABLE\s+)~'
+				'~(CREATE TABLE\s+)~',
+				'~(DESCRIBE\s+)~'
 			);
 			$this->aryReplace=array
 			(
@@ -62,42 +64,32 @@
 				'$1'.$strPrefix,
 				'$1'.$strPrefix,
 				'$1'.$strPrefix,
+				'$1'.$strPrefix,
 				'$1'.$strPrefix
 			);
-			parent::__construct($dsn, $username, $passwd, $options);
-		}
-
-		protected function preFix($strQuery)
-		{
-			$strQuery=str_replace
+			parent::__construct
 			(
-				array(':prefix ', ':prefix'),
-				array($this->strPrefix, $this->strPrefix),
-				$strQuery
+				$strDSN, $strUsername, $strPassword, $aryOptions
 			);
-			$strQuery=preg_replace
-			(
-				$this->aryFind, $this->aryReplace, $strQuery
-			);
-			return $strQuery;
 		}
 
-		public function prepare($strQuery)
+		protected function prefix($strQuery)
 		{
-			return parent::prepare($this->preFix($strQuery));
-		}
-
-		public function execute($aryAppends)
-		{
-			foreach ($aryAppends as $strAppend=>$strValue)
+			if ($this->strPrefix!='')
 			{
-				if (strpos($strAppend, ':')!==0)
-				{
-					$aryAppends[':'.$strAppend]=$strValue;
-					unset($aryAppends[':'.$strAppend]);
-				}
+				$strQuery=str_replace
+				(
+					array(':prefix ', ':prefix'),
+					array($this->strPrefix, $this->strPrefix),
+					$strQuery
+				);
+				$strQuery=preg_replace
+				(
+					$this->aryFind, $this->aryReplace, $strQuery
+				);
 			}
-			return parent::execute();
+
+			return $strQuery;
 		}
 
 		public function setPrefix($strPrefix='')
@@ -109,8 +101,112 @@
 				'$1'.$strPrefix,
 				'$1'.$strPrefix,
 				'$1'.$strPrefix,
+				'$1'.$strPrefix,
 				'$1'.$strPrefix
 			);
+
+			return true;
+		}
+
+		public function prepare($strQuery)
+		{
+			return parent::prepare($this->prefix($strQuery));
+		}
+
+		public function execute($aryAppends)
+		{
+			if ($this->bolStrictPrepend)
+			{
+				foreach ($aryAppends as $strAppend=>$strValue)
+				{
+					if (strpos($strAppend, ':')!==0)
+					{
+						$aryAppends[':'.$strAppend]=$strValue;
+						unset($aryAppends[':'.$strAppend]);
+					}
+				}
+			}
+			return parent::execute();
+		}
+
+		public function fetchAll($intFetchStyle=PDO::FETCH_ASSOC)
+		{
+			return parent::fetchAll($intFetchStyle);
+		}
+
+		private function buildRecursive(&$aryTables, $strTable, $intParent=0)
+		{
+			$intTable=array_push
+			(
+				$aryTables, array('table'=>$strTable, 'parent'=>$intParent)
+			);
+			$intTable--;
+
+			$pdoDescribe=$this->prepare('DESCRIBE tbl'.$strTable.';');
+			$pdoDescribe->execute();
+			$aryDesribe=$pdoDescribe->fetchAll();
+			$pdoDescribe->closeCursor();
+			unset($pdoDescribe);
+
+			foreach ($aryDesribe as $aryColumn)
+			{
+				$intIdPos=strlen($aryColumn['Field'])-2;
+				if
+				(
+					substr($aryColumn['Field'], $intIdPos)=='ID'
+					&& $aryColumn['Field']!='ID'
+				)
+				{
+					$this->buildRecursive
+					(
+						$aryTables,
+						substr($aryColumn['Field'], 0, $intIdPos),
+						$intTable
+					);
+				}
+			}
+
+			if ($intParent==0)
+			{
+				return $aryTables;
+			}
+		}
+
+		public function build($strTable, $intID=false)
+		{
+			$aryTables=array();
+			$strTable=substr($strTable, 3);
+			$aryTables=$this->buildRecursive($aryTables, $strTable);
+			
+			$strJoins='';
+			foreach ($aryTables as $key=>$aryTable)
+			{
+				if ($key)
+				{
+					$strJoins.=' LEFT JOIN tbl'.$aryTable['table']
+						.' ON tbl'.$aryTable['table'].'.ID'
+						.'=tbl'.$aryTables[$aryTable['parent']]['table'].'.ID'
+						."\n";
+				}
+			}
+
+			if ($intID || $intID===0)
+			{
+				$this->prepare
+				(
+					'SELECT *
+						FROM tbl'.$strTable.'
+						'.$strJoins.'
+						LIMIT 1
+					;'
+				);
+			}
+			else
+			{
+
+			}
+
+			echo $strJoins;
 		}
 	}
 ?>

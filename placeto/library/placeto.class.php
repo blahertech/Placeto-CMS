@@ -45,7 +45,7 @@
 	* of Placeto CMS. Includes everything, from PDO access, content, user set
 	* preferences and secured global variables.
 	*
-	* @version 2.2
+	* @version 2.3
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
 	* @param array $aryDatabase The database configuration array.
@@ -60,7 +60,7 @@
 	   /**
 		* The Placeto class constructor.
 		*
-		* @version 1.0
+		* @version 1.3
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		*
 		* @access public
@@ -81,10 +81,12 @@
 			$this->database=new placeto_Database($aryDatabase);
 			unset($aryConfig, $aryDatabase, $strLocation);
 
-			$this->preferences=new placeto_Preferences($this->database);
+			$this->preferences=new placeto_Preferences($this->database->connection);
 			$this->content=new placeto_Content
 			(
-				$this->database, $this->config->location()
+				$this->database->connection,
+				$this->config->location(),
+				$this->preferences
 			);
 		}
 

@@ -13,7 +13,7 @@
 	*
 	*	@package placeto
 	*	@subpackage class
-	*	@version 1.0.2
+	*	@version 1.1.0
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -35,29 +35,34 @@
    /**
 	* The abstraction for any admin set info, can be pulled from here.
 	*
-	* @version 1.1
+	* @version 2.0
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
-	* @param placeto_database $db The PDO handler.
+	* @param PPDO $db The PDO handler.
 	*/
 	class placeto_Preferences
 	{
-		private $preferences;
+		private $preferences, $connection;
 
-		public function __construct(&$db)
+		public function __construct(PPDO &$objConnection)
 		{
-			$query=$db->connection->prepare
+			$this->connection=$objConnection;
+			$pdoPreferences=$this->connection->prepare
 			(
 				'SELECT p.*
-					FROM tblpreferences AS p
-					LIMIT 1
+					FROM tblPreferences AS p
 				;'
 			);
-			$query->execute();
-			$this->preferences=$query->fetch(PDO::FETCH_ASSOC);
+			$pdoPreferences->execute();
 
-			$query->closeCursor();
-			unset($query);
+			while ($aryPreference=$pdoPreferences->fetch())
+			{
+				$this->preferences[$aryPreference['Variable']]
+					=$aryPreference['Value'];
+			}
+
+			$pdoPreferences->closeCursor();
+			unset($pdoPreferences);
 		}
 		public function get()
 		{
@@ -65,23 +70,23 @@
 		}
 		public function name()
 		{
-			return $this->preferences['name'];
+			return $this->preferences['Name'];
 		}
 		public function owner()
 		{
-			return $this->preferences['owner'];
+			return $this->preferences['Owner'];
 		}
 		public function copyright()
 		{
-			return $this->preferences['copyright'];
+			return $this->preferences['Copyright'];
 		}
 		public function email()
 		{
-			return $this->preferences['admin_email'];
+			return $this->preferences['Email'];
 		}
 		public function template()
 		{
-			return $this->preferences['template'];
+			return $this->preferences['Template'];
 		}
 	}
 ?>

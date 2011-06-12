@@ -12,7 +12,7 @@
 	*
 	*	@package placeto
 	*	@subpackage pdo
-	*	@version 1.0.0
+	*	@version 1.1.2
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -127,6 +127,11 @@
 				}
 			}
 			return parent::execute();
+		}
+
+		public function fetch($intFetchStyle=PDO::FETCH_ASSOC)
+		{
+			return parent::fetch($intFetchStyle);
 		}
 
 		public function fetchAll($intFetchStyle=PDO::FETCH_ASSOC)

@@ -1,0 +1,36 @@
+array $CONFIG
+string $CONFIG_NAME
+array $DATABASE
+bool $DEPENDENT
+
+
+$ppdo class PPDO extends PDO(string $strDSN, string $strUsername, string $strPassword, array $aryOptions, string $strPrefix='') ['/library/ppdo.class.php']
+	:: (bool) function setPrefix(string $strPrefix='')
+
+$placeto class Placeto(array $aryDatabase=false, array $aryConfig=false, string $strLocation=false) ['/library/placeto.class.php']
+	-> $security class placeto_Security(string $strKey=false, string $strSalt=false) ['/library/placeto/security.class.php']
+	-> $config class placeto_Config(array $aryConfig=false, string $strLocation=false, placeto_Security &$objSecurity=false) ['/library/placeto/config.class.php']
+	-> $database class placeto_Database(array $aryDatabase) ['/library/placeto/database.class.php']
+		-> $connection class PPDO
+		:: (string) function prefix()
+	-> $preferences class placeto_Preferences(placeto_Database &$objDatabase)
+	-> $content class placeto_Content(placeto_Database &$objDatabase, string &$strLocation) ['/library/placeto/content.class.php']
+		-> $dependent class placeto_content_Dependent(bool &$bolDependent, string &$strParam)) ['/library/placeto/content/dependent.class.php']
+			-> $param class placeto_content_dependent_Param(string &$strParam) ['/library/placeto/content/dependent/param.class.php']
+				:: (string) function get()
+				:: (bool) function set(string $strParam)
+$p class P(Placeto $objPlaceto)
+	:: (bool) function site_name()
+	:: (bool) function site_url()
+	:: (bool) function directory()
+	:: (bool) function encoding()
+	:: (bool) function mime()
+	:: (bool) function owner()
+	:: (bool) function email()
+	:: (bool) function title()
+	:: (bool) function description()
+	:: (bool) function keywords()
+	:: (bool) function header()
+	:: (bool) function content()
+	:: (bool) function revised()
+	:: (bool) function copyright()

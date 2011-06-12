@@ -13,7 +13,7 @@
 	*
 	*	@package placeto
 	*	@subpackage class
-	*	@version 1.0.2
+	*	@version 1.1.1
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -50,13 +50,15 @@
 		{
 			$this->param=$strParam;
 			unset($strParam);
+
+			return true;
 		}
 	}
 	class placeto_content_Dependent
 	{
 		private $dependent, $dependentParam, $param;
 
-		public function __construct(&$boolDependent, &$strParam)
+		public function __construct(&$bolDependent, &$strParam)
 		{
 			$this->dependent=&$boolDependent;
 			$this->dependentParam=&$strParam;
@@ -103,53 +105,182 @@
     * database, under any visitor page. You can also use this class to set or
     * modify any needed content.
 	*
-	* @version 1.2
+	* @version 1.3
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
-	* @param placeto_Database $objDatabase The PDO handler.
+	* @param PPDO $objDatabase The PDO handler.
 	* @param string $strLocation OPTIONAL:Modified $_GET['url'] set bt HTaccess.
 	*/
 	class placeto_Content
 	{
-		private $content;
+		private $content, $connection, $preferences;
 		public $found, $main, $dependent;
 
-		public function __construct
-		(
-			placeto_Database &$objDatabase, &$strLocation
-		)
+		public function fetch($strLocation)
 		{
-			$this->found=true;
-			$pdoContent=$objDatabase->connection->prepare
+			$pdoNode=$this->connection->prepare
 			(
-				'SELECT c.*
-					FROM tblContent
-					WHERE c.Page=:Page
+				'SELECT n.ID, n.ModuleID, n.PrimaryKey, n.ParentID,
+						n.Address, n.RedirectURL,
+						m.Module, m.Table
+					FROM tblNodes AS n
+					JOIN tblModules AS m
+						ON m.ID=n.ModuleID
+					WHERE n.Address=:Address
+						AND m.Enabled=\'true\'
+						AND m.Type=\'Node\'
 					LIMIT 1
 				;'
 			);
-			$pdoContent->execute(array(':Page'=>$strLocation));
-			$this->content=$pdoContent->fetch(PDO::FETCH_ASSOC);
-			
-			if (!$this->content)
-			{
-				$pdoContent->execute(array(':Page'=>'/error'));
-				$this->content=$pdoContent->fetch(PDO::FETCH_ASSOC);
-				$this->found=false;
-			}
-			if (!$this->content['template'])
-			{
-				$this->content['template']='index.php';
-			}
+			$pdoNode->execute(array(':Address'=>$strLocation));
+			$aryNode=$pdoNode->fetch(PDO::FETCH_ASSOC);
+			$pdoNode->closeCursor();
+			unset($pdoNode);
 
+			$pdoContent=$this->connection->prepare
+			(
+				'SELECT c.ID AS '.$aryNode['Module'].'ID, c.*
+					FROM '.$aryNode['Table'].' AS c
+					WHERE c.ID=:PrimaryKey
+					LIMIT 1
+				;'
+			);
+			$pdoContent->execute
+			(
+				array(':PrimaryKey'=>$aryNode['PrimaryKey'])
+			);
+			$aryContent=$pdoContent->fetch(PDO::FETCH_ASSOC);
 			$pdoContent->closeCursor();
 			unset($pdoContent);
 
-			$this->main=new placeto_content_Main($this->content['content']);
+			unset($aryContent['ID']);
+			if (is_array($aryContent) && is_array($aryNode))
+			{
+				$aryContent=array_merge($aryContent, $aryNode);
+			}
+			else
+			{
+				$aryContent=false;
+			}
+			unset($aryNode);
+
+			$pdoKeywords=$this->connection->prepare
+			(
+				'SELECT k.Keyword
+					FROM tblNodesKeywords AS nk
+					JOIN tblKeywords AS k
+						ON k.ID=nk.KeywordID
+					WHERE nk.NodeID=:NodeID
+					GROUP BY k.Keyword
+					ORDER BY nk.Position, nk.KeywordID
+				;'
+			);
+			$pdoKeywords->execute(array(':NodeID'=>$aryContent['ID']));
+			$aryKeywords=$pdoKeywords->fetchAll(PDO::FETCH_ASSOC);
+			foreach ($aryKeywords as $aryKeyword)
+			{
+				$aryContent['Keywords'][]=$aryKeyword['Keyword'];
+			}
+			$pdoKeywords->closeCursor();
+			unset($pdoKeywords, $aryKeywords, $aryKeyword);
+
+			return $aryContent;
+		}
+
+		public function __construct
+		(
+			PPDO &$objConnection, &$strLocation, &$aryPreferences=NULL
+		)
+		{
+			$this->connection=&$objConnection;
+			if (isset($aryPreferences))
+			{
+				$this->preferences=$aryPreferences->get();
+			}
+			$this->found=true;
+
+			$this->content=FALSE;
+			if (function_exists('apc_fetch'))
+			{
+				$this->content=apc_fetch($strLocation);
+				if ($this->content['Dynamic']==true)
+				{
+					$this->content=FALSE;
+				}
+			}
+
+			if ($this->content===FALSE)
+			{
+				$this->content=$this->fetch($strLocation);
+				if (function_exists('apc_fetch'))
+				{
+					if (!isset($this->preferences['MemoryCache']))
+					{
+						$this->preferences['MemoryCache']=15;
+					}
+					apc_store
+					(
+						$strLocation,
+						$this->content,
+						$this->preferences['MemoryCache']*60
+					);
+				}
+			}
+			
+			if (!$this->content)
+			{
+				$this->content=$this->fetch('/error');
+				$this->found=false;
+			}
+			if (!$this->content['TemplateFile'])
+			{
+				$this->content['TemplateFile']='index.php';
+			}
+
+			if (!$this->content['Content'])
+			{
+				$this->content['Content']='';
+			}
+			$this->main=new placeto_content_Main($this->content['Content']);
 			$this->dependent=new placeto_content_Dependent
 			(
-				$this->content['dependent'], $this->content['dependentparam']
+				$this->content['Dependent'], $this->content['DependentParam']
 			);
+		}
+
+		public function template()
+		{
+			return $this->content['TemplateFile'];
+		}
+
+		public function title()
+		{
+			return $this->content['Title'];
+		}
+
+		public function keywords()
+		{
+			return $this->content['Keywords'];
+		}
+
+		public function description()
+		{
+			return $this->content['Description'];
+		}
+		
+		public function created()
+		{
+			return $this->content['DateCreated'];
+		}
+
+		public function modified()
+		{
+			return $this->content['DateModified'];
+		}
+
+		public function header()
+		{
+			return $this->content['Header'];
 		}
 	}
 ?>

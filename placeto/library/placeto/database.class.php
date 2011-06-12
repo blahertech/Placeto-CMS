@@ -13,7 +13,7 @@
 	*
 	*	@package placeto
 	*	@subpackage class
-	*	@version 1.0.2
+	*	@version 1.0.3
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -39,7 +39,7 @@
     * used on Placeto. We provide support for several database types and take
     * care of any user set properties.
 	*
-	* @version 2.2
+	* @version 2.3
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*
 	* @param array $aryDatabase The database configuration array.
@@ -64,7 +64,7 @@
 
 			try
 			{
-				if (strtolower($this->database['type'])==='oci') // Oracle
+				/*if (strtolower($this->database['type'])==='oci') // Oracle
 				{
 					$this->connection=new PPDO
 					(
@@ -122,7 +122,7 @@
 					);
 				}
 				else // MySQL by default
-				{
+				{*/
 					$this->connection=new PPDO
 					(
 						'mysql:host='.$this->database['host']
@@ -132,7 +132,7 @@
 						NULL,
 						$this->database['prefix']
 					);
-				}
+				//}
 			}
 			catch (PDOException $objException)
 			{

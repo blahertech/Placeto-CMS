@@ -48,13 +48,13 @@
 	   /**
 		* The p class constructor.
 		*
-		* @version 1.1
+		* @version 1.2
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		*
 		* @access public
-		* @param placeto $placeto Your built placeto object.
+		* @param Placeto $placeto Your built placeto object.
 		*/
-		public function __construct(&$objPlaceto)
+		public function __construct(Placeto &$objPlaceto)
 		{
 			$this->placeto=&$objPlaceto;
 		}
@@ -233,7 +233,22 @@
 		{
 			if ($this->placeto->content->keywords())
 			{
-				echo $this->placeto->content->keywords();
+				$aryKeywords=$this->placeto->content->keywords();
+				$intFirst=true;
+				foreach ($aryKeywords as $strKeyword)
+				{
+					if (!$intFirst)
+					{
+						echo ', ';
+					}
+					else
+					{
+						$intFirst=false;
+					}
+					echo $strKeyword;
+				}
+				unset($aryKeywords, $strKeyword);
+
 				return true;
 			}
 			return false;
@@ -270,6 +285,24 @@
 			if ($this->placeto->content->main->get())
 			{
 				eval('?>'.$this->placeto->content->main->get());
+				return true;
+			}
+			return false;
+		}
+
+		/**
+		* The timestamp when the page was created.
+		*
+		* @version 1.0
+		* @author Benjamin Jay Young <blaher@blahertech.org>
+		* @access public
+	    * @return bool If exists and successful.
+		*/
+		public function created()
+		{
+			if ($this->placeto->content->created())
+			{
+				echo $this->placeto->content->created();
 				return true;
 			}
 			return false;

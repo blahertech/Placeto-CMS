@@ -1,0 +1,208 @@
+body
+{
+    background: url("../images/bg.png") repeat-x #4583B6;
+    color: #fff;
+    margin: 0;
+    font-family: arial;
+}
+a img
+{
+    border: 0 none;
+}
+h1
+{
+    text-align: center;
+    text-shadow: 2px 3px 5px #777;
+    margin: 0;
+    padding-top: 40px;
+}
+h2
+{
+    color: #333;
+    border: 1px solid #bbb;
+    border-bottom: 3px solid #777;
+    background: #bbb;
+    padding: 5px;
+}
+h3
+{
+    color: #333;
+    border: 1px solid #bbb;
+    background: #ddd;
+    padding: 2px;
+}
+table
+{
+    border: 1px solid #ccc;
+    background: #ddd;
+    margin: 10px 30px;
+}
+caption
+{
+    font-weight: bold;
+    padding: 5px;
+}
+thead
+{
+    background: #ccc;
+}
+tbody
+{
+    font-family: courier;
+}
+tr.odd, tr.odd td
+{
+    background: #e5e5e5;
+}
+th
+{
+    color: #333;
+}
+th, td
+{
+    padding: 5px;
+}
+td
+{
+    border: 1px solid #eee;
+}
+blockquote
+{
+    border: 1px solid #bbb;
+    border-left: 30px solid #ccc;
+    background: url("../images/line.png") repeat-y #ddd;
+    width: auto;
+    padding: 10px;
+    margin: 10px 30px;
+    font-family: monospaced, courier;
+    font-size: 15px;
+}
+blockquote ol, blockquote li
+{
+    margin: 0;
+    padding: 0;
+    list-style-type: decimal;
+    color: #777;
+}
+blockquote li span
+{
+    color: #000;
+}
+p
+{
+    padding: 10px;
+}
+
+#background
+{
+    background: url("../images/bg2.png") no-repeat top right;
+    padding: 10px;
+}
+#container
+{
+    width: 80%;
+    border: 5px solid #ccc;
+    margin: 0 auto;
+    padding: 0 15px;
+    background: #eee;
+    color: #000;
+    box-shadow: 0 0 40px #000;
+    -moz-box-shadow: 0 0 40px #000;
+    -webkit-box-shadow: 0 0 40px #000;
+}
+#header
+{
+    height: 100px;
+    background: url("../images/logo.png") no-repeat top right;
+    padding: 10px 15px;
+    margin: 0 -15px;
+}
+.back
+{
+    border: 1px solid #bbb;
+    background: #ddd;
+    padding: 5px 10px;
+    font-weight: bold;
+    float: left;
+    margin-bottom: 10px;
+}
+.top
+{
+    border: 1px solid #bbb;
+    background: #ddd;
+    padding: 5px 10px;
+    font-weight: bold;
+    float: right;
+    margin-bottom: 10px;
+}
+#header .back
+{
+    float: none;
+}
+#index
+{
+    float: right;
+    border: 1px solid #bbb;
+    background: #ddd;
+    padding: 20px 15px;
+    margin: 5px 0 15px 0;
+}
+#index ol
+{
+    padding: 0 25px;
+    padding-right: 0;
+    margin: 0;
+    list-style-type: upper-roman;
+}
+#index ol ol
+{
+    list-style-type: decimal;
+}
+#index ol ol ol
+{
+    list-style-type: lower-alpha;
+}
+#index ol ol ol ol
+{
+    list-style-type: lower-roman;
+}
+
+.pl-key
+{
+    color: blue;
+    font-family: courier;
+}
+.pl-var
+{
+    color: green;
+    font-family: courier;
+}
+.pl-func
+{
+    font-weight: bold;
+    font-family: courier;
+}
+.pl-str
+{
+    color: red;
+    font-family: courier;
+}
+.pl-class
+{
+    color: fuchsia;
+    font-family: courier;
+}
+.pl-cmt
+{
+    color: #777;
+    font-family: courier;
+}
+.pl-prnt
+{
+    font-style: italic;
+}
+.clear
+{
+    clear: both;
+    font-family: courier;
+}

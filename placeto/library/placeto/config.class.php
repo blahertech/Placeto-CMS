@@ -13,7 +13,7 @@
 	*
 	*	@package placeto
 	*	@subpackage class
-	*	@version 1.0.2
+	*	@version 1.0.3
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
@@ -53,7 +53,7 @@
 	   /**
 		* The placeto_Config class constructor.
 		*
-		* @version 1.0
+		* @version 1.1
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		*
 		* @access public
@@ -70,6 +70,7 @@
 			{
 				$objSecurity=new placeto_Security();
 			}
+			
 			// in case the developer didn't use the class correctly
 			if (!$aryConfig)
 			{
@@ -167,7 +168,7 @@
 					$_SERVER['REQUEST_URI'],
 					0,
 					strlen($_SERVER['REQUEST_URI'])
-						-strlen($security->gets['uri'])
+						-strlen($objSecurity->gets['uri'])
 				);
 			}
 
@@ -189,9 +190,9 @@
 			// since that mess is out of the way, let's get back to work
 			if (!$strLocation) // optional param
 			{
-				if (isset($security->gets['uri']))
+				if (isset($objSecurity->gets['uri']))
 				{
-					$this->location='/'.$security->gets['uri'];
+					$this->location='/'.$objSecurity->gets['uri'];
 				}
 				else
 				{
@@ -207,7 +208,15 @@
 			// for those who are trying to view your config, damn them
 			while (stristr($this->location, '../'))
 			{
-				$this->location=str_replace('../', '', $this->location);
+				$this->location=str_replace('../', '/', $this->location);
+			}
+			while (stristr($this->location, './'))
+			{
+				$this->location=str_replace('./', '/', $this->location);
+			}
+			while (stristr($this->location, '//'))
+			{
+				$this->location=str_replace('//', '/', $this->location);
 			}
 
 			// used for later (e.g. in reattach)

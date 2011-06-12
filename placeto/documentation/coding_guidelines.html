@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+    <head>
+            <title>Placeto CMS Documentation - Coding Guidlines</title>
+            <meta http-equiv="content-type" name="type" content="text/html; charset=utf-8" />
+            <meta http-equiv="content-language" name="language" content="en" />
+
+            <meta name="author" content="Benjamin Jay Young" />
+            <meta name="copyright" content="Copyright 2004-2011 BlaherTech" />
+
+            <link rel="shortcut icon" href="../resources/favicon.ico" type="image/x-icon" />
+            <link rel="icon" href="../resources/favicon.ico" type="image/x-icon" />
+            <link rel="stylesheet" type="text/css" href="../resources/css/documentation.css" />
+    </head>
+    <body><div id="background"><div id="container">
+        <div id="header">
+            <a class="back" href="index.htm">&lt;&lt; Back to Index</a>
+            <h1>Coding Guidelines</h1>
+            <br class="clear" />
+        </div>
+        <div id="index">
+            <ol>
+                <li>
+                    <a href="#1">PHP</a>
+                    <ol>
+                        <li>
+                            <a href="#1-1">Source Formatting</a>
+                            <ol>
+                                <li><a href="#1-1-1">Young Style</a></li>
+                                <li><a href="#1-1-2">Indentation</a></li>
+                                <li><a href="#1-1-3">Comments and Documentation</a></li>
+                            </ol> 
+                        </li>
+                        <li>
+                            <a href="#1-2">Variable Naming</a>
+                            <ol>
+                                <li><a href="#1-2-1">Standard Practices</a></li>
+                                <li><a href="#1-2-2">Loops and Pluralization</a></li>
+                                <li><a href="#1-2-3">Constants</a></li>
+                                <li><a href="#1-2-4">Pre-Placeto Defined</a></li>
+                                <li><a href="#1-2-5">Class Containers</a></li>
+                            </ol>
+                        </li>
+                        <li>
+                            <a href="#1-3">Class Naming</a>
+                        </li>
+                        <li>
+                            <a href="#1-4">File Structure</a>
+                        </li>
+                        <li>
+                            <a href="#1-5">Other</a>
+                        </li>
+                    </ol>
+                </li>
+                <li>
+                    <a href="#2">SQL</a>
+                </li>
+                <li>
+                    <a href="#3">HTML</a>
+                </li>
+                <li>
+                    <a href="#4">JavaScript</a>
+                </li>
+            </ol>
+        </div>
+        
+
+        <h2 id="1">PHP</h2>
+
+        <h3 id="1-1">Source Formatting</h3>
+        <p>
+            When developing as a Placeto Core developer, we strictly use a
+            variation of the Allman style. Only this style is allowed in
+            the core, however, when developing modules, you may use whatever
+            is readable. K&amp;R is another popular style our module
+            developers use, but we recommend using the same style as the
+            core, if you feel comfortable using it.
+        </p>
+        <h4 id="1-1-1">Young Style</h4>
+	<p>
+		Since almost every popular style is named after someone's last name, from here on out, our variation will be referred as the "Young Style". Our lead developer also refuses
+		to name anything after himself, and instead uses a made-up word. So we decided to dedicate this to not only his age, but his last name. Not only that, but he's stubbern,
+		and it reflects his character.
+	</p>
+	<p>
+		The Young style addresses one of the largest problems in source code today, horizontal scrolling. Yes, a problem that once existed in web design, that is now a rare problem,
+		still exists in programming source code. The most important rule to follow, with a little leaning room, is not
+		to write code past the 80 character column. Sure, there are wide screen programmers out there, but some programmers like to have class and file explorers, and some
+		programmers even still like to use a command prompt when writing code. The 80 character column is an old standard that caters to these programmers.
+	</p>
+	<p>
+		Now you may wonder how you can keep all your code under 80 columns, and still keep the indents. Trust us, it's easy. Taking the following Allman style as an example:
+	</p>
+        <blockquote>
+            <ol>
+                <li><span><span class="pl-func">&lt;?php</span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// Make an PDO object.</span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>=<span class="pl-key">new PDO</span>;</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// [Do your connect stuff here]</span></span></li>
+                <li><span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// This is a big line...</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>-><span class="pl-func">prepare</span>(<span class="pl-str">'SELECT p.PageID, p.PageName, p.DateCreated, f.FileID, f.FileName, f.FileData, f.DateCreated FROM tblPage AS p LEFT JOIN tblFile AS f ON f.FileID=p.FileID AND f.FileCheck=:FileCheck WHERE p.This=:This AND p.That=:That AND p.Something=:Something GROUP BY p.PageID ORDER BY p.PageName, p.DateCreated, p.PageID LIMIT 10;'</span>, <span class="pl-key">array</span>(PDO::ATTR_CURSOR=>PDO::CURSOR_SCROLL));</span></li>
+                <li><span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// So is this...</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>-><span class="pl-func">execute</span>(<span class="pl-key">array</span>(<span class="pl-str">':This'</span>=><span class="pl-str">'this'</span>, <span class="pl-str">':That'</span>=><span class="pl-str">'that'</span>, <span class="pl-str">':Something'</span>=><span class="pl-str">'something'</span>, <span class="pl-str">':FileCheck'</span>=><span class="pl-str">'checked'</span>);</span></li>
+		<li><span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$aryPages</span>=<span class="pl-var">$pdoPages</span>-><span class="pl-func">fetchAll</span>(PDO::FETCH_ASSOC);</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>-><span class="pl-func">closeCursor</span>();</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-func">unset</span>(<span class="pl-var">$pdoPages</span>);</span></li>
+                <li><span><span class="pl-func">?&gt;</span></span></li>
+            </ol>
+        </blockquote>
+	<p>
+		Now let's throw this through the Young Style rules:
+	</p>
+	<blockquote>
+            <ol>
+                <li><span><span class="pl-func">&lt;?php</span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// Make an PDO object.</span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>=<span class="pl-key">new PDO</span>;</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// [Do your connect stuff here]</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>-><span class="pl-func">prepare</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;(</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">'SELECT p.PageID, p.PageName, p.DateCreated,</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">f.FileID, f.FileName, f.FileData, f.DateCreated</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">FROM tblPage AS p</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">LEFT JOIN tblFile AS f</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">ON f.FileID=p.FileID</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">AND f.FileCheck=:FileCheck</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">WHERE p.This=:This</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">AND p.That=:That</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">AND p.Something=:Something</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">GROUP BY p.PageID</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">ORDER BY p.PageName, p.DateCreated, p.PageID</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">LIMIT 10</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">;'</span>,</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-key">array</span>(PDO::ATTR_CURSOR=>PDO::CURSOR_SCROLL)</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;);</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>-><span class="pl-func">execute</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;(</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-key">array</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">':This'</span>=><span class="pl-str">'this'</span>,</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">':That'</span>=><span class="pl-str">'that'</span>,</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">':Something'</span>=><span class="pl-str">'something'</span>,</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-str">':FileCheck'</span>=><span class="pl-str">'checked'</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;);</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$aryPages</span>=<span class="pl-var">$pdoPages</span>-><span class="pl-func">fetchAll</span>(PDO::FETCH_ASSOC);</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$pdoPages</span>-><span class="pl-func">closeCursor</span>();</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-func">unset</span>(<span class="pl-var">$pdoPages</span>);</span></li>
+                <li><span><span class="pl-func">?&gt;</span></span></li>
+            </ol>
+        </blockquote>
+	<p>
+		Yes, those of you yelling at your computer right now (no, we can't hear you), that does take up three times as many lines. No, it's a myth that more lines and whitespace
+		take up more CPU time and memory (with the exception of the prepare statement, but now your just throwing stones at a fly). Look how much cleaner it looks compared to the above case though. Also, we hope you have something called a verticle scroll wheel or
+		even arrow keys and page scroll keys.
+	</p>
+
+	<h4 id="1-1-2">Indentation</h4>
+	<p>
+		Your indentation should follow the rules of the Allman style, or what you see in this document. We do prefer using tabs, instead of space. However
+		if you do use spaces, we like to see four spaces to make up as an tab.
+	</p>
+	<p>
+		One thing you might notice, is to always tab after to before the PHP tags. This not only allows people with VERY small windows to easily see code with word
+		wrap on, but also allows any one to use what we call the "Kirsch" technique. When debugging your code following this extra indent, you may find it easier
+		to put your debugging code (such as var_dumps) clear left. When doing this, it's hard to miss where your debugging code is located.
+	</p>
+
+	<h4 id="1-1-3">Comments and Documentation</h4>
+	<p>Let's keep the documentation part simple. ALWAYS use PhpDoc, as much as you can.</p>
+	<p>
+		Now as for comments, they are strict and easy to follow rules. Let's take a look below:
+	</p>
+	<blockquote>
+		<ol>
+                <li><span><span class="pl-func">&lt;?php</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">/**</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">	* Your PhpDoc stuff goes here.</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt"> */</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// This is a single line comment.</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// Below is a commented out line of code:</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">//awsomeFunction('do something');</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">/*</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">This is a longer comment explination, that not only doesn't</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">fit in any PhpDoc, but also takes up multiple lines, if we</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">want it from going past the 80 character column.</span></span></li>
+		<li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">*/</span></span></li>
+                <li><span><span class="pl-func">?&gt;</span></span></li>
+            </ol>
+        </blockquote>
+	<p>
+		As you can see, PhpDoc comments look as like everyone's else PhpDoc, although we do like the line up the astricks. Single line text comments start with a space after the '//'.
+		Commented out lines of code, do not have this space, so we can know the difference between documentation and old code. As for the mutiple line comments, they should try and
+		be avoided, if you can't find anywhere to put them in PhpDoc. If you do need to use it, then follow the example above.
+	</p>
+
+        <h3 id="1-2">Variable Naming</h3>
+
+        <p>
+            Almost all varibles must be camel case, starting with a type
+            abbrviation. There are a few exceptions, such as; constants,
+            pre-placeto defined variables, and class variable containers.
+        </p>
+        <h4 id="1-2-1">Standard Practices</h4>
+        <p>
+            As stated before, varibles must be cammel case, with a type
+            abbrivation. There are a few exceptions, in detail below, but
+            here is the type abbrivations we use:
+        </p>
+        <table>
+            <caption>Varible Type Abbrivations</caption>
+
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Abbrivation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Integer</td><td>int</td></tr>
+                <tr class="odd"><td>Float (Decimal)</td><td>flt</td></tr>
+                <tr><td>Character</td><td>chr</td></tr>
+                <tr class="odd"><td>String</td><td>str</td></tr>
+                <tr><td>Array</td><td>ary</td></tr>
+                <tr class="odd"><td>Boolean</td><td>bol</td></tr>
+                <tr><td>Class (Object)</td><td>obj</td></tr>
+                <tr class="odd"><td>PDO</td><td>pdo</td></tr>
+            </tbody>
+        </table>
+        <p>A good example would be:</p>
+        <blockquote>
+            <ol>
+                <li><span><span class="pl-var">$strResult</span>=<span class="pl-str">'The result is: '</span>.<span class="pl-var">$intResult</span>.<span class="pl-str">"\n"</span>;</span></li>
+            </ol>
+        </blockquote>
+        <h4 id="1-2-2">Loops and Pluralization</h4>
+        <p>
+            One large difference you may see differences in our variable
+            naming, will be focused in loops. Take the following as an
+            example:
+        </p>
+        <blockquote>
+            <ol>
+                <li><span><span class="pl-func">&lt;?php</span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-cmt">// Loop through pages and show how many files there are.</span></span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$n</span>=0;</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-key">foreach</span> (<span class="pl-var">$aryPages</span> <span class="pl-key">as</span> <span class="pl-var">$key</span>=><span class="pl-var">$aryPage</span>)</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;{</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-key">for</span> (<span class="pl-var">$i</span>=0; <span class="pl-var">$i</span>&gt;count(<span class="pl-var">$aryPage</span>[<span class="pl-str">'Files'</span>]); <span class="pl-var">$i</span>++)</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-key">echo</span> <span class="pl-str">'So far there are '</span>,<span class="pl-var">$n</span>,<span class="pl-str">' files.'</span>,<span class="pl-var">"\n"</span>;</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="pl-var">$n</span>+=<span class="pl-var">$i</span>;</span></li>
+                <li><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span></li>
+                <li><span><span class="pl-func">?&gt;</span></span></li>
+            </ol>
+        </blockquote>
+        <p>
+            We allow exceptions in counters, usally named "<span class="pl-var">$i</span>" or "<span class="pl-var">$n</span>".
+            There is also the exceptions for using "<span class="pl-var">$key</span>" and "<span class="pl-var">$value</span>",
+            within a <span class="pl-key">foreach</span> loop. Also, if you take note of the
+            pluralization technique. The only place there should be a plural
+            variable, is in an <span class="pl-key">array</span> that contains multiple of the same
+            item.
+        </p>
+        <p>
+            Also, another good rule to follow. If you're using
+            <span class="pl-func">fetchAll</span>(), then you're variable will
+            be plural. If you're using <span class="pl-func">fetch</span>(),
+            then your variable will be singular.
+        </p>
+        <h4 id="1-2-3">Constants</h4>
+        <p>
+            All constants must be upper case, word separated by underscores.
+        </p>
+        <h4>Pre-Placeto Defined</h4>
+        <p>
+            Pre-Placeto defined varbiles (e.g. <span class="pl-var">$CONFIG</span>, <span class="pl-var">$CONFIG_NAME</span>, and
+            <span class="pl-var">$DEPENDENT</span>), must be upper case and word separated by
+            underscores.
+        </p>
+
+        <h4 id="1-2-4">Class Containers</h4>
+        <p>
+            Only class container variables that are publicly accessible
+            (e.g. <span class="pl-var">$placeto</span>, <span class="pl-var">$p</span>, and <span class="pl-var">$placeto</span>-><span class="pl-class">database</span>), must be one word and
+            lowercase. If it's a temporily used object, then follow the same
+            guidelines as a standard variable.
+        </p>
+
+        <h3 id="1-3">Class Naming</h3>
+
+        <h3 id="1-4">File Structure</h3>
+
+        <h3 id="1-5">Other</h3>
+
+        <h2 id="2">SQL</h2>
+
+        <h2 id="3">HTML</h2>
+
+        <h2 id="4">JavaScript</h2>
+
+        <a class="back" href="index.htm">&lt;&lt; Back to Index</a>
+        <a class="top" href="#">Back to Top</a>
+        <br class="clear" />
+    </div></div></body>
+</html>

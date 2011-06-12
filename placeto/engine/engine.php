@@ -68,10 +68,10 @@
 
 	unset($CONFIG, $CONFIG_NAME, $DATABASE, $BASE);
 
-	if (isset($dependent))
+	if (isset($DEPENDENT))
 	{
-		$placeto->content->dependent->set($dependent);
-		unset($dependent);
+		$placeto->content->dependent->set($DEPENDENT);
+		unset($DEPENDENT);
 	}
 
 	//include_once($placeto->config->base().'placeto/engine/modules.php');

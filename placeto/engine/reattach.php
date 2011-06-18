@@ -112,14 +112,13 @@
 	{
 		unset($strTempFile, $bool);
 		// in the case the file was not found in the template directory, uh oh
-		header('Content-Type: '.$placeto->config->encoding());
+		/*header
+		(
+			'Content-Type: '.$placeto->config->mimetype()
+				.'; charset='.$placeto->config->encoding()
+		);*/
 		header('HTTP/1.0 404 Not Found');
 
-		include
-		(
-			$placeto->config->base()
-			.'placeto/templates/'.$placeto->preferences->template()
-			.'/'.$placeto->content->template()
-		);
+		include_once('templates.php');
 	}
 ?>

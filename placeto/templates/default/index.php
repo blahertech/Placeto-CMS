@@ -16,13 +16,13 @@
 	-->
 	<head>
 		<!-- URL structure -->
-		<base href="<?php //placeto('base'); ?>" />
+		<!--<base href="<?php //placeto('base'); ?>" />-->
 		<!-- Title -->
 		<title><?php $p->title(); ?></title>
 
 		<!-- Metadata -->
-		<meta http-equiv="content-type" name="type" content="text/html; charset=utf-8" />
-		<meta http-equiv="content-language" name="language" content="en" />
+		<!--<meta http-equiv="content-type" name="type" content="text/html; charset=utf-8" />
+		<meta http-equiv="content-language" name="language" content="en" />-->
 		<meta name="description" content="<?php $p->description(); ?>" />
 		<meta name="keywords" content="<?php $p->keywords(); ?>" />
 		<meta name="revised" content="<?php $p->revised(); ?>" />
@@ -30,11 +30,11 @@
 		<meta name="generator" content="Placeto CMS" />
 
 		<!-- Design Links -->
-		<link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-		<link rel="icon" href="./favicon.ico" type="image/x-icon" />
-		<link rel="stylesheet" type="text/css" href="./include/styles.css" />
-		<link rel="stylesheet" type="text/css" media="print" href="./include/print.css" />
-		<link rel="canonical" href="<?php //placeto('canonical'); ?>" />
+		<link rel="shortcut icon" href="<?php $p->directory(); ?>/favicon.ico" type="image/x-icon" />
+		<link rel="icon" href="<?php $p->directory(); ?>/favicon.ico" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="<?php $p->directory(); ?>/include/styles.css" />
+		<link rel="stylesheet" type="text/css" media="print" href="<?php $p->directory(); ?>/include/print.css" />
+		<!--<link rel="canonical" href="<?php //placeto('canonical'); ?>" />-->
 	</head>
 	<body>
 	
@@ -48,7 +48,7 @@
 
 				<div id="top">
 					<div id="logo">
-						<a href="./" rel="home" rev="home"><?php $p->site_name(); ?></a>
+						<a href="<?php $p->directory(); ?>/" rel="home" rev="home"><?php $p->site_name(); ?></a>
 					</div>
 
 					<!-- Nav -->

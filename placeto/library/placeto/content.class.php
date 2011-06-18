@@ -199,17 +199,17 @@
 			}
 			$this->found=true;
 
-			$this->content=FALSE;
+			$this->content=false;
 			if (function_exists('apc_fetch'))
 			{
 				$this->content=apc_fetch($strLocation);
 				if ($this->content['Dynamic']==true)
 				{
-					$this->content=FALSE;
+					$this->content=false;
 				}
 			}
 
-			if ($this->content===FALSE)
+			if ($this->content===false)
 			{
 				$this->content=$this->fetch($strLocation);
 				if (function_exists('apc_fetch'))
@@ -226,7 +226,7 @@
 					);
 				}
 			}
-			
+
 			if (!$this->content)
 			{
 				$this->content=$this->fetch('/error');

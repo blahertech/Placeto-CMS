@@ -144,5 +144,93 @@
 		{
 			return $this->database['prefix'];
 		}
+
+		private function buildRecursive(&$aryTables, $strTable, $intParent=0)
+		{
+			$intTable=array_push
+			(
+				$aryTables, array('table'=>$strTable, 'parent'=>$intParent)
+			);
+			$intTable--;
+
+			$pdoDescribe=$this->connection->prepare
+			(
+				'DESCRIBE tbl'.$strTable.';'
+			);
+			$pdoDescribe->execute();
+			$aryDesribe=$pdoDescribe->fetchAll();
+			$pdoDescribe->closeCursor();
+			unset($pdoDescribe);
+
+			foreach ($aryDesribe as $aryColumn)
+			{
+				$intIdPos=strlen($aryColumn['Field'])-2;
+				if
+				(
+					substr($aryColumn['Field'], $intIdPos)=='ID'
+					&& $aryColumn['Field']!='ID'
+				)
+				{
+					$this->buildRecursive
+					(
+						$aryTables,
+						substr($aryColumn['Field'], 0, $intIdPos),
+						$intTable
+					);
+				}
+			}
+
+			if ($intParent==0)
+			{
+				return $aryTables;
+			}
+		}
+
+		public function build($strTable, $intID=false)
+		{
+			$aryTables=array();
+			$strTable=substr($strTable, 3);
+			$aryTables=$this->buildRecursive($aryTables, $strTable);
+
+			$strJoins='';
+			foreach ($aryTables as $key=>$aryTable)
+			{
+				if ($key)
+				{
+					$strJoins.=' LEFT JOIN tbl'.$aryTable['table']
+						.' ON tbl'.$aryTable['table'].'.ID'
+						.'=tbl'.$aryTables[$aryTable['parent']]['table'].'.ID'
+						."\n";
+				}
+			}
+
+			if ($intID || $intID===0)
+			{
+				$this->connection->prepare
+				(
+					'SELECT *
+						FROM tbl'.$strTable.'
+						'.$strJoins.'
+						LIMIT 1
+					;'
+				);
+			}
+			else
+			{
+
+			}
+
+			echo $strJoins;
+		}
+
+		//we want to force the token idea, to stop XSS hacking.
+
+		//$intID insert($intToken, $strTable, $aryData)
+		//$bolSuccess update($intToken, $strTable, $intID, $aryData)
+		//$bolSuccess updateMultiple($intToken, $strTable, $aryIDs, $aryData)
+		//$bolSuccess remove($intToken, $strTable, $intID)
+		//token [token->start]
+		//$intToken token->start()
+		//$bolSuccess token->end()
 	}
 ?>

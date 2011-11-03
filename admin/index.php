@@ -7,18 +7,14 @@
 	*		gzip compression, if necessary to cut down on bandwidth and cpu
 	*		usage.
 	*
-	*	Common Functions.
-	*		A list of all commonly used functions.
-	*
 	*	@package placeto
-	*	@subpackage class
-	*	@version 2.3
-	*
+	*	@version 0.1.0
+    *
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2011
+	*	@copyright BlaherTech 2009-2010
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -31,33 +27,40 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	// returns the mime type of a given known web extension,
-	// this is mostly used in the reattachment of you template includes.
-   /**
-	* Fetches the MIME type of an file extension.
-	*
-	* @version 1.0
-	* @author Benjamin Jay Young <blaher@blahertech.org>
-	*
-	* @access public
-    * @param string $strExtension Extension (e.g. '.png', '.gif', '.jpeg').
-    * @param string $strBase The base, easily grabbed from the placeto object.
-	* @return string MIME type of extension.
-	*/
-	function placeto_extension(&$strExtension, &$strBase='./')
+	if (isset($_GET['uri']))
 	{
-		// TODO: Add support if they sent the param as the entire file name.
-		include($strBase.'placeto/library/arrays/extensions.array.php');
-		if (isset($aryExtensions[$strExtension]))
-		{
-			// if we have a match
-			return $aryExtensions[$strExtension];
-		}
-		else
-		{
-			// eeerrrrrrr!!!!
-			unset($aryExtensions);
-			return false;
-		}
+		$strURI=$_GET['uri'];
+	}
+	else
+	{
+		$strURI='index.php';
+	}
+
+	if (file_exists('../../placeto/admin/index.php'))
+	{
+		// Pull outside public_html, more secure.
+		$BASE='../../';
+	}
+	elseif (file_exists('../placeto/admin/index.php'))
+	{
+		// Pull inside public_html.
+		$BASE='../';
+	}
+	else
+	{
+		// If there is no admin, have the engine pull the page.
+		include('../index.php');
+		die();
+	}
+
+	if (strstr($strURI, '..') || strstr($strURI, '://'))
+	{
+		// Silly cracker, tricks are for kids!
+		die();
+	}
+	elseif (!include($BASE.'placeto/admin/'.$strURI))
+	{
+		// If this file is not found, pull page from engine.
+		include('../index.php');
 	}
 ?>

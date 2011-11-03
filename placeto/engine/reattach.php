@@ -51,12 +51,12 @@
 		.$placeto->preferences->template().'/data.php'
 	);
 
-	$boolBreak=false;
+	$bolBreak=false;
 	// TODO: figure out why I wrote this and update it to match the new placeto.
 	// NOTE: It may be a list of ingored tempalte files.
 	/*foreach ($templates[$prefs['template']]['files'] as &$strTempFile)
 	{
-		if ('/'.$strTempFile==$location)
+		if ('/'.$strTempFile===$location)
 		{
 			$bolBreak=true;
 		}
@@ -64,7 +64,12 @@
 	unset($strTempFile);
 
 	// is waldo missing?
-	if (file_exists($strFile) && $placeto->config->location()!=='/' && !$bool)
+	if
+	(
+		file_exists($strFile)
+		&& $placeto->config->location()!=='/'
+		&& $bolBreak===false
+	)
 	{
 		//what's waldo's mime type?
 		$strExtension=strrchr($placeto->config->path(), '.');

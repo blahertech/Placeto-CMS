@@ -75,7 +75,7 @@
 
 		protected function prefix($strQuery)
 		{
-			if ($this->strPrefix!='')
+			if ($this->strPrefix!=='')
 			{
 				$strQuery=str_replace
 				(
@@ -115,7 +115,7 @@
 
 		public function execute($aryAppends)
 		{
-			if ($this->bolStrictPrepend)
+			if ($this->bolStrictPrepend!==false)
 			{
 				foreach ($aryAppends as $strAppend=>$strValue)
 				{
@@ -137,81 +137,6 @@
 		public function fetchAll($intFetchStyle=PDO::FETCH_ASSOC)
 		{
 			return parent::fetchAll($intFetchStyle);
-		}
-
-		private function buildRecursive(&$aryTables, $strTable, $intParent=0)
-		{
-			$intTable=array_push
-			(
-				$aryTables, array('table'=>$strTable, 'parent'=>$intParent)
-			);
-			$intTable--;
-
-			$pdoDescribe=$this->prepare('DESCRIBE tbl'.$strTable.';');
-			$pdoDescribe->execute();
-			$aryDesribe=$pdoDescribe->fetchAll();
-			$pdoDescribe->closeCursor();
-			unset($pdoDescribe);
-
-			foreach ($aryDesribe as $aryColumn)
-			{
-				$intIdPos=strlen($aryColumn['Field'])-2;
-				if
-				(
-					substr($aryColumn['Field'], $intIdPos)=='ID'
-					&& $aryColumn['Field']!='ID'
-				)
-				{
-					$this->buildRecursive
-					(
-						$aryTables,
-						substr($aryColumn['Field'], 0, $intIdPos),
-						$intTable
-					);
-				}
-			}
-
-			if ($intParent==0)
-			{
-				return $aryTables;
-			}
-		}
-
-		public function build($strTable, $intID=false)
-		{
-			$aryTables=array();
-			$strTable=substr($strTable, 3);
-			$aryTables=$this->buildRecursive($aryTables, $strTable);
-			
-			$strJoins='';
-			foreach ($aryTables as $key=>$aryTable)
-			{
-				if ($key)
-				{
-					$strJoins.=' LEFT JOIN tbl'.$aryTable['table']
-						.' ON tbl'.$aryTable['table'].'.ID'
-						.'=tbl'.$aryTables[$aryTable['parent']]['table'].'.ID'
-						."\n";
-				}
-			}
-
-			if ($intID || $intID===0)
-			{
-				$this->prepare
-				(
-					'SELECT *
-						FROM tbl'.$strTable.'
-						'.$strJoins.'
-						LIMIT 1
-					;'
-				);
-			}
-			else
-			{
-
-			}
-
-			echo $strJoins;
 		}
 	}
 ?>

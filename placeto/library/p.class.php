@@ -69,7 +69,7 @@
 		*/
 		public function site_name()
 		{
-			if ($this->placeto->preferences->name())
+			if ($this->placeto->preferences->name()!==false)
 			{
 				echo $this->placeto->preferences->name();
 				return true;
@@ -87,7 +87,7 @@
 		*/
 		public function site_url()
 		{
-			if ($this->placeto->config->site())
+			if ($this->placeto->config->site()!==false)
 			{
 				echo $this->placeto->config->site();
 				return true;
@@ -105,7 +105,7 @@
 		*/
 		public function directory()
 		{
-			if ($this->placeto->config->directory())
+			if ($this->placeto->config->directory()!==false)
 			{
 				echo $this->placeto->config->directory();
 				return true;
@@ -123,7 +123,7 @@
 		*/
 		public function encoding()
 		{
-			if ($this->placeto->config->encoding->get())
+			if ($this->placeto->config->encoding->get()!==false)
 			{
 				echo $this->placeto->config->encoding->get();
 				return true;
@@ -141,7 +141,7 @@
 		*/
 		public function mime()
 		{
-			if ($this->placeto->config->MIMEtype->get())
+			if ($this->placeto->config->MIMEtype->get()!==false)
 			{
 				echo $this->placeto->config->MIMEtype->get();
 				return true;
@@ -159,7 +159,7 @@
 		*/
 		public function owner()
 		{
-			if ($this->placeto->preferences->owner())
+			if ($this->placeto->preferences->owner()!==false)
 			{
 				echo $this->placeto->preferences->owner();
 				return true;
@@ -177,7 +177,7 @@
 		*/
 		public function email()
 		{
-			if ($this->placeto->preferences->email())
+			if ($this->placeto->preferences->email()!==false)
 			{
 				echo $this->placeto->preferences->email();
 				return true;
@@ -195,7 +195,7 @@
 		*/
 		public function title()
 		{
-			if ($this->placeto->content->title())
+			if ($this->placeto->content->title()!==false)
 			{
 				echo $this->placeto->content->title();
 				return true;
@@ -213,7 +213,7 @@
 		*/
 		public function description()
 		{
-			if ($this->placeto->content->description())
+			if ($this->placeto->content->description()!==false)
 			{
 				echo $this->placeto->content->description();
 				return true;
@@ -231,13 +231,13 @@
 		*/
 		public function keywords()
 		{
-			if ($this->placeto->content->keywords())
+			if ($this->placeto->content->keywords()!==false)
 			{
 				$aryKeywords=$this->placeto->content->keywords();
 				$intFirst=true;
 				foreach ($aryKeywords as $strKeyword)
 				{
-					if (!$intFirst)
+					if ($intFirst===false)
 					{
 						echo ', ';
 					}
@@ -264,7 +264,7 @@
 		*/
 		public function header()
 		{
-			if ($this->placeto->content->header())
+			if ($this->placeto->content->header()!==false)
 			{
 				echo $this->placeto->content->header();
 				return true;
@@ -282,7 +282,7 @@
 		*/
 		public function content()
 		{
-			if ($this->placeto->content->main->get())
+			if ($this->placeto->content->main->get()!==false)
 			{
 				eval('?>'.$this->placeto->content->main->get());
 				return true;
@@ -300,7 +300,7 @@
 		*/
 		public function created()
 		{
-			if ($this->placeto->content->created())
+			if ($this->placeto->content->created()!==false)
 			{
 				echo $this->placeto->content->created();
 				return true;
@@ -318,7 +318,7 @@
 		*/
 		public function revised()
 		{
-			if ($this->placeto->content->modified())
+			if ($this->placeto->content->modified()!==false)
 			{
 				echo $this->placeto->content->modified();
 				return true;
@@ -336,7 +336,7 @@
 		*/
 		public function copyright()
 		{
-			if ($this->placeto->preferences->copyright())
+			if ($this->placeto->preferences->copyright()!==false)
 			{
 				echo $this->placeto->preferences->copyright();
 				return true;

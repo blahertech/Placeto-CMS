@@ -41,18 +41,25 @@
 		die();
 	}
 
-	function placeto_templator(&$placeto)
+	/*
+	 *	We contain the templator in it's own function, becayse this changes the]
+	 *	scope the away from the engine. It addes a slightly highten security,
+	 *	plus it it helps relieve the designer from easily breaking something or
+	 *	accessing something that they shouldn't be.
+	 */
+	function placeto_templator(P &$p, $strTemplatePath)
 	{
-		include_once($placeto->config->base().'placeto/library/p.class.php');
-		$p=new P($placeto);
-
-		require_once
-		(
-			$placeto->config->base().'placeto/templates/'
-			.$placeto->preferences->template()
-			.'/'.$placeto->content->template()
-		);
+		require_once($strTemplatePath);
 	}
 
-	placeto_templator($placeto); //for certain security reasons
+	include_once($placeto->config->base().'placeto/library/p.class.php');
+	$p=new P($placeto);
+
+	placeto_templator
+	(
+		$p,
+		$placeto->config->base().'placeto/templates/'
+			.$placeto->preferences->template()
+			.'/'.$placeto->content->template()
+	);
 ?>

@@ -27,7 +27,14 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	$base='../';
-
-	include($base.'placeto/engine/engine.php');
+	if (file_exists('../../placeto/engine/engine.php'))
+	{
+		$BASE='../../';
+		include('../../placeto/engine/engine.php');
+	}
+	else
+	{
+		$BASE='../';
+		include('../placeto/engine/engine.php');
+	}
 ?>

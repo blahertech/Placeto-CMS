@@ -12,7 +12,7 @@
 	*
 	*	@package placeto
 	*	@subpackage arrays
-	*	@version 1.2
+	*	@version 1.3
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS

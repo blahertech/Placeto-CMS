@@ -76,9 +76,9 @@
 
 	//include_once($placeto->config->base().'placeto/engine/modules.php');
 	
-/* //*/if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
+/*//*/if ($_GET['vars']=='true') {var_dump(get_defined_vars());}
 
-	if (!$placeto->content->found)
+	if ($placeto->content->found===false)
 	{
 		// used for files in the template
 		require('reattach.php');
@@ -107,5 +107,11 @@
 
 	// watch Asta swim away and await for his next request
 	//include('cleanup.php');
+
+	if (isset($TIME))
+	{
+		$TIME=microtime(true)-$TIME;
+		echo '<!-- Page Fetched in: ',$TIME,' seconds. -->';
+	}
 	exit(0); // 0 means success
 ?>

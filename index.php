@@ -26,6 +26,8 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
+	//$TIME=microtime(true);
+
    /**
 	* @name $CONFIG_NAME
     * @global string $CONFIG_NAME The name of the config file.
@@ -41,5 +43,13 @@
 	*/
 	$DEPENDENT=NULL;
 
-	include('placeto/engine/engine.php');
+	if (file_exists('../placeto/engine/engine.php'))
+	{
+		$BASE='../';
+		include('../placeto/engine/engine.php');
+	}
+	else
+	{
+		include('placeto/engine/engine.php');
+	}
 ?>

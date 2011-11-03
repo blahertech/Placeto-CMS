@@ -26,7 +26,7 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
-	if (isset($config_name) || isset($base))
+	if (isset($CONFIG_NAME) || isset($BASE))
 	{
 		include('engine.php');
 	}

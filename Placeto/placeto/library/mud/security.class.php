@@ -156,9 +156,9 @@
 
 			$strSalt=md5(sha1($strSalt).$strSalt);
 
-			return $garnishStart
+			return $this->garnishStart
 				.hash('sha256', $strSalt.$strPhrase)
-				.$garnishEnd;
+				.$this->garnishEnd;
 		}
 
 		public function encrypt($strPhrase, $strKey=false, $strSalt=false)
@@ -192,7 +192,9 @@
 			}
 
 			unset($strPhrase, $i, $strChar, $strKeyChar);
-			return $garnishStart.base64_encode($strSalt.$strResult).$garnishEnd;
+			return $this->garnishStart
+				.base64_encode($strSalt.$strResult)
+				.$this->garnishEnd;
 		}
 		public function decrypt($strPhrase, $strKey=false, $strSalt=false)
 		{

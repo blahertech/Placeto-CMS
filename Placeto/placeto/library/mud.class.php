@@ -1,7 +1,7 @@
 <?php
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
+	class Mud // provides higher Php functionality
+	{
+		public $class, $error, $event, $function, $security;
+		public function __construct(){}
+	}
 ?>

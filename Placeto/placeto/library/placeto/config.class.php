@@ -68,7 +68,8 @@
 		{
 			if (!$objSecurity)
 			{
-				$objSecurity=new placeto_Security();
+				$objMud=new Mud();
+				$objSecurity=&$objMud->security;
 			}
 			
 			// in case the developer didn't use the class correctly

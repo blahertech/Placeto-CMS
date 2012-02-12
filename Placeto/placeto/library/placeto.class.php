@@ -32,9 +32,10 @@
 	*	program, as license.txt.  If not, see <http://www.gnu.org/licenses/>.
 	*/
 
+	require_once('mud.class.php');
 	require_once('ppdo.class.php');
+	require_once('borrow.class.php');
 
-	require_once('placeto/security.class.php');
 	require_once('placeto/config.class.php');
 	require_once('placeto/database.class.php');
 	require_once('placeto/preferences.class.php');
@@ -54,8 +55,9 @@
 	*/
 	class Placeto
 	{
+		public $mud, $burrow;
 		//TODO: use _server path instead of base
-		public $config, $database, $preferences, $content, $security;
+		public $config, $database, $preferences, $content;
 
 	   /**
 		* The Placeto class constructor.
@@ -73,10 +75,12 @@
 			$aryDatabase=false, $aryConfig=false, $strLocation=false
 		)
 		{
-			$this->security=new placeto_Security($aryConfig['key']);
+			$this->mud=new Mud();
+			$this->burrow=new Burrow();
+
 			$this->config=new placeto_Config
 			(
-				$aryConfig, $strLocation, $this->security
+				$aryConfig, $strLocation, $mud->security
 			);
 			$this->database=new placeto_Database($aryDatabase);
 			unset($aryConfig, $aryDatabase, $strLocation);

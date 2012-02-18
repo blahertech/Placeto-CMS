@@ -40,9 +40,9 @@
 	/* ignore this */ }
 
 	// url of domain, no directory
-	$CONFIG['site']='http://placeto.blahertech.net';
+	$CONFIG['site']='http://localhost';
 	// entire url directory of placement, no ending '/'
-	$CONFIG['directory']='/beta';
+	$CONFIG['directory']='/placeto';
 
 	// database type: mysql, oci (Oracle), sqlite, pgsql (PostgreSQL), informix
 	$DATABASE['type']='mysql';

@@ -12,15 +12,15 @@
     *		things up. It'll make the sandwhich, you've just got to deliver
     *		the delicousness. Now with salt and garnishings.
 	*
-	*	@package placeto
+	*	@package mud
 	*	@subpackage security
-	*	@version 1.0.3
+	*	@version 1.0.4
 	*
 	*	@author Benjamin Jay Young <blaher@blahertech.org>
 	*	@link http://www.blahertech.org/projects/placeto/ Placeto CMS
 	*	@link http://www.blahertech.org/ BlaherTech.org
 	*	@license http://www.gnu.org/licenses/gpl.html GPL v3
-	*	@copyright BlaherTech 2009-2011
+	*	@copyright BlaherTech 2009-2012
 	*
 	*	This program is free software: you can redistribute it and/or modify it
 	*	under the terms of the GNU General Public License as published by the
@@ -39,10 +39,10 @@
     * functions, but secure any global variables that could contain harmful
     * information.
 	*
-	* @version 2.0
+	* @version 2.1
 	* @author Benjamin Jay Young <blaher@blahertech.org>
 	*/
-	class placeto_Security
+	class mud_Security
 	{
 		public $gets, $posts, $sessions, $cookies;
 		private $key, $salt, $garnish, $garnishStart, $garnishEnd;

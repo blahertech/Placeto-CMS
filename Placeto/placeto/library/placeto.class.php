@@ -34,7 +34,7 @@
 
 	require_once('mud.class.php');
 	require_once('ppdo.class.php');
-	require_once('borrow.class.php');
+	require_once('burrow.class.php');
 
 	require_once('placeto/config.class.php');
 	require_once('placeto/database.class.php');
@@ -85,7 +85,10 @@
 			$this->database=new placeto_Database($aryDatabase);
 			unset($aryConfig, $aryDatabase, $strLocation);
 
-			$this->preferences=new placeto_Preferences($this->database->connection);
+			$this->preferences=new placeto_Preferences
+			(
+				$this->database->connection
+			);
 			$this->content=new placeto_Content
 			(
 				$this->database->connection,

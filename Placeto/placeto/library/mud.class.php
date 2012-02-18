@@ -1,4 +1,10 @@
 <?php
+	require_once('mud/class.class.php');
+	require_once('mud/error.class.php');
+	require_once('mud/event.class.php');
+	require_once('mud/function.class.php');
+	require_once('mud/security.class.php');
+
 	class Mud // provides higher Php functionality
 	{
 		public $class, $error, $event, $function, $security;

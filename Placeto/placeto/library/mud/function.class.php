@@ -1,5 +1,5 @@
 <?php
-	class mud_Funciton
+	class mud_Function
 	{
 		
 	}

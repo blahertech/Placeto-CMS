@@ -98,7 +98,7 @@
 	   /**
 		* Current Directory.
 		*
-		* @version 1.1
+		* @version 1.2
 		* @author Benjamin Jay Young <blaher@blahertech.org>
 		* @access public
 	    * @return bool If exists and successful.
@@ -107,7 +107,10 @@
 		{
 			if ($this->placeto->config->directory()!==false)
 			{
-				echo $this->placeto->config->directory();
+				if ($this->placeto->config->directory()!=='/')
+				{
+					echo $this->placeto->config->directory();
+				}
 				return true;
 			}
 			return false;

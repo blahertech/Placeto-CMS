@@ -1,2 +1,5 @@
 /nbproject/private/
 /Placeto/.cache/
+*.config.*
+*.LCK
+*~
